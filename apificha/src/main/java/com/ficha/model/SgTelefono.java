@@ -1,16 +1,10 @@
-/*
- *  SIGES
- *  Desarrollado por Sofis Solutions
- */
-package sv.gob.mined.siges.persistencia.entidades;
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,16 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
-import com.ficha.model.*;
 
 @Entity
-@Table(name = "sg_telefonos", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, resolver = JsonIdentityResolver.class, property = "telPk", scope = SgTelefono.class)
-@Audited
+@Table(name = "sg_telefonos")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "telPk", scope = SgTelefono.class)
 public class SgTelefono implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,12 +37,10 @@ public class SgTelefono implements Serializable {
     private SgTipoTelefono telTipoTelefono;
     
     @Column(name = "tel_ult_mod_fecha")
-    @AtributoUltimaModificacion
     private LocalDateTime telUltModFecha;
     
     @Size(max = 45)
     @Column(name = "tel_ult_mod_usuario",length = 45)
-    @AtributoUltimoUsuario
     private String telUltModUsuario;
     
     @Column(name = "tel_version")

@@ -1,3 +1,4 @@
+package com.ficha.model;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -16,22 +17,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
-
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_nacionalidades", uniqueConstraints = {
     @UniqueConstraint(name = "nac_codigo_uk", columnNames = {"nac_codigo"})
     ,
-    @UniqueConstraint(name = "nac_nombre_uk", columnNames = {"nac_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
+    @UniqueConstraint(name = "nac_nombre_uk", columnNames = {"nac_nombre"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "nacPk", scope = SgNacionalidad.class)
-@Audited
 public class SgNacionalidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,12 +60,6 @@ public class SgNacionalidad implements Serializable {
     private Integer nacVersion;
 
     public SgNacionalidad() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.nacNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.nacNombre);
     }
 
     public Long getNacPk() {

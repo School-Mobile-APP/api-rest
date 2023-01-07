@@ -16,11 +16,10 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import com.ficha.model.*;
 @Entity
 @Table(name = "sg_personas_discapacidades", uniqueConstraints = {
-    @UniqueConstraint(name = "per_dis_codigo_uk", columnNames = {"per_dis_codigo"})})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "perdisPk", scope = SgPersonaDiscapacidad.class)
+    @UniqueConstraint(name = "per_pk", columnNames = {"per_pk"})})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "perPk", scope = SgPersonaDiscapacidad.class)
 public class SgPersonaDiscapacidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,10 +27,10 @@ public class SgPersonaDiscapacidad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "per_dis_pk")
+    @Column(name = "per_pk")
     private Long perdisPk;
     
-    @JoinColumn(name = "esc_discapacidad", referencedColumnName = "dis_pk")
+    @JoinColumn(name = "dis_pk", referencedColumnName = "dis_pk")
     @ManyToOne
     private SgDiscapacidad escDispacacidad;
 
@@ -48,11 +47,11 @@ public class SgPersonaDiscapacidad implements Serializable {
     }
 
 
-    public String getDis() {
+    public SgDiscapacidad getDis() {
         return escDispacacidad;
     }
 
-    public void setDis(String disPk) {
+    public void setDis(SgDiscapacidad disPk) {
         this.escDispacacidad = disPk;
     }
 

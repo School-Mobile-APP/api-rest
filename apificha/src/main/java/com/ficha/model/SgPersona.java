@@ -168,9 +168,11 @@ public class SgPersona implements Serializable {
 	@IndexedEmbedded(includeEmbeddedObjectId = true)
 	private SgSexo perSexo;
 
-	@JoinColumn(name = "per_tipo_sangre_fk", referencedColumnName = "tsa_pk")
-	@ManyToOne
-	private SgTipoSangre perTipoSangre;
+	/*
+	 * @JoinColumn(name = "per_tipo_sangre_fk", referencedColumnName = "tsa_pk")
+	 * 
+	 * @ManyToOne private SgTipoSangre perTipoSangre;
+	 */
 
 	@Column(name = "per_cantidad_hijos")
 	private Integer perCantidadHijos;
@@ -200,8 +202,10 @@ public class SgPersona implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "telPersona", orphanRemoval = true)
 	private List<SgTelefono> perTelefonos;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idePersona", orphanRemoval = true)
-	private List<SgIdentificacion> perIdentificaciones;
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "idePersona", orphanRemoval
+	 * = true) private List<SgIdentificacion> perIdentificaciones;
+	 */
 
 	@Column(name = "per_dui", length = 20)
 	@Size(max = 20)
@@ -278,13 +282,17 @@ public class SgPersona implements Serializable {
 	@IndexedEmbedded(includeEmbeddedObjectId = true)
 	private SgMunicipio perMunicipioNacimiento;
 
-	@JoinColumn(name = "per_foto_fk")
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private SgArchivo perFoto;
-
-	@JoinColumn(name = "per_partida_nacimiento_archivo")
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private SgArchivo perPartidaNacimientoArchivo;
+	/*
+	 * @JoinColumn(name = "per_foto_fk")
+	 * 
+	 * @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) private SgArchivo
+	 * perFoto;
+	 * 
+	 * @JoinColumn(name = "per_partida_nacimiento_archivo")
+	 * 
+	 * @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) private SgArchivo
+	 * perPartidaNacimientoArchivo;
+	 */
 
 	@JoinColumn(name = "per_nacionalidad_fk", referencedColumnName = "nac_pk")
 	@ManyToOne
@@ -292,16 +300,15 @@ public class SgPersona implements Serializable {
 
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_discapacidades", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO, joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "dis_pk"))
+	@JoinTable(name = "sg_personas_discapacidades", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "dis_pk"))
 	private List<SgDiscapacidad> perDiscapacidades;
 
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_trastornos_aprendizaje", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO, joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "tra_pk"))
+	@JoinTable(name = "sg_personas_trastornos_aprendizaje", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "tra_pk"))
 	private List<SgTrastornoAprendizaje> perTrastornosAprendizaje;
 
 	@OneToMany(mappedBy = "allPersonaReferenciada")
-	@NotAudited
 	private List<SgAllegado> perAllegados;
 
 	@ManyToOne
@@ -314,7 +321,7 @@ public class SgPersona implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "per_escolaridad_fk")
-	private SgEscolaridad perEscolaridad;
+	private SgEscolaridadEstudiante perEscolaridad;
 
 	@Column(name = "per_lugar_trabajo", length = 255)
 	private String perLugarTrabajo;
@@ -350,10 +357,6 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_recibe_remesas")
 	private Boolean perRecibeRemesas;
 
-//    @JoinColumn(name = "per_tipo_servicio_sanitario_fk", referencedColumnName = "tss_pk")
-//    @ManyToOne
-//    private SgTipoServicioSanitario perTipoServicioSanitario; //Se movió a datos residenciales. Luego borrar columna
-
 	@Column(name = "per_familiares_emigrados")
 	private Integer perFamiliaresEmigrados;
 
@@ -378,14 +381,10 @@ public class SgPersona implements Serializable {
 
 	@Column(name = "per_estado")
 	@Enumerated(value = EnumType.STRING)
-	private EnumEstadoPersona perEstado;
+	private Long perEstado;
 
 	@Column(name = "per_fecha_fallecimiento")
 	private LocalDate perFechaFallecimiento;
-
-	@JoinColumn(name = "per_motivo_fallecimiento_fk", referencedColumnName = "mfa_pk")
-	@ManyToOne
-	private SgMotivoFallecimiento perMotivoFallecimiento;
 
 	@Column(name = "per_retornada")
 	private Boolean perRetornada;
@@ -422,12 +421,12 @@ public class SgPersona implements Serializable {
 
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_terapias", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO, joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "ter_pk"))
+	@JoinTable(name = "sg_personas_terapias", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "ter_pk"))
 	private List<SgTerapia> perTerapias;
 
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_referencias_apoyo", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO, joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "rea_pk"))
+	@JoinTable(name = "sg_personas_referencias_apoyo", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "rea_pk"))
 	private List<SgReferenciasApoyo> perReferenciasApoyo;
 
 	@JoinColumn(name = "per_pk", insertable = false, updatable = false)
@@ -452,9 +451,9 @@ public class SgPersona implements Serializable {
 		this.perAccesoInternet = Boolean.FALSE;
 		this.perRecibeRemesas = Boolean.FALSE;
 		this.perTieneIdentificacion = Boolean.FALSE;
-		this.perEstado = EnumEstadoPersona.VIVE;
+		// this.perEstado = EnumEstadoPersona.VIVE;
 		this.perRetornada = Boolean.FALSE;
-		this.perIdentificaciones = new ArrayList<>();
+		// this.perIdentificaciones = new ArrayList<>();
 	}
 
 	public SgPersona(Long perPk) {
@@ -466,40 +465,10 @@ public class SgPersona implements Serializable {
 		this.perVersion = perVersion;
 	}
 
-	@PrePersist
-	@PreUpdate
-	public void preSave() {
-		this.perNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerNombreCompleto());
-		this.perPrimerNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerPrimerNombre());
-		this.perSegundoNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerSegundoNombre());
-		this.perTercerNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerTercerNombre());
-		this.perPrimerApellidoBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerPrimerApellido());
-		this.perSegundoApellidoBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerSegundoApellido());
-		this.perTercerApellidoBusqueda = SofisStringUtils.normalizarParaBusqueda(this.getPerTercerApellido());
-		this.perLuceneIndexUpdated = Boolean.FALSE;
-		if (this.perDuiValidadoRNPN == null) {
-			this.perDuiValidadoRNPN = Boolean.FALSE;
-		}
-		if (BooleanUtils.isFalse(this.perTieneHijos)) {
-			this.perCantidadHijos = 0;
-		}
-		if (BooleanUtils.isFalse(this.perTieneDiscapacidades)) {
-			this.perDiscapacidades = null;
-		}
-		if (BooleanUtils.isFalse(this.perTieneTrastornoAprendizaje)) {
-			this.perTrastornosAprendizaje = null;
-		}
-		this.perTieneIdentificacion = this.perCun != null || this.perNie != null || !StringUtils.isBlank(this.perDui)
-				|| !StringUtils.isBlank(this.perNit) || !StringUtils.isBlank(this.perNup)
-				|| !StringUtils.isBlank(this.perIsss) || !StringUtils.isBlank(this.perInpep)
-				|| !StringUtils.isBlank(this.perNip)
-				|| (this.perIdentificaciones != null && !this.perIdentificaciones.isEmpty());
-	}
-
 	@JsonIgnore
 	public Boolean getPerEsMayorDeEdad() {
 		if (this.perFechaNacimiento != null) {
-			if (Period.between(perFechaNacimiento, LocalDate.now()).getYears() >= Constantes.EDAD_PERSONA_MAYOR) {
+			if (Period.between(perFechaNacimiento, LocalDate.now()).getYears() >= 18) {
 				return Boolean.TRUE;
 			}
 		}
@@ -527,66 +496,7 @@ public class SgPersona implements Serializable {
 		if (this.perTercerApellido != null) {
 			s.append(this.perTercerApellido).append(" ");
 		}
-		return SofisStringUtils.normalizarString(s.toString());
-	}
-
-	@JsonIgnore
-	public Boolean getPerIngresoIdentParaNipPersonalSede() {
-		if (!StringUtils.isBlank(this.perDui)) {
-			return true;
-		}
-		// Se valida que haya ingresado el pasaporte o el carné de residente
-		if (this.perIdentificaciones != null && !this.perIdentificaciones.isEmpty()) {
-			if (this.perIdentificaciones.stream()
-					.anyMatch((i) -> (i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_PASAPORTE)
-							|| i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_CARNE_RESIDENTE)))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@JsonIgnore
-	public Boolean getPerIngresoIdentParaNipPersonalSedeAlfabetizador() {
-		if (this.perNie != null) {
-			return true;
-		}
-		if (!StringUtils.isBlank(this.perDui)) {
-			return true;
-		}
-		// Se valida que haya ingresado el pasaporte o el carné de residente
-		if (this.perIdentificaciones != null && !this.perIdentificaciones.isEmpty()) {
-			if (this.perIdentificaciones.stream()
-					.anyMatch((i) -> (i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_PASAPORTE)
-							|| i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_CARNE_RESIDENTE)))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@JsonIgnore
-	public String calcularNIP() {
-		String codigo = null;
-		if (!StringUtils.isBlank(this.getPerDui())) {
-			codigo = StringUtils.leftPad(this.getPerDui(), 9, "0");
-			codigo = "D" + codigo;
-		} else {
-			SgIdentificacion carne = this.getPerIdentificaciones().stream()
-					.filter(i -> i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_CARNE_RESIDENTE))
-					.findFirst().orElse(null);
-			if (carne != null) {
-				codigo = "C" + carne.getIdeNumeroDocumento();
-			} else {
-				SgIdentificacion pasaporte = this.getPerIdentificaciones().stream()
-						.filter(i -> i.getIdeTipoDocumento().getTinCodigo().equals(Constantes.CODIGO_PASAPORTE))
-						.findFirst().orElse(null);
-				if (pasaporte != null) {
-					codigo = "P" + pasaporte.getIdePaisEmisor().getPaiCodigo() + pasaporte.getIdeNumeroDocumento();
-				}
-			}
-		}
-		return codigo;
+		return s.toString();
 	}
 
 	public Long getPerPk() {
@@ -683,14 +593,6 @@ public class SgPersona implements Serializable {
 
 	public void setPerSexo(SgSexo perSexo) {
 		this.perSexo = perSexo;
-	}
-
-	public SgTipoSangre getPerTipoSangre() {
-		return perTipoSangre;
-	}
-
-	public void setPerTipoSangre(SgTipoSangre perTipoSangre) {
-		this.perTipoSangre = perTipoSangre;
 	}
 
 	public Integer getPerCantidadHijos() {
@@ -813,13 +715,13 @@ public class SgPersona implements Serializable {
 		this.perTelefonos = perTelefonos;
 	}
 
-	public List<SgIdentificacion> getPerIdentificaciones() {
-		return perIdentificaciones;
-	}
-
-	public void setPerIdentificaciones(List<SgIdentificacion> perIdentificaciones) {
-		this.perIdentificaciones = perIdentificaciones;
-	}
+	/*
+	 * public List<SgIdentificacion> getPerIdentificaciones() { return
+	 * perIdentificaciones; }
+	 * 
+	 * public void setPerIdentificaciones(List<SgIdentificacion>
+	 * perIdentificaciones) { this.perIdentificaciones = perIdentificaciones; }
+	 */
 
 	public String getPerDui() {
 		return perDui;
@@ -901,13 +803,11 @@ public class SgPersona implements Serializable {
 		this.perPartidaNacimientoPresenta = perPartidaNacimientoPresenta;
 	}
 
-	public SgArchivo getPerFoto() {
-		return perFoto;
-	}
-
-	public void setPerFoto(SgArchivo perFoto) {
-		this.perFoto = perFoto;
-	}
+	/*
+	 * public SgArchivo getPerFoto() { return perFoto; }
+	 * 
+	 * public void setPerFoto(SgArchivo perFoto) { this.perFoto = perFoto; }
+	 */
 
 	public SgNacionalidad getPerNacionalidad() {
 		return perNacionalidad;
@@ -941,11 +841,11 @@ public class SgPersona implements Serializable {
 		this.perProfesion = perProfesion;
 	}
 
-	public SgEscolaridad getPerEscolaridad() {
+	public SgEscolaridadEstudiante getPerEscolaridad() {
 		return perEscolaridad;
 	}
 
-	public void setPerEscolaridad(SgEscolaridad perEscolaridad) {
+	public void setPerEscolaridad(SgEscolaridadEstudiante perEscolaridad) {
 		this.perEscolaridad = perEscolaridad;
 	}
 
@@ -1125,13 +1025,14 @@ public class SgPersona implements Serializable {
 		this.perPartidaNacimientoAnio = perPartidaNacimientoAnio;
 	}
 
-	public SgArchivo getPerPartidaNacimientoArchivo() {
-		return perPartidaNacimientoArchivo;
-	}
-
-	public void setPerPartidaNacimientoArchivo(SgArchivo perPartidaNacimientoArchivo) {
-		this.perPartidaNacimientoArchivo = perPartidaNacimientoArchivo;
-	}
+	/*
+	 * public SgArchivo getPerPartidaNacimientoArchivo() { return
+	 * perPartidaNacimientoArchivo; }
+	 * 
+	 * public void setPerPartidaNacimientoArchivo(SgArchivo
+	 * perPartidaNacimientoArchivo) { this.perPartidaNacimientoArchivo =
+	 * perPartidaNacimientoArchivo; }
+	 */
 
 	public SgDepartamento getPerPartidaDepartamento() {
 		return perPartidaDepartamento;
@@ -1173,13 +1074,12 @@ public class SgPersona implements Serializable {
 		this.perUsuarioPk = perUsuarioPk;
 	}
 
-	public EnumEstadoPersona getPerEstado() {
-		return perEstado;
-	}
-
-	public void setPerEstado(EnumEstadoPersona perEstado) {
-		this.perEstado = perEstado;
-	}
+	/*
+	 * public EnumEstadoPersona getPerEstado() { return perEstado; }
+	 * 
+	 * public void setPerEstado(EnumEstadoPersona perEstado) { this.perEstado =
+	 * perEstado; }
+	 */
 
 	public LocalDate getPerFechaFallecimiento() {
 		return perFechaFallecimiento;
@@ -1187,14 +1087,6 @@ public class SgPersona implements Serializable {
 
 	public void setPerFechaFallecimiento(LocalDate perFechaFallecimiento) {
 		this.perFechaFallecimiento = perFechaFallecimiento;
-	}
-
-	public SgMotivoFallecimiento getPerMotivoFallecimiento() {
-		return perMotivoFallecimiento;
-	}
-
-	public void setPerMotivoFallecimiento(SgMotivoFallecimiento perMotivoFallecimiento) {
-		this.perMotivoFallecimiento = perMotivoFallecimiento;
 	}
 
 	public Boolean getPerRetornada() {
@@ -1369,10 +1261,10 @@ public class SgPersona implements Serializable {
 				+ perSegundoApellidoBusqueda + ", perTercerApellidoBusqueda=" + perTercerApellidoBusqueda
 				+ ", perNombreBusqueda=" + perNombreBusqueda + ", perFechaNacimiento=" + perFechaNacimiento
 				+ ", perEmail=" + perEmail + ", perEtnia=" + perEtnia + ", perEstadoCivil=" + perEstadoCivil
-				+ ", perSexo=" + perSexo + ", perTipoSangre=" + perTipoSangre + ", perCantidadHijos=" + perCantidadHijos
+				+ ", perSexo=" + perSexo + ", perCantidadHijos=" + perCantidadHijos
 				+ ", perHabilitado=" + perHabilitado + ", perUltModFecha=" + perUltModFecha + ", perUltModUsuario="
 				+ perUltModUsuario + ", perVersion=" + perVersion + ", perDireccion=" + perDireccion + ", perTelefonos="
-				+ perTelefonos + ", perIdentificaciones=" + perIdentificaciones + ", perDui=" + perDui + ", perCun="
+				+ perTelefonos + ", perDui=" + perDui + ", perCun="
 				+ perCun + ", perNie=" + perNie + ", perNip=" + perNip + ", perNit=" + perNit + ", perInpep=" + perInpep
 				+ ", perIsss=" + perIsss + ", perNup=" + perNup + ", perNaturalizada=" + perNaturalizada
 				+ ", perPartidaNacimiento=" + perPartidaNacimiento + ", perPartidaNacimientoAnio="
@@ -1381,8 +1273,7 @@ public class SgPersona implements Serializable {
 				+ perPartidaNacimientoComplemento + ", perPartidaNacimientoPresenta=" + perPartidaNacimientoPresenta
 				+ ", perPartidaDepartamento=" + perPartidaDepartamento + ", perPartidaMunicipio=" + perPartidaMunicipio
 				+ ", perDepartamentoNacimento=" + perDepartamentoNacimento + ", perMunicipioNacimiento="
-				+ perMunicipioNacimiento + ", perFoto=" + perFoto + ", perPartidaNacimientoArchivo="
-				+ perPartidaNacimientoArchivo + ", perNacionalidad=" + perNacionalidad + ", perDiscapacidades="
+				+ perMunicipioNacimiento + ",  perNacionalidad=" + perNacionalidad + ", perDiscapacidades="
 				+ perDiscapacidades + ", perAllegados=" + perAllegados + ", perProfesion=" + perProfesion
 				+ ", perOcupacion=" + perOcupacion + ", perEscolaridad=" + perEscolaridad + ", perLugarTrabajo="
 				+ perLugarTrabajo + ", perTrabaja=" + perTrabaja + ", perTipoTrabajo=" + perTipoTrabajo

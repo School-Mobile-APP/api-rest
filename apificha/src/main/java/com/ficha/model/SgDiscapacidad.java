@@ -1,49 +1,24 @@
-/*
- *  SIGES
- *  Desarrollado por Sofis Solutions
- */
-package sv.gob.mined.siges.persistencia.entidades;
+package com.ficha.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import sv.gob.mined.siges.persistencia.annotations.AtributoUltimaModificacion;
-import sv.gob.mined.siges.persistencia.annotations.AtributoUltimoUsuario;
-import sv.gob.mined.siges.persistencia.utilidades.EntidadListener;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
-import sv.gob.mined.siges.constantes.Constantes;
-import sv.gob.mined.siges.persistencia.annotations.AtributoCodigo;
-import sv.gob.mined.siges.persistencia.annotations.AtributoHabilitado;
-import sv.gob.mined.siges.persistencia.annotations.AtributoNombre;
-import sv.gob.mined.siges.persistencia.annotations.AtributoNormalizable;
-import sv.gob.mined.siges.utils.SofisStringUtils;
 
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_discapacidades", uniqueConstraints = {
-    @UniqueConstraint(name = "dis_codigo_uk", columnNames = {"dis_codigo"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "dis_codigo_uk", columnNames = {"dis_codigo"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "disPk", scope = SgDiscapacidad.class)
 public class SgDiscapacidad implements Serializable {
 
@@ -90,12 +65,6 @@ public class SgDiscapacidad implements Serializable {
     private Integer disVersion;
 
     public SgDiscapacidad() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.disNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.disNombre);
     }
 
     public String getDisNombreBusqueda() {

@@ -24,19 +24,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import sv.gob.mined.siges.constantes.Constantes;
-import sv.gob.mined.siges.persistencia.annotations.AtributoUltimaModificacion;
-import sv.gob.mined.siges.persistencia.annotations.AtributoUltimoUsuario;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgCanton;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgCaserio;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgDepartamento;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgMunicipio;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgZona;
-import org.hibernate.envers.Audited;
-import sv.gob.mined.siges.persistencia.entidades.catalogo.SgTipoCalle;
-import sv.gob.mined.siges.persistencia.utilidades.EntidadListener;
-import sv.gob.mined.siges.persistencia.utilidades.JsonIdentityResolver;
 
 @Entity
 @Table(name = "sg_direcciones")
@@ -73,11 +60,11 @@ public class SgDireccion implements Serializable {
     
     @Column(name="dir_caserio_texto")
     private String dirCaserioTexto;
-    
-    @JoinColumn(name = "dir_tipo_calle_fk")
-    @ManyToOne
-    private SgTipoCalle dirTipoCalle;
-    
+	/*
+	 * @JoinColumn(name = "dir_tipo_calle_fk")
+	 * 
+	 * @ManyToOne private SgTipoCalle dirTipoCalle;
+	 */
     @JoinColumn(name = "dir_zona")
     @ManyToOne
     private SgZona dirZona;
@@ -116,7 +103,7 @@ public class SgDireccion implements Serializable {
         dir.setDirDireccion(dirDireccion);
         dir.setDirLatitud(dirLatitud);
         dir.setDirLongitud(dirLongitud);
-        dir.setDirTipoCalle(dirTipoCalle);
+        // dir.setDirTipoCalle(dirTipoCalle);
         dir.setDirZona(dirZona);
         return dir;
     }
@@ -227,13 +214,12 @@ public class SgDireccion implements Serializable {
         this.dirCaserioTexto = dirCaserioTexto;
     }
 
-    public SgTipoCalle getDirTipoCalle() {
-        return dirTipoCalle;
-    }
-
-    public void setDirTipoCalle(SgTipoCalle dirTipoCalle) {
-        this.dirTipoCalle = dirTipoCalle;
-    }
+	/*
+	 * public SgTipoCalle getDirTipoCalle() { return dirTipoCalle; }
+	 * 
+	 * public void setDirTipoCalle(SgTipoCalle dirTipoCalle) { this.dirTipoCalle =
+	 * dirTipoCalle; }
+	 */
 
     public List<SgSede> getDirSede() {
         return dirSede;

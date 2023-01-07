@@ -1,4 +1,4 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -16,21 +16,13 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
 
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_tipos_trabajo", uniqueConstraints = {
     @UniqueConstraint(name = "ttr_codigo_uk", columnNames = {"ttr_codigo"})
     ,
-    @UniqueConstraint(name = "ttr_nombre_uk", columnNames = {"ttr_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "ttr_nombre_uk", columnNames = {"ttr_nombre"})})
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ttrPk", scope = SgTipoTrabajo.class)
 public class SgTipoTrabajo implements Serializable {
 
@@ -68,12 +60,6 @@ public class SgTipoTrabajo implements Serializable {
     private Integer ttrVersion;
 
     public SgTipoTrabajo() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.ttrNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.ttrNombre);
     }
 
     public String getTtrNombreBusqueda() {

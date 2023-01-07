@@ -1,4 +1,4 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -17,21 +17,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
 
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_tipos_telefono", uniqueConstraints = {
     @UniqueConstraint(name = "tto_codigo_uk", columnNames = {"tto_codigo"})
     ,
-    @UniqueConstraint(name = "tto_nombre_uk", columnNames = {"tto_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "tto_nombre_uk", columnNames = {"tto_nombre"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ttoPk", scope = SgTipoTelefono.class)
 public class SgTipoTelefono implements Serializable {
 
@@ -70,12 +61,6 @@ public class SgTipoTelefono implements Serializable {
     private Integer ttoVersion;
 
     public SgTipoTelefono() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.ttoNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.ttoNombre);
     }
 
     public Long getTtoPk() {

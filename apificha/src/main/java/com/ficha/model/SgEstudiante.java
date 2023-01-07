@@ -1,4 +1,4 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -22,19 +22,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 
 @Entity
-@Table(name = "sg_estudiantes", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = JsonIdentityResolver.class, property = "estPk", scope = SgEstudiante.class)
-public class SgEstudiante implements Serializable, DataSecurity {
+@Table(name = "sg_estudiantes")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "estPk", scope = SgEstudiante.class)
+public class SgEstudiante implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,13 +48,18 @@ public class SgEstudiante implements Serializable, DataSecurity {
     @Column(name = "est_embarazo")
     private Boolean estEmbarazo;
 
-    @JoinColumn(name = "est_medio_transporte_fk", referencedColumnName = "mtr_pk")
-    @ManyToOne
-    private SgMedioTransporte estMedioTransporte;
+	/*
+	 * @JoinColumn(name = "est_medio_transporte_fk", referencedColumnName =
+	 * "mtr_pk")
+	 * 
+	 * @ManyToOne private SgMedioTransporte estMedioTransporte;
+	 */
 
-    @JoinColumn(name = "est_dependencia_economica_fk")
-    @ManyToOne
-    private SgDependenciaEconomica estDependenciaEconomica;
+	/*
+	 * @JoinColumn(name = "est_dependencia_economica_fk")
+	 * 
+	 * @ManyToOne private SgDependenciaEconomica estDependenciaEconomica;
+	 */
 
     @Column(name = "est_habilitado")
     private Boolean estHabilitado;
@@ -95,17 +94,19 @@ public class SgEstudiante implements Serializable, DataSecurity {
 // TODO: no se utiliza. Cuando se utilice, analizar posibilidad de que estudiante tenga ficha y no al revés. De esta forma podemos hacer que la relación sea lazy.
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fsaEstudiante")
 //    private SgFichaSalud estFichaSalud;
-    @OneToMany(mappedBy = "mviEstudiante")
-    @NotAudited
-    private List<SgManifestacionViolencia> estManifestacionesViolencia;
+	/*
+	 * @OneToMany(mappedBy = "mviEstudiante") private List<SgManifestacionViolencia>
+	 * estManifestacionesViolencia;
+	 * 
+	 * @OneToMany(mappedBy = "esvEstudiante") private List<SgEstudianteValoracion>
+	 * estValoraciones;
+	 */
 
-    @OneToMany(mappedBy = "esvEstudiante")
-    @NotAudited
-    private List<SgEstudianteValoracion> estValoraciones;
-
-    @OneToMany(mappedBy = "caeEstudiante")
-    @NotAudited
-    private List<SgCalificacionEstudiante> estCalificaciones;
+	/*
+	 * @OneToMany(mappedBy = "caeEstudiante")
+	 * 
+	 * @NotAudited private List<SgCalificacionEstudiante> estCalificaciones;
+	 */
 
     @OneToMany(mappedBy = "matEstudiante")
     private List<SgMatricula> estMatriculas;
@@ -126,10 +127,6 @@ public class SgEstudiante implements Serializable, DataSecurity {
     //Generada con trigger
     @Column(name = "est_ultima_seccion_fk", insertable = false, updatable = false)
     private Long estUltimaSeccionPk;
-
-    @NotAudited
-    @OneToMany(mappedBy = "asiEstudiante")
-    private List<SgAsistencia> estAsistencia;
     
     @Column(name = "est_sintoniza_canal_10")
     private Boolean estSintonizaCanal10;
@@ -185,14 +182,6 @@ public class SgEstudiante implements Serializable, DataSecurity {
         this.estEmbarazo = estEmbarazo;
     }
 
-    public SgMedioTransporte getEstMedioTransporte() {
-        return estMedioTransporte;
-    }
-
-    public void setEstMedioTransporte(SgMedioTransporte estMedioTransporte) {
-        this.estMedioTransporte = estMedioTransporte;
-    }
-
     public Boolean getEstHabilitado() {
         return estHabilitado;
     }
@@ -233,36 +222,12 @@ public class SgEstudiante implements Serializable, DataSecurity {
         this.estPersona = estPersona;
     }
 
-    public List<SgManifestacionViolencia> getEstManifestacionesViolencia() {
-        return estManifestacionesViolencia;
-    }
-
-    public void setEstManifestacionesViolencia(List<SgManifestacionViolencia> estManifestacionesViolencia) {
-        this.estManifestacionesViolencia = estManifestacionesViolencia;
-    }
-
     public List<SgMatricula> getEstMatriculas() {
         return estMatriculas;
     }
 
     public void setEstMatriculas(List<SgMatricula> estMatriculas) {
         this.estMatriculas = estMatriculas;
-    }
-
-    public SgDependenciaEconomica getEstDependenciaEconomica() {
-        return estDependenciaEconomica;
-    }
-
-    public void setEstDependenciaEconomica(SgDependenciaEconomica estDependenciaEconomica) {
-        this.estDependenciaEconomica = estDependenciaEconomica;
-    }
-
-    public List<SgAsistencia> getEstAsistencia() {
-        return estAsistencia;
-    }
-
-    public void setEstAsistencia(List<SgAsistencia> estAsistencia) {
-        this.estAsistencia = estAsistencia;
     }
 
     public SgMatricula getEstUltimaMatricula() {
@@ -281,21 +246,6 @@ public class SgEstudiante implements Serializable, DataSecurity {
         this.estUltimaSedePk = estUltimaSedePk;
     }
 
-    public List<SgEstudianteValoracion> getEstValoraciones() {
-        return estValoraciones;
-    }
-
-    public void setEstValoraciones(List<SgEstudianteValoracion> estValoraciones) {
-        this.estValoraciones = estValoraciones;
-    }
-
-    public List<SgCalificacionEstudiante> getEstCalificaciones() {
-        return estCalificaciones;
-    }
-
-    public void setEstCalificaciones(List<SgCalificacionEstudiante> estCalificaciones) {
-        this.estCalificaciones = estCalificaciones;
-    }
 
     public Long getEstUltimaSeccionPk() {
         return estUltimaSeccionPk;
@@ -367,42 +317,6 @@ public class SgEstudiante implements Serializable, DataSecurity {
 
     public void setEstSintonizaFranjaEducativa(Boolean estSintonizaFranjaEducativa) {
         this.estSintonizaFranjaEducativa = estSintonizaFranjaEducativa;
-    }
-    
-    
-
-    @Override
-    public String securityAmbitCreate() {
-        return null; //Estudiantes se crean mediante matricula.
-    }
-
-    @Override
-    public CriteriaTO securityAmbitNavigation(OperationSecurity o, DaoOperation daoop) {
-        if (o.getAmbit().equalsIgnoreCase(EnumAmbito.DEPARTAMENTAL.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estMatriculas.matSeccion.secServicioEducativo.sduSede.sedDireccion.dirDepartamento.depPk", o.getContext());
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.SISTEMA_INTEGRADO.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estMatriculas.matSeccion.secServicioEducativo.sduSede.sedSistemas.sinPk.sinPk", o.getContext());
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.SEDE.name())) {
-            return CriteriaTOUtils.createORTO(
-                    CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estMatriculas.matSeccion.secServicioEducativo.sduSede.sedPk", o.getContext()),
-                    CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estMatriculas.matSeccion.secServicioEducativo.sduSede.sedSedeAdscritaDe.sedPk", o.getContext())
-            );
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.PARTICION_SEDE.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.IN_SUBQUERY, "estMatriculas.matSeccion.secServicioEducativo.sduSede.sedPk", o.getRegla());
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.MODALIDADES_FLEXIBLES.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estUltimaMatricula.matSeccion.secServicioEducativo.sduGrado.graRelacionModalidad.reaModalidadAtencionFlexible", true);
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.IMPLEMENTADORA.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estUltimaMatricula.matSeccion.secAsociacion.asoPk", o.getContext());
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.SECCION.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estUltimaSeccionPk", o.getContext());
-            //No hacer join con otra tabla. Al hacer joins si la persona tiene muchos ambitos, se forma query con ORs degradando la performance
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.PERSONA.name())) {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estPersona.perPk", o.getContext());
-        } else if (o.getAmbit().equalsIgnoreCase(EnumAmbito.MINED.name())) {
-            return null;
-        } else {
-            return CriteriaTOUtils.createMatchCriteriaTO(MatchCriteriaTO.types.EQUALS, "estPk", -1L);
-        }
     }
 
     @Override

@@ -1,3 +1,4 @@
+package com.ficha.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -17,21 +18,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
-
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_ocupaciones", uniqueConstraints = {
     @UniqueConstraint(name = "ocu_codigo_uk", columnNames = {"ocu_codigo"})
     ,
-    @UniqueConstraint(name = "ocu_nombre_uk", columnNames = {"ocu_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "ocu_nombre_uk", columnNames = {"ocu_nombre"})})
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ocuPk", scope = SgOcupacion.class)
 public class SgOcupacion implements Serializable {
 
@@ -70,12 +62,6 @@ public class SgOcupacion implements Serializable {
     private Integer ocuVersion;
 
     public SgOcupacion() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.ocuNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.ocuNombre);
     }
 
     public Long getOcuPk() {

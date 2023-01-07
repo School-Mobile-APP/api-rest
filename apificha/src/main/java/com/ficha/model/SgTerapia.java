@@ -1,3 +1,4 @@
+package com.ficha.model;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -16,22 +17,14 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;;
 
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_terapias", uniqueConstraints = {
     @UniqueConstraint(name = "ter_codigo_uk", columnNames = {"ter_codigo"})
     ,
-    @UniqueConstraint(name = "ter_nombre_uk", columnNames = {"ter_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
+    @UniqueConstraint(name = "ter_nombre_uk", columnNames = {"ter_nombre"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "terPk", scope = SgTerapia.class)
-@Audited
+
 public class SgTerapia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,12 +62,6 @@ public class SgTerapia implements Serializable {
     private Integer terVersion;
 
     public SgTerapia() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.terNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.terNombre);
     }
 
     public Long getTerPk() {

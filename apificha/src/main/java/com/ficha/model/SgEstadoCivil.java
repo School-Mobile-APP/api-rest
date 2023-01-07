@@ -1,11 +1,10 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,25 +12,14 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
 
-/**
- *
- * @author Sofis Solutions
- */
 @Entity
 @Table(name = "sg_estados_civil", uniqueConstraints = {
     @UniqueConstraint(name = "eci_codigo_uk", columnNames = {"eci_codigo"})
     ,
-    @UniqueConstraint(name = "eci_nombre_uk", columnNames = {"eci_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "eci_nombre_uk", columnNames = {"eci_nombre"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "eciPk", scope = SgEstadoCivil.class)
 public class SgEstadoCivil implements Serializable {
 
@@ -70,12 +58,6 @@ public class SgEstadoCivil implements Serializable {
     private Integer eciVersion;
 
     public SgEstadoCivil() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void preSave() {
-        this.eciNombreBusqueda = SofisStringUtils.normalizarParaBusqueda(this.eciNombre);
     }
 
     public Long getEciPk() {

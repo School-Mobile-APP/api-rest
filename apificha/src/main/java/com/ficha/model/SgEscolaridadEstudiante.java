@@ -38,17 +38,22 @@ public class SgEscolaridadEstudiante implements Serializable {
     @ManyToOne
     private SgEstudiante escEstudiante;
     
-    @JoinColumn(name = "esc_servicio_educativo", referencedColumnName = "sdu_pk")
-    @ManyToOne
-    private SgServicioEducativo escServicioEducativo; //No utilizado cuando es equivalencia
-    
-    @JoinColumn(name = "esc_anio")
-    @ManyToOne
-    private SgAnioLectivo escAnio; //No utilizado cuando es equivalencia
-    
-    @Column(name = "esc_resultado")
-    @Enumerated(value = EnumType.STRING)
-    private EnumPromovidoCalificacion escResultado;
+	/*
+	 * @JoinColumn(name = "esc_servicio_educativo", referencedColumnName = "sdu_pk")
+	 * 
+	 * @ManyToOne private SgServicioEducativo escServicioEducativo; //No utilizado
+	 * cuando es equivalencia
+	 * 
+	 * @JoinColumn(name = "esc_anio")
+	 * 
+	 * @ManyToOne private SgAnioLectivo escAnio; //No utilizado cuando es
+	 * equivalencia
+	 * 
+	 * @Column(name = "esc_resultado")
+	 * 
+	 * @Enumerated(value = EnumType.STRING) private EnumPromovidoCalificacion
+	 * escResultado;
+	 */
     
     @Column(name = "esc_asistencias")
     private Integer escAsistencias;
@@ -89,25 +94,28 @@ public class SgEscolaridadEstudiante implements Serializable {
     @Column(name = "esc_eq_anio")
     private Integer escEqAnio;
     
-    @JoinColumn(name = "esc_eq_grado")
-    @ManyToOne
-    private SgGrado escEqGrado;
-    
-    @JoinColumn(name = "esc_eq_opcion")
-    @ManyToOne
-    private SgOpcion escEqOpcion;
-    
-    @JoinColumn(name = "esc_eq_programa")
-    @ManyToOne
-    private SgProgramaEducativo escEqProgramaEducativo;
+	/*
+	 * @JoinColumn(name = "esc_eq_grado")
+	 * 
+	 * @ManyToOne private SgGrado escEqGrado;
+	 * 
+	 * @JoinColumn(name = "esc_eq_opcion")
+	 * 
+	 * @ManyToOne private SgOpcion escEqOpcion;
+	 * 
+	 * @JoinColumn(name = "esc_eq_programa")
+	 * 
+	 * @ManyToOne private SgProgramaEducativo escEqProgramaEducativo;
+	 */
     
     @Column(name = "esc_nombre_sede")
     private String escNombreSede;
     
-    @JoinColumn(name = "esc_eq_plan_estudio")
-    @ManyToOne
-    private SgPlanEstudio escEqPlanEstudio; 
-    
+	/*
+	 * @JoinColumn(name = "esc_eq_plan_estudio")
+	 * 
+	 * @ManyToOne private SgPlanEstudio escEqPlanEstudio;
+	 */
     public SgEscolaridadEstudiante() {
     }
 
@@ -127,29 +135,24 @@ public class SgEscolaridadEstudiante implements Serializable {
         this.escEstudiante = escEstudiante;
     }
 
-    public SgServicioEducativo getEscServicioEducativo() {
-        return escServicioEducativo;
-    }
+	/*
+	 * public SgServicioEducativo getEscServicioEducativo() { return
+	 * escServicioEducativo; }
+	 * 
+	 * public void setEscServicioEducativo(SgServicioEducativo escServicioEducativo)
+	 * { this.escServicioEducativo = escServicioEducativo; }
+	 * 
+	 * public SgAnioLectivo getEscAnio() { return escAnio; }
+	 * 
+	 * public void setEscAnio(SgAnioLectivo escAnio) { this.escAnio = escAnio; }
+	 */
 
-    public void setEscServicioEducativo(SgServicioEducativo escServicioEducativo) {
-        this.escServicioEducativo = escServicioEducativo;
-    }
-
-    public SgAnioLectivo getEscAnio() {
-        return escAnio;
-    }
-
-    public void setEscAnio(SgAnioLectivo escAnio) {
-        this.escAnio = escAnio;
-    }
-
-    public EnumPromovidoCalificacion getEscResultado() {
-        return escResultado;
-    }
-
-    public void setEscResultado(EnumPromovidoCalificacion escResultado) {
-        this.escResultado = escResultado;
-    }
+	/*
+	 * public EnumPromovidoCalificacion getEscResultado() { return escResultado; }
+	 * 
+	 * public void setEscResultado(EnumPromovidoCalificacion escResultado) {
+	 * this.escResultado = escResultado; }
+	 */
 
     public Integer getEscAsistencias() {
         return escAsistencias;
@@ -233,29 +236,26 @@ public class SgEscolaridadEstudiante implements Serializable {
         this.escEqAnio = escEqAnio;
     }
 
-    public SgGrado getEscEqGrado() {
-        return escEqGrado;
-    }
+	/*
+	 * public SgGrado getEscEqGrado() { return escEqGrado; }
+	 * 
+	 * public void setEscEqGrado(SgGrado escEqGrado) { this.escEqGrado = escEqGrado;
+	 * }
+	 * 
+	 * public SgOpcion getEscEqOpcion() { return escEqOpcion; }
+	 * 
+	 * public void setEscEqOpcion(SgOpcion escEqOpcion) { this.escEqOpcion =
+	 * escEqOpcion; }
+	 */
 
-    public void setEscEqGrado(SgGrado escEqGrado) {
-        this.escEqGrado = escEqGrado;
-    }
-
-    public SgOpcion getEscEqOpcion() {
-        return escEqOpcion;
-    }
-
-    public void setEscEqOpcion(SgOpcion escEqOpcion) {
-        this.escEqOpcion = escEqOpcion;
-    }
-
-    public SgProgramaEducativo getEscEqProgramaEducativo() {
-        return escEqProgramaEducativo;
-    }
-
-    public void setEscEqProgramaEducativo(SgProgramaEducativo escEqProgramaEducativo) {
-        this.escEqProgramaEducativo = escEqProgramaEducativo;
-    }
+	/*
+	 * public SgProgramaEducativo getEscEqProgramaEducativo() { return
+	 * escEqProgramaEducativo; }
+	 * 
+	 * public void setEscEqProgramaEducativo(SgProgramaEducativo
+	 * escEqProgramaEducativo) { this.escEqProgramaEducativo =
+	 * escEqProgramaEducativo; }
+	 */
 
     public String getEscNombreSede() {
         return escNombreSede;
@@ -265,13 +265,12 @@ public class SgEscolaridadEstudiante implements Serializable {
         this.escNombreSede = escNombreSede;
     }
 
-    public SgPlanEstudio getEscEqPlanEstudio() {
-        return escEqPlanEstudio;
-    }
-
-    public void setEscEqPlanEstudio(SgPlanEstudio escEqPlanEstudio) {
-        this.escEqPlanEstudio = escEqPlanEstudio;
-    }
+	/*
+	 * public SgPlanEstudio getEscEqPlanEstudio() { return escEqPlanEstudio; }
+	 * 
+	 * public void setEscEqPlanEstudio(SgPlanEstudio escEqPlanEstudio) {
+	 * this.escEqPlanEstudio = escEqPlanEstudio; }
+	 */
 
     public LocalDate getEscEqFechaTramite() {
         return escEqFechaTramite;
@@ -302,13 +301,5 @@ public class SgEscolaridadEstudiante implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "SgEscolaridadEstudiante{" + "escPk=" + escPk + ", escEstudiante=" + escEstudiante + ", escServicioEducativo=" + escServicioEducativo + ", escAnio=" + escAnio + ", escResultado=" + escResultado + ", escAsistencias=" + escAsistencias + ", escInasistencias=" + escInasistencias + ", escUltModFecha=" + escUltModFecha + ", escUltModUsuario=" + escUltModUsuario + ", escVersion=" + escVersion + '}';
-    }
-
-    
-
+    }    
 }

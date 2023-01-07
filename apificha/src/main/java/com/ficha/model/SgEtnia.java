@@ -1,4 +1,4 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -17,20 +17,13 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.envers.Audited;
-/**
- *
- * @author Sofis Solutions
- */
+
 @Entity
 @Table(name = "sg_etnias", uniqueConstraints = {
     @UniqueConstraint(name = "etn_codigo_uk", columnNames = {"etn_codigo"})
     ,
-    @UniqueConstraint(name = "etn_nombre_uk", columnNames = {"etn_nombre"})}, schema = Constantes.SCHEMA_CATALOGO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
+    @UniqueConstraint(name = "etn_nombre_uk", columnNames = {"etn_nombre"})})
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "etnPk", scope = SgEtnia.class)
 public class SgEtnia implements Serializable {
 

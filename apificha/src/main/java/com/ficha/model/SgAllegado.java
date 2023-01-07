@@ -1,4 +1,4 @@
-
+package com.ficha.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,18 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.envers.Audited;
-import com.ficha.model.*;
 
 @Entity
-@Table(name = "sg_allegados", schema = Constantes.SCHEMA_CENTRO_EDUCATIVO)
-@XmlRootElement
-@EntityListeners(EntidadListener.class)
-@Audited
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = JsonIdentityResolver.class, property = "allPk", scope = SgAllegado.class)
+@Table(name = "sg_allegados")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "allPk", scope = SgAllegado.class)
 public class SgAllegado implements Serializable {
 
     private static final long serialVersionUID = 1L;
