@@ -32,9 +32,8 @@ public class SgTelefono implements Serializable {
     @Column(name = "tel_telefono",length = 15)
     private String telTelefono;
     
-    @JoinColumn(name = "tel_tipo_telefono_fk", referencedColumnName = "tto_pk")
-    @ManyToOne
-    private SgTipoTelefono telTipoTelefono;
+    @Column(name = "tel_tipo_telefono_fk")
+    private Integer telTipoTelefono;
     
     @Column(name = "tel_ult_mod_fecha")
     private LocalDateTime telUltModFecha;
@@ -47,9 +46,8 @@ public class SgTelefono implements Serializable {
     @Version
     private Integer telVersion;
     
-    @JoinColumn(name = "tel_persona", referencedColumnName = "per_pk")
-    @ManyToOne
-    private SgPersona telPersona;
+    @Column(name = "tel_persona")
+    private Integer telPersona;
 
     public SgTelefono() {
     }
@@ -74,11 +72,11 @@ public class SgTelefono implements Serializable {
         this.telTelefono = telTelefono;
     }
 
-    public SgTipoTelefono getTelTipoTelefono() {
+    public Integer getTelTipoTelefono() {
         return telTipoTelefono;
     }
 
-    public void setTelTipoTelefono(SgTipoTelefono telTipoTelefono) {
+    public void setTelTipoTelefono(Integer telTipoTelefono) {
         this.telTipoTelefono = telTipoTelefono;
     }
 
@@ -106,11 +104,11 @@ public class SgTelefono implements Serializable {
         this.telVersion = telVersion;
     }
 
-    public SgPersona getTelPersona() {
+    public Integer getTelPersona() {
         return telPersona;
     }
 
-    public void setTelPersona(SgPersona telPersona) {
+    public void setTelPersona(Integer telPersona) {
         this.telPersona = telPersona;
     }
 

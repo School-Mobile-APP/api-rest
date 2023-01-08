@@ -29,147 +29,123 @@ import org.hibernate.annotations.FetchMode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "perPk", scope = SgDatosResidencialesPersona.class)
 public class SgDatosResidencialesPersona implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name="per_pk", unique=true, nullable=false)
-    private Long perPk;
-    
-    @MapsId("perPk")
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "per_pk", nullable = false)
-    private SgPersona perPersona;
+	@Id
+	@Column(name = "per_pk", unique = true, nullable = false)
+	private Long perPk;
 
-    @Column(name = "per_cantidad_dormitorios_casa")
-    private Integer perCantidadDormitoriosCasa;
+	@Column(name = "per_cantidad_dormitorios_casa")
+	private Integer perCantidadDormitoriosCasa;
 
-    @Column(name = "per_tiene_servicio_energia_electrica_residencial")
-    private Boolean perTieneServicioEnergiaElectricaResidencial;
+	@Column(name = "per_tiene_servicio_energia_electrica_residencial")
+	private Boolean perTieneServicioEnergiaElectricaResidencial;
 
-    @Column(name = "per_tiene_conexion_internet_residencial")
-    private Boolean perTieneConexionInternetResidencial;
+	@Column(name = "per_tiene_conexion_internet_residencial")
+	private Boolean perTieneConexionInternetResidencial;
 
-    @JoinColumn(name = "per_compania_internet_residencial")
-    @ManyToOne
-    private SgCompaniaTelecomunicacion perCompaniaInternetResidencial;
+	@Column(name = "per_compania_internet_residencial")
+	private Long perCompaniaInternetResidencial;
 
-    @JoinColumn(name = "per_tipo_servicio_sanitario_residencial")
-    @ManyToOne
-    private SgTipoServicioSanitario perTipoServicioSanitarioResidencial;
+	@Column(name = "per_tipo_servicio_sanitario_residencial")
+	private Long perTipoServicioSanitarioResidencial;
 
-    @Column(name = "per_tipo_servicio_sanitario_residencial_otro")
-    private String perTipoServicioSanitarioResidencialOtro;
+	@Column(name = "per_tipo_servicio_sanitario_residencial_otro")
+	private String perTipoServicioSanitarioResidencialOtro;
 
-	/*
-	 * @JoinColumn(name = "per_fuente_abastecimiento_agua_residencial")
-	 * 
-	 * @ManyToOne private SgFuenteAbastecimientoAgua
-	 * perFuenteAbastecimientoAguaResidencial;
-	 */
+	@Column(name = "per_fuente_abastecimiento_agua_residencial")
+	private Long perFuenteAbastecimientoAguaResidencial;
 
-    @Column(name = "per_fuente_abastecimiento_agua_residencial_otra")
-    private String perFuenteAbastecimientoAguaResidencialOtra;
+	@Column(name = "per_fuente_abastecimiento_agua_residencial_otra")
+	private String perFuenteAbastecimientoAguaResidencialOtra;
 
-	/*
-	 * @JoinColumn(name = "per_material_piso_residencial")
-	 * 
-	 * @ManyToOne private SgMaterialPiso perMaterialPisoResidencial;
-	 */
+	@Column(name = "per_material_piso_residencial")
 
-    @Column(name = "per_material_piso_residencial_otro")
-    private String perMaterialPisoResidencialOtro;
+	private Long perMaterialPisoResidencial;
 
-	/*
-	 * @Fetch(FetchMode.SUBSELECT)
-	 * 
-	 * @ManyToMany(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinTable( name = "sg_personas_elementos_hogar", schema =
-	 * Constantes.SCHEMA_CENTRO_EDUCATIVO, joinColumns = @JoinColumn(name =
-	 * "per_pk"), inverseJoinColumns = @JoinColumn(name = "eho_pk")) private
-	 * List<SgElementoHogar> perElementosHogar;
-	 */
+	@Column(name = "per_material_piso_residencial_otro")
+	private String perMaterialPisoResidencialOtro;
 
-    @Column(name = "per_version")
-    @Version
-    private Integer perVersion;
+	@Column(name = "per_version")
+	@Version
+	private Integer perVersion;
 
-    public SgDatosResidencialesPersona() {
-        
-    }
+	public SgDatosResidencialesPersona() {
 
-    public SgDatosResidencialesPersona(Long perPk) {
-        this.perPk = perPk;
-    }
+	}
 
-    public SgDatosResidencialesPersona(Long perPk, Integer perVersion) {
-        this.perPk = perPk;
-        this.perVersion = perVersion;
-    }
+	public SgDatosResidencialesPersona(Long perPk) {
+		this.perPk = perPk;
+	}
 
-    public Long getPerPk() {
-        return perPk;
-    }
+	public SgDatosResidencialesPersona(Long perPk, Integer perVersion) {
+		this.perPk = perPk;
+		this.perVersion = perVersion;
+	}
 
-    public void setPerPk(Long perPk) {
-        this.perPk = perPk;
-    }
+	public Long getPerPk() {
+		return perPk;
+	}
 
-    public Integer getPerVersion() {
-        return perVersion;
-    }
+	public void setPerPk(Long perPk) {
+		this.perPk = perPk;
+	}
 
-    public void setPerVersion(Integer perVersion) {
-        this.perVersion = perVersion;
-    }
+	public Integer getPerVersion() {
+		return perVersion;
+	}
 
-    public Integer getPerCantidadDormitoriosCasa() {
-        return perCantidadDormitoriosCasa;
-    }
+	public void setPerVersion(Integer perVersion) {
+		this.perVersion = perVersion;
+	}
 
-    public void setPerCantidadDormitoriosCasa(Integer perCantidadDormitoriosCasa) {
-        this.perCantidadDormitoriosCasa = perCantidadDormitoriosCasa;
-    }
+	public Integer getPerCantidadDormitoriosCasa() {
+		return perCantidadDormitoriosCasa;
+	}
 
-    public Boolean getPerTieneServicioEnergiaElectricaResidencial() {
-        return perTieneServicioEnergiaElectricaResidencial;
-    }
+	public void setPerCantidadDormitoriosCasa(Integer perCantidadDormitoriosCasa) {
+		this.perCantidadDormitoriosCasa = perCantidadDormitoriosCasa;
+	}
 
-    public void setPerTieneServicioEnergiaElectricaResidencial(Boolean perTieneServicioEnergiaElectricaResidencial) {
-        this.perTieneServicioEnergiaElectricaResidencial = perTieneServicioEnergiaElectricaResidencial;
-    }
+	public Boolean getPerTieneServicioEnergiaElectricaResidencial() {
+		return perTieneServicioEnergiaElectricaResidencial;
+	}
 
-    public Boolean getPerTieneConexionInternetResidencial() {
-        return perTieneConexionInternetResidencial;
-    }
+	public void setPerTieneServicioEnergiaElectricaResidencial(Boolean perTieneServicioEnergiaElectricaResidencial) {
+		this.perTieneServicioEnergiaElectricaResidencial = perTieneServicioEnergiaElectricaResidencial;
+	}
 
-    public void setPerTieneConexionInternetResidencial(Boolean perTieneConexionInternetResidencial) {
-        this.perTieneConexionInternetResidencial = perTieneConexionInternetResidencial;
-    }
+	public Boolean getPerTieneConexionInternetResidencial() {
+		return perTieneConexionInternetResidencial;
+	}
 
-    public SgCompaniaTelecomunicacion getPerCompaniaInternetResidencial() {
-        return perCompaniaInternetResidencial;
-    }
+	public void setPerTieneConexionInternetResidencial(Boolean perTieneConexionInternetResidencial) {
+		this.perTieneConexionInternetResidencial = perTieneConexionInternetResidencial;
+	}
 
-    public void setPerCompaniaInternetResidencial(SgCompaniaTelecomunicacion perCompaniaInternetResidencial) {
-        this.perCompaniaInternetResidencial = perCompaniaInternetResidencial;
-    }
+	public Long getPerCompaniaInternetResidencial() {
+		return perCompaniaInternetResidencial;
+	}
 
-    public SgTipoServicioSanitario getPerTipoServicioSanitarioResidencial() {
-        return perTipoServicioSanitarioResidencial;
-    }
+	public void setPerCompaniaInternetResidencial(Long perCompaniaInternetResidencial) {
+		this.perCompaniaInternetResidencial = perCompaniaInternetResidencial;
+	}
 
-    public void setPerTipoServicioSanitarioResidencial(SgTipoServicioSanitario perTipoServicioSanitarioResidencial) {
-        this.perTipoServicioSanitarioResidencial = perTipoServicioSanitarioResidencial;
-    }
+	public Long getPerTipoServicioSanitarioResidencial() {
+		return perTipoServicioSanitarioResidencial;
+	}
 
-    public String getPerTipoServicioSanitarioResidencialOtro() {
-        return perTipoServicioSanitarioResidencialOtro;
-    }
+	public void setPerTipoServicioSanitarioResidencial(Long perTipoServicioSanitarioResidencial) {
+		this.perTipoServicioSanitarioResidencial = perTipoServicioSanitarioResidencial;
+	}
 
-    public void setPerTipoServicioSanitarioResidencialOtro(String perTipoServicioSanitarioResidencialOtro) {
-        this.perTipoServicioSanitarioResidencialOtro = perTipoServicioSanitarioResidencialOtro;
-    }
+	public String getPerTipoServicioSanitarioResidencialOtro() {
+		return perTipoServicioSanitarioResidencialOtro;
+	}
+
+	public void setPerTipoServicioSanitarioResidencialOtro(String perTipoServicioSanitarioResidencialOtro) {
+		this.perTipoServicioSanitarioResidencialOtro = perTipoServicioSanitarioResidencialOtro;
+	}
 
 	/*
 	 * public SgFuenteAbastecimientoAgua getPerFuenteAbastecimientoAguaResidencial()
@@ -182,13 +158,13 @@ public class SgDatosResidencialesPersona implements Serializable {
 	 * perFuenteAbastecimientoAguaResidencial; }
 	 */
 
-    public String getPerFuenteAbastecimientoAguaResidencialOtra() {
-        return perFuenteAbastecimientoAguaResidencialOtra;
-    }
+	public String getPerFuenteAbastecimientoAguaResidencialOtra() {
+		return perFuenteAbastecimientoAguaResidencialOtra;
+	}
 
-    public void setPerFuenteAbastecimientoAguaResidencialOtra(String perFuenteAbastecimientoAguaResidencialOtra) {
-        this.perFuenteAbastecimientoAguaResidencialOtra = perFuenteAbastecimientoAguaResidencialOtra;
-    }
+	public void setPerFuenteAbastecimientoAguaResidencialOtra(String perFuenteAbastecimientoAguaResidencialOtra) {
+		this.perFuenteAbastecimientoAguaResidencialOtra = perFuenteAbastecimientoAguaResidencialOtra;
+	}
 
 	/*
 	 * public SgMaterialPiso getPerMaterialPisoResidencial() { return
@@ -199,54 +175,37 @@ public class SgDatosResidencialesPersona implements Serializable {
 	 * perMaterialPisoResidencial; }
 	 */
 
-    public String getPerMaterialPisoResidencialOtro() {
-        return perMaterialPisoResidencialOtro;
-    }
+	public String getPerMaterialPisoResidencialOtro() {
+		return perMaterialPisoResidencialOtro;
+	}
 
-    public void setPerMaterialPisoResidencialOtro(String perMaterialPisoResidencialOtro) {
-        this.perMaterialPisoResidencialOtro = perMaterialPisoResidencialOtro;
-    }
+	public void setPerMaterialPisoResidencialOtro(String perMaterialPisoResidencialOtro) {
+		this.perMaterialPisoResidencialOtro = perMaterialPisoResidencialOtro;
+	}
 
-	/*
-	 * public List<SgElementoHogar> getPerElementosHogar() { return
-	 * perElementosHogar; }
-	 * 
-	 * public void setPerElementosHogar(List<SgElementoHogar> perElementosHogar) {
-	 * this.perElementosHogar = perElementosHogar; }
-	 */
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (perPk != null ? perPk.hashCode() : 0);
+		return hash;
+	}
 
-    public SgPersona getPerPersona() {
-        return perPersona;
-    }
-
-    public void setPerPersona(SgPersona perPersona) {
-        this.perPersona = perPersona;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (perPk != null ? perPk.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgDatosResidencialesPersona other = (SgDatosResidencialesPersona) obj;
-        if (!Objects.equals(this.perPk, other.perPk)) {
-            return false;
-        }
-        return true;
-    }
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final SgDatosResidencialesPersona other = (SgDatosResidencialesPersona) obj;
+		if (!Objects.equals(this.perPk, other.perPk)) {
+			return false;
+		}
+		return true;
+	}
 
 }

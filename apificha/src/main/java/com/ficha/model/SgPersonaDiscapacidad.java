@@ -30,9 +30,8 @@ public class SgPersonaDiscapacidad implements Serializable {
     @Column(name = "per_pk")
     private Long perdisPk;
     
-    @JoinColumn(name = "dis_pk", referencedColumnName = "dis_pk")
-    @ManyToOne
-    private SgDiscapacidad escDispacacidad;
+    @Column(name = "dis_pk")
+    private Integer escDispacacidad;
 
 
     public SgPersonaDiscapacidad() {
@@ -47,11 +46,11 @@ public class SgPersonaDiscapacidad implements Serializable {
     }
 
 
-    public SgDiscapacidad getDis() {
+    public Integer getDis() {
         return escDispacacidad;
     }
 
-    public void setDis(SgDiscapacidad disPk) {
+    public void setDis(Integer disPk) {
         this.escDispacacidad = disPk;
     }
 

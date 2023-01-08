@@ -37,26 +37,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.DateBridge;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Normalizer;
-import org.hibernate.search.annotations.Resolution;
-import org.hibernate.search.annotations.SortableField;
-import org.hibernate.search.annotations.Store;
 
 @Entity
 @Table(name = "sg_personas")
-@Indexed
 public class SgPersona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
@@ -89,90 +75,50 @@ public class SgPersona implements Serializable {
 
 	@Size(max = 100)
 	@Column(name = "per_primer_nombre_busqueda")
-	@Fields({
-			@Field(name = "perPrimerNombreBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres")),
-			@Field(name = "perPrimerNombreBusquedaPhonetic", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres_Phonetic")),
-			@Field(name = "perPrimerNombreBusquedaSort", index = Index.YES, analyze = Analyze.YES, store = Store.NO, normalizer = @Normalizer(definition = "Normalizador_Nombres_Sort")) })
-	@SortableField(forField = "perPrimerNombreBusquedaSort")
 	private String perPrimerNombreBusqueda;
 
 	@Size(max = 100)
 	@Column(name = "per_segundo_nombre_busqueda")
-	@Fields({
-			@Field(name = "perSegundoNombreBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres")),
-			@Field(name = "perSegundoNombreBusquedaPhonetic", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres_Phonetic")),
-			@Field(name = "perSegundoNombreBusquedaSort", index = Index.YES, analyze = Analyze.YES, store = Store.NO, normalizer = @Normalizer(definition = "Normalizador_Nombres_Sort")) })
-	@SortableField(forField = "perSegundoNombreBusquedaSort")
 	private String perSegundoNombreBusqueda;
 
 	@Size(max = 100)
 	@Column(name = "per_tercer_nombre_busqueda")
-	@Fields({ @Field(name = "perTercerNombreBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO) })
-	@Analyzer(definition = "Analizador_Nombres")
 	private String perTercerNombreBusqueda;
 
 	@Size(max = 100)
 	@Column(name = "per_primer_apellido_busqueda")
-	@Fields({
-			@Field(name = "perPrimerApellidoBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres")),
-			@Field(name = "perPrimerApellidoBusquedaPhonetic", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres_Phonetic")),
-			@Field(name = "perPrimerApellidoBusquedaSort", index = Index.YES, analyze = Analyze.YES, store = Store.NO, normalizer = @Normalizer(definition = "Normalizador_Nombres_Sort")) })
-	@SortableField(forField = "perPrimerApellidoBusquedaSort")
 	private String perPrimerApellidoBusqueda;
 
 	@Size(max = 100)
 	@Column(name = "per_segundo_apellido_busqueda")
-	@Fields({
-			@Field(name = "perSegundoApellidoBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres")),
-			@Field(name = "perSegundoApellidoBusquedaPhonetic", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres_Phonetic")),
-			@Field(name = "perSegundoApellidoBusquedaSort", index = Index.YES, analyze = Analyze.YES, store = Store.NO, normalizer = @Normalizer(definition = "Normalizador_Nombres_Sort")) })
-	@SortableField(forField = "perSegundoApellidoBusquedaSort")
 	private String perSegundoApellidoBusqueda;
 
 	@Size(max = 100)
 	@Column(name = "per_tercer_apellido_busqueda")
-	@Fields({ @Field(name = "perTercerApellidoBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO) })
-	@Analyzer(definition = "Analizador_Nombres")
 	private String perTercerApellidoBusqueda;
 
 	@Size(max = 650)
 	@Column(name = "per_nombre_busqueda", length = 650)
-	@Fields({
-			@Field(name = "perNombreBusqueda", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres")),
-			@Field(name = "perNombreBusquedaPhonetic", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "Analizador_Nombres_Phonetic")),
-			@Field(name = "perNombreBusquedaSort", index = Index.NO, analyze = Analyze.YES, store = Store.NO, normalizer = @Normalizer(definition = "Normalizador_Nombres_Sort")) })
-	@SortableField(forField = "perNombreBusquedaSort")
 	private String perNombreBusqueda;
 
 	@Column(name = "per_fecha_nacimiento")
-	@Fields({ @Field(name = "perFechaNacimiento", index = Index.YES, analyze = Analyze.NO, store = Store.NO),
-			@Field(name = "perFechaNacimientoSort", index = Index.NO, analyze = Analyze.NO, store = Store.NO) })
-	@SortableField(forField = "perFechaNacimientoSort")
-	@DateBridge(resolution = Resolution.DAY)
 	private LocalDate perFechaNacimiento;
 
 	@Size(max = 100)
 	@Column(name = "per_email")
 	private String perEmail;
 
-	@JoinColumn(name = "per_etnia_fk", referencedColumnName = "etn_pk")
-	@ManyToOne
-	private SgEtnia perEtnia;
+	@Column(name = "per_etnia_fk")
+	private Long perEtnia;
 
-	@JoinColumn(name = "per_estado_civil_fk", referencedColumnName = "eci_pk")
-	@ManyToOne
-	private SgEstadoCivil perEstadoCivil;
+	@Column(name = "per_estado_civil_fk")
+	private Long perEstadoCivil;
 
-	@JoinColumn(name = "per_sexo_fk", referencedColumnName = "sex_pk")
-	@ManyToOne
-	@IndexedEmbedded(includeEmbeddedObjectId = true)
-	private SgSexo perSexo;
+	@Column(name = "per_sexo_fk")
+	private Long perSexo;
 
-	/*
-	 * @JoinColumn(name = "per_tipo_sangre_fk", referencedColumnName = "tsa_pk")
-	 * 
-	 * @ManyToOne private SgTipoSangre perTipoSangre;
-	 */
+	@Column(name = "per_tipo_sangre_fk")
+	private Long perTipoSangre;
 
 	@Column(name = "per_cantidad_hijos")
 	private Integer perCantidadHijos;
@@ -191,47 +137,25 @@ public class SgPersona implements Serializable {
 	@Version
 	private Integer perVersion;
 
-	@JoinColumn(name = "per_direccion_fk")
-	@OneToOne(cascade = CascadeType.ALL)
-	private SgDireccion perDireccion;
-
-	@OneToOne(mappedBy = "estPersona")
-	private SgEstudiante perEstudiante; // TODO: ver de borrar esta relacion o hacer lazy para que el merge no la
-										// levante en memoria. Para que sea lazy no puede ser mappedBy.
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "telPersona", orphanRemoval = true)
-	private List<SgTelefono> perTelefonos;
-
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "idePersona", orphanRemoval
-	 * = true) private List<SgIdentificacion> perIdentificaciones;
-	 */
+	@Column(name = "per_direccion_fk")
+	private Integer perDireccion;
 
 	@Column(name = "per_dui", length = 20)
 	@Size(max = 20)
-	@Fields({ @Field(name = "perDui", index = Index.YES, analyze = Analyze.NO, store = Store.NO),
-			@Field(name = "perDuiSort", index = Index.NO, analyze = Analyze.NO, store = Store.NO) })
-	@SortableField(forField = "perDuiSort")
 	private String perDui;
 
 	@Column(name = "per_cun")
-	@Field(name = "perCun", index = Index.YES, analyze = Analyze.NO, store = Store.NO)
 	private Long perCun;
 
 	@Column(name = "per_nie")
-	@Fields({ @Field(name = "perNie", index = Index.YES, analyze = Analyze.NO, store = Store.NO),
-			@Field(name = "perNieSort", index = Index.NO, analyze = Analyze.NO, store = Store.NO) })
-	@SortableField(forField = "perNieSort")
 	private Long perNie;
 
 	@Column(name = "per_nip", length = 50)
 	@Size(max = 50)
-	@Field(name = "perNip", index = Index.YES, analyze = Analyze.NO, store = Store.NO)
 	private String perNip;
 
 	@Column(name = "per_nit", length = 20)
 	@Size(max = 20)
-	@Field(name = "perNit", index = Index.YES, analyze = Analyze.NO, store = Store.NO)
 	private String perNit;
 
 	@Column(name = "per_inpep")
@@ -264,64 +188,35 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_partida_nacimiento_presenta")
 	private Boolean perPartidaNacimientoPresenta;
 
-	@JoinColumn(name = "per_partida_departamento_fk")
-	@ManyToOne
-	private SgDepartamento perPartidaDepartamento;
+	@Column(name = "per_partida_departamento_fk")
+	private Long perPartidaDepartamento;
 
-	@JoinColumn(name = "per_partida_municipio_fk")
-	@ManyToOne
-	private SgMunicipio perPartidaMunicipio;
+	@Column(name = "per_partida_municipio_fk")
+	private Long perPartidaMunicipio;
 
-	@JoinColumn(name = "per_departamento_nacimiento_fk")
-	@ManyToOne
-	@IndexedEmbedded(includeEmbeddedObjectId = true)
-	private SgDepartamento perDepartamentoNacimento;
+	@Column(name = "per_departamento_nacimiento_fk")
+	private Long perDepartamentoNacimento;
 
-	@JoinColumn(name = "per_municipio_nacimiento_fk")
-	@ManyToOne
-	@IndexedEmbedded(includeEmbeddedObjectId = true)
-	private SgMunicipio perMunicipioNacimiento;
+	@Column(name = "per_municipio_nacimiento_fk")
+	private Long perMunicipioNacimiento;
 
-	/*
-	 * @JoinColumn(name = "per_foto_fk")
-	 * 
-	 * @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) private SgArchivo
-	 * perFoto;
-	 * 
-	 * @JoinColumn(name = "per_partida_nacimiento_archivo")
-	 * 
-	 * @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) private SgArchivo
-	 * perPartidaNacimientoArchivo;
-	 */
+	@Column(name = "per_foto_fk")
+	private Long perFoto;
 
-	@JoinColumn(name = "per_nacionalidad_fk", referencedColumnName = "nac_pk")
-	@ManyToOne
-	private SgNacionalidad perNacionalidad;
+	@Column(name = "per_partida_nacimiento_archivo")
+	private Long perPartidaNacimientoArchivo;
 
-	@Fetch(FetchMode.SUBSELECT)
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_discapacidades", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "dis_pk"))
-	private List<SgDiscapacidad> perDiscapacidades;
+	@Column(name = "per_nacionalidad_fk")
+	private Long perNacionalidad;
 
-	@Fetch(FetchMode.SUBSELECT)
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_trastornos_aprendizaje", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "tra_pk"))
-	private List<SgTrastornoAprendizaje> perTrastornosAprendizaje;
+	@Column(name = "per_profesion_fk")
+	private Long perProfesion;
 
-	@OneToMany(mappedBy = "allPersonaReferenciada")
-	private List<SgAllegado> perAllegados;
+	@Column(name = "per_ocupacion_fk")
+	private Long perOcupacion;
 
-	@ManyToOne
-	@JoinColumn(name = "per_profesion_fk")
-	private SgProfesion perProfesion;
-
-	@JoinColumn(name = "per_ocupacion_fk")
-	@ManyToOne
-	private SgOcupacion perOcupacion;
-
-	@ManyToOne
-	@JoinColumn(name = "per_escolaridad_fk")
-	private SgEscolaridadEstudiante perEscolaridad;
+	@Column(name = "per_escolaridad_fk")
+	private Long perEscolaridad;
 
 	@Column(name = "per_lugar_trabajo", length = 255)
 	private String perLugarTrabajo;
@@ -329,9 +224,8 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_trabaja")
 	private Boolean perTrabaja;
 
-	@JoinColumn(name = "per_tipo_trabajo_fk", referencedColumnName = "ttr_pk")
-	@ManyToOne
-	private SgTipoTrabajo perTipoTrabajo;
+	@Column(name = "per_tipo_trabajo_fk")
+	private Long perTipoTrabajo;
 
 	@Column(name = "per_embarazo")
 	private Boolean perEmbarazo;
@@ -373,18 +267,17 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_lucene_index_updated")
 	private Boolean perLuceneIndexUpdated;
 
-	@Transient
-	private SgAllegado perResponsable;
-
 	@Column(name = "per_usuario_pk", updatable = false, insertable = false) // Generado por trigger
 	private Long perUsuarioPk;
 
 	@Column(name = "per_estado")
-	@Enumerated(value = EnumType.STRING)
-	private Long perEstado;
+	private String perEstado;
 
 	@Column(name = "per_fecha_fallecimiento")
 	private LocalDate perFechaFallecimiento;
+
+	@Column(name = "per_motivo_fallecimiento_fk")
+	private Long perMotivoFallecimiento;
 
 	@Column(name = "per_retornada")
 	private Boolean perRetornada;
@@ -419,28 +312,10 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_partida_nac_pendiente_validacion_rnpn")
 	private Boolean perPartidaNacPendienteValidacionRNPN;
 
-	@Fetch(FetchMode.SUBSELECT)
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_terapias", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "ter_pk"))
-	private List<SgTerapia> perTerapias;
-
-	@Fetch(FetchMode.SUBSELECT)
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_referencias_apoyo", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "rea_pk"))
-	private List<SgReferenciasApoyo> perReferenciasApoyo;
-
-	@JoinColumn(name = "per_pk", insertable = false, updatable = false)
-	@LazyToOne(LazyToOneOption.NO_PROXY)
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	private SgDatosResidencialesPersona perDatosResidenciales;
-
-	@Transient
-	private Boolean perNoValidarDiagnostico;
-
 	public SgPersona() {
 		this.perDuiValidadoRNPN = Boolean.FALSE;
 		this.perHabilitado = Boolean.TRUE;
-		this.perDireccion = new SgDireccion();
+		this.perDireccion = 1;
 		this.perPartidaNacimientoPresenta = Boolean.FALSE;
 		this.perNaturalizada = Boolean.FALSE;
 		this.perTrabaja = Boolean.FALSE;
@@ -451,9 +326,7 @@ public class SgPersona implements Serializable {
 		this.perAccesoInternet = Boolean.FALSE;
 		this.perRecibeRemesas = Boolean.FALSE;
 		this.perTieneIdentificacion = Boolean.FALSE;
-		// this.perEstado = EnumEstadoPersona.VIVE;
 		this.perRetornada = Boolean.FALSE;
-		// this.perIdentificaciones = new ArrayList<>();
 	}
 
 	public SgPersona(Long perPk) {
@@ -463,40 +336,6 @@ public class SgPersona implements Serializable {
 	public SgPersona(Long perPk, Integer perVersion) {
 		this.perPk = perPk;
 		this.perVersion = perVersion;
-	}
-
-	@JsonIgnore
-	public Boolean getPerEsMayorDeEdad() {
-		if (this.perFechaNacimiento != null) {
-			if (Period.between(perFechaNacimiento, LocalDate.now()).getYears() >= 18) {
-				return Boolean.TRUE;
-			}
-		}
-		return Boolean.FALSE;
-	}
-
-	@JsonIgnore
-	public String getPerNombreCompleto() {
-		StringBuilder s = new StringBuilder();
-		if (this.perPrimerNombre != null) {
-			s.append(this.perPrimerNombre).append(" ");
-		}
-		if (this.perSegundoNombre != null) {
-			s.append(this.perSegundoNombre).append(" ");
-		}
-		if (this.perTercerNombre != null) {
-			s.append(this.perTercerNombre).append(" ");
-		}
-		if (this.perPrimerApellido != null) {
-			s.append(this.perPrimerApellido).append(" ");
-		}
-		if (this.perSegundoApellido != null) {
-			s.append(this.perSegundoApellido).append(" ");
-		}
-		if (this.perTercerApellido != null) {
-			s.append(this.perTercerApellido).append(" ");
-		}
-		return s.toString();
 	}
 
 	public Long getPerPk() {
@@ -571,28 +410,36 @@ public class SgPersona implements Serializable {
 		this.perEmail = perEmail;
 	}
 
-	public SgEtnia getPerEtnia() {
+	public Long getPerEtnia() {
 		return perEtnia;
 	}
 
-	public void setPerEtnia(SgEtnia perEtnia) {
+	public void setPerEtnia(Long perEtnia) {
 		this.perEtnia = perEtnia;
 	}
 
-	public SgEstadoCivil getPerEstadoCivil() {
+	public Long getPerEstadoCivil() {
 		return perEstadoCivil;
 	}
 
-	public void setPerEstadoCivil(SgEstadoCivil perEstadoCivil) {
+	public void setPerEstadoCivil(Long perEstadoCivil) {
 		this.perEstadoCivil = perEstadoCivil;
 	}
 
-	public SgSexo getPerSexo() {
+	public Long getPerSexo() {
 		return perSexo;
 	}
 
-	public void setPerSexo(SgSexo perSexo) {
+	public void setPerSexo(Long perSexo) {
 		this.perSexo = perSexo;
+	}
+
+	public Long getPerTipoSangre() {
+		return perTipoSangre;
+	}
+
+	public void setPerTipoSangre(Long perTipoSangre) {
+		this.perTipoSangre = perTipoSangre;
 	}
 
 	public Integer getPerCantidadHijos() {
@@ -635,11 +482,11 @@ public class SgPersona implements Serializable {
 		this.perVersion = perVersion;
 	}
 
-	public SgDireccion getPerDireccion() {
+	public Integer getPerDireccion() {
 		return perDireccion;
 	}
 
-	public void setPerDireccion(SgDireccion perDireccion) {
+	public void setPerDireccion(Integer perDireccion) {
 		this.perDireccion = perDireccion;
 	}
 
@@ -699,30 +546,6 @@ public class SgPersona implements Serializable {
 		this.perNombreBusqueda = perNombreBusqueda;
 	}
 
-	public SgEstudiante getPerEstudiante() {
-		return perEstudiante;
-	}
-
-	public void setPerEstudiante(SgEstudiante perEstudiante) {
-		this.perEstudiante = perEstudiante;
-	}
-
-	public List<SgTelefono> getPerTelefonos() {
-		return perTelefonos;
-	}
-
-	public void setPerTelefonos(List<SgTelefono> perTelefonos) {
-		this.perTelefonos = perTelefonos;
-	}
-
-	/*
-	 * public List<SgIdentificacion> getPerIdentificaciones() { return
-	 * perIdentificaciones; }
-	 * 
-	 * public void setPerIdentificaciones(List<SgIdentificacion>
-	 * perIdentificaciones) { this.perIdentificaciones = perIdentificaciones; }
-	 */
-
 	public String getPerDui() {
 		return perDui;
 	}
@@ -779,19 +602,19 @@ public class SgPersona implements Serializable {
 		this.perPartidaNacimientoLibro = perPartidaNacimientoLibro;
 	}
 
-	public SgDepartamento getPerDepartamentoNacimento() {
+	public Long getPerDepartamentoNacimento() {
 		return perDepartamentoNacimento;
 	}
 
-	public void setPerDepartamentoNacimento(SgDepartamento perDepartamentoNacimento) {
+	public void setPerDepartamentoNacimento(Long perDepartamentoNacimento) {
 		this.perDepartamentoNacimento = perDepartamentoNacimento;
 	}
 
-	public SgMunicipio getPerMunicipioNacimiento() {
+	public Long getPerMunicipioNacimiento() {
 		return perMunicipioNacimiento;
 	}
 
-	public void setPerMunicipioNacimiento(SgMunicipio perMunicipioNacimiento) {
+	public void setPerMunicipioNacimiento(Long perMunicipioNacimiento) {
 		this.perMunicipioNacimiento = perMunicipioNacimiento;
 	}
 
@@ -803,49 +626,35 @@ public class SgPersona implements Serializable {
 		this.perPartidaNacimientoPresenta = perPartidaNacimientoPresenta;
 	}
 
-	/*
-	 * public SgArchivo getPerFoto() { return perFoto; }
-	 * 
-	 * public void setPerFoto(SgArchivo perFoto) { this.perFoto = perFoto; }
-	 */
+	public Long getPerFoto() {
+		return perFoto;
+	}
 
-	public SgNacionalidad getPerNacionalidad() {
+	public void setPerFoto(Long perFoto) {
+		this.perFoto = perFoto;
+	}
+
+	public Long getPerNacionalidad() {
 		return perNacionalidad;
 	}
 
-	public void setPerNacionalidad(SgNacionalidad perNacionalidad) {
+	public void setPerNacionalidad(Long perNacionalidad) {
 		this.perNacionalidad = perNacionalidad;
 	}
 
-	public List<SgDiscapacidad> getPerDiscapacidades() {
-		return perDiscapacidades;
-	}
-
-	public void setPerDiscapacidades(List<SgDiscapacidad> perDiscapacidades) {
-		this.perDiscapacidades = perDiscapacidades;
-	}
-
-	public List<SgAllegado> getPerAllegados() {
-		return perAllegados;
-	}
-
-	public void setPerAllegados(List<SgAllegado> perAllegados) {
-		this.perAllegados = perAllegados;
-	}
-
-	public SgProfesion getPerProfesion() {
+	public Long getPerProfesion() {
 		return perProfesion;
 	}
 
-	public void setPerProfesion(SgProfesion perProfesion) {
+	public void setPerProfesion(Long perProfesion) {
 		this.perProfesion = perProfesion;
 	}
 
-	public SgEscolaridadEstudiante getPerEscolaridad() {
+	public Long getPerEscolaridad() {
 		return perEscolaridad;
 	}
 
-	public void setPerEscolaridad(SgEscolaridadEstudiante perEscolaridad) {
+	public void setPerEscolaridad(Long perEscolaridad) {
 		this.perEscolaridad = perEscolaridad;
 	}
 
@@ -889,11 +698,11 @@ public class SgPersona implements Serializable {
 		this.perNup = perNup;
 	}
 
-	public SgOcupacion getPerOcupacion() {
+	public Long getPerOcupacion() {
 		return perOcupacion;
 	}
 
-	public void setPerOcupacion(SgOcupacion perOcupacion) {
+	public void setPerOcupacion(Long perOcupacion) {
 		this.perOcupacion = perOcupacion;
 	}
 
@@ -977,11 +786,11 @@ public class SgPersona implements Serializable {
 		this.perTrabaja = perTrabaja;
 	}
 
-	public SgTipoTrabajo getPerTipoTrabajo() {
+	public Long getPerTipoTrabajo() {
 		return perTipoTrabajo;
 	}
 
-	public void setPerTipoTrabajo(SgTipoTrabajo perTipoTrabajo) {
+	public void setPerTipoTrabajo(Long perTipoTrabajo) {
 		this.perTipoTrabajo = perTipoTrabajo;
 	}
 
@@ -1001,14 +810,6 @@ public class SgPersona implements Serializable {
 		this.perNombrePartidaNacimiento = perNombrePartidaNacimiento;
 	}
 
-	public SgAllegado getPerResponsable() {
-		return perResponsable;
-	}
-
-	public void setPerResponsable(SgAllegado perResponsable) {
-		this.perResponsable = perResponsable;
-	}
-
 	public String getPerPartidaNacimientoComplemento() {
 		return perPartidaNacimientoComplemento;
 	}
@@ -1025,28 +826,27 @@ public class SgPersona implements Serializable {
 		this.perPartidaNacimientoAnio = perPartidaNacimientoAnio;
 	}
 
-	/*
-	 * public SgArchivo getPerPartidaNacimientoArchivo() { return
-	 * perPartidaNacimientoArchivo; }
-	 * 
-	 * public void setPerPartidaNacimientoArchivo(SgArchivo
-	 * perPartidaNacimientoArchivo) { this.perPartidaNacimientoArchivo =
-	 * perPartidaNacimientoArchivo; }
-	 */
+	public Long getPerPartidaNacimientoArchivo() {
+		return perPartidaNacimientoArchivo;
+	}
 
-	public SgDepartamento getPerPartidaDepartamento() {
+	public void setPerPartidaNacimientoArchivo(Long perPartidaNacimientoArchivo) {
+		this.perPartidaNacimientoArchivo = perPartidaNacimientoArchivo;
+	}
+
+	public Long getPerPartidaDepartamento() {
 		return perPartidaDepartamento;
 	}
 
-	public void setPerPartidaDepartamento(SgDepartamento perPartidaDepartamento) {
+	public void setPerPartidaDepartamento(Long perPartidaDepartamento) {
 		this.perPartidaDepartamento = perPartidaDepartamento;
 	}
 
-	public SgMunicipio getPerPartidaMunicipio() {
+	public Long getPerPartidaMunicipio() {
 		return perPartidaMunicipio;
 	}
 
-	public void setPerPartidaMunicipio(SgMunicipio perPartidaMunicipio) {
+	public void setPerPartidaMunicipio(Long perPartidaMunicipio) {
 		this.perPartidaMunicipio = perPartidaMunicipio;
 	}
 
@@ -1074,12 +874,13 @@ public class SgPersona implements Serializable {
 		this.perUsuarioPk = perUsuarioPk;
 	}
 
-	/*
-	 * public EnumEstadoPersona getPerEstado() { return perEstado; }
-	 * 
-	 * public void setPerEstado(EnumEstadoPersona perEstado) { this.perEstado =
-	 * perEstado; }
-	 */
+	public String getPerEstado() {
+		return perEstado;
+	}
+
+	public void setPerEstado(String perEstado) {
+		this.perEstado = perEstado;
+	}
 
 	public LocalDate getPerFechaFallecimiento() {
 		return perFechaFallecimiento;
@@ -1089,20 +890,20 @@ public class SgPersona implements Serializable {
 		this.perFechaFallecimiento = perFechaFallecimiento;
 	}
 
+	public Long getPerMotivoFallecimiento() {
+		return perMotivoFallecimiento;
+	}
+
+	public void setPerMotivoFallecimiento(Long perMotivoFallecimiento) {
+		this.perMotivoFallecimiento = perMotivoFallecimiento;
+	}
+
 	public Boolean getPerRetornada() {
 		return perRetornada;
 	}
 
 	public void setPerRetornada(Boolean perRetornada) {
 		this.perRetornada = perRetornada;
-	}
-
-	public List<SgTrastornoAprendizaje> getPerTrastornosAprendizaje() {
-		return perTrastornosAprendizaje;
-	}
-
-	public void setPerTrastornosAprendizaje(List<SgTrastornoAprendizaje> perTrastornosAprendizaje) {
-		this.perTrastornosAprendizaje = perTrastornosAprendizaje;
 	}
 
 	public Integer getPerViveConCantidad() {
@@ -1135,22 +936,6 @@ public class SgPersona implements Serializable {
 
 	public void setPerTieneDiagnostico(Boolean perTieneDiagnostico) {
 		this.perTieneDiagnostico = perTieneDiagnostico;
-	}
-
-	public List<SgTerapia> getPerTerapias() {
-		return perTerapias;
-	}
-
-	public void setPerTerapias(List<SgTerapia> perTerapias) {
-		this.perTerapias = perTerapias;
-	}
-
-	public List<SgReferenciasApoyo> getPerReferenciasApoyo() {
-		return perReferenciasApoyo;
-	}
-
-	public void setPerReferenciasApoyo(List<SgReferenciasApoyo> perReferenciasApoyo) {
-		this.perReferenciasApoyo = perReferenciasApoyo;
 	}
 
 	public Boolean getPerDuiValidadoRNPN() {
@@ -1209,22 +994,6 @@ public class SgPersona implements Serializable {
 		this.perTieneTrastornoAprendizaje = perTieneTrastornoAprendizaje;
 	}
 
-	public SgDatosResidencialesPersona getPerDatosResidenciales() {
-		return perDatosResidenciales;
-	}
-
-	public void setPerDatosResidenciales(SgDatosResidencialesPersona perDatosResidenciales) {
-		this.perDatosResidenciales = perDatosResidenciales;
-	}
-
-	public Boolean getPerNoValidarDiagnostico() {
-		return perNoValidarDiagnostico;
-	}
-
-	public void setPerNoValidarDiagnostico(Boolean perNoValidarDiagnostico) {
-		this.perNoValidarDiagnostico = perNoValidarDiagnostico;
-	}
-
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -1261,10 +1030,9 @@ public class SgPersona implements Serializable {
 				+ perSegundoApellidoBusqueda + ", perTercerApellidoBusqueda=" + perTercerApellidoBusqueda
 				+ ", perNombreBusqueda=" + perNombreBusqueda + ", perFechaNacimiento=" + perFechaNacimiento
 				+ ", perEmail=" + perEmail + ", perEtnia=" + perEtnia + ", perEstadoCivil=" + perEstadoCivil
-				+ ", perSexo=" + perSexo + ", perCantidadHijos=" + perCantidadHijos
+				+ ", perSexo=" + perSexo + ", perTipoSangre=" + perTipoSangre + ", perCantidadHijos=" + perCantidadHijos
 				+ ", perHabilitado=" + perHabilitado + ", perUltModFecha=" + perUltModFecha + ", perUltModUsuario="
-				+ perUltModUsuario + ", perVersion=" + perVersion + ", perDireccion=" + perDireccion + ", perTelefonos="
-				+ perTelefonos + ", perDui=" + perDui + ", perCun="
+				+ perUltModUsuario + ", perVersion=" + perVersion + ", perDireccion=" + perDireccion  + ", perDui=" + perDui + ", perCun="
 				+ perCun + ", perNie=" + perNie + ", perNip=" + perNip + ", perNit=" + perNit + ", perInpep=" + perInpep
 				+ ", perIsss=" + perIsss + ", perNup=" + perNup + ", perNaturalizada=" + perNaturalizada
 				+ ", perPartidaNacimiento=" + perPartidaNacimiento + ", perPartidaNacimientoAnio="
@@ -1273,16 +1041,15 @@ public class SgPersona implements Serializable {
 				+ perPartidaNacimientoComplemento + ", perPartidaNacimientoPresenta=" + perPartidaNacimientoPresenta
 				+ ", perPartidaDepartamento=" + perPartidaDepartamento + ", perPartidaMunicipio=" + perPartidaMunicipio
 				+ ", perDepartamentoNacimento=" + perDepartamentoNacimento + ", perMunicipioNacimiento="
-				+ perMunicipioNacimiento + ",  perNacionalidad=" + perNacionalidad + ", perDiscapacidades="
-				+ perDiscapacidades + ", perAllegados=" + perAllegados + ", perProfesion=" + perProfesion
+				+ perMunicipioNacimiento + ", perFoto=" + perFoto + ", perPartidaNacimientoArchivo="
+				+ perPartidaNacimientoArchivo + ", perNacionalidad=" + perNacionalidad +  ", perProfesion=" + perProfesion
 				+ ", perOcupacion=" + perOcupacion + ", perEscolaridad=" + perEscolaridad + ", perLugarTrabajo="
 				+ perLugarTrabajo + ", perTrabaja=" + perTrabaja + ", perTipoTrabajo=" + perTipoTrabajo
 				+ ", perEmbarazo=" + perEmbarazo + ", perFechaParto=" + perFechaParto + ", perJornadaLaboral="
 				+ perJornadaLaboral + ", perSalario=" + perSalario + ", perPropiedadVivienda=" + perPropiedadVivienda
 				+ ", perServiciosBasicos=" + perServiciosBasicos + ", perAccesoInternet=" + perAccesoInternet
 				+ ", perRecibeRemesas=" + perRecibeRemesas + ", perFamiliaresEmigrados=" + perFamiliaresEmigrados
-				+ ", perNombrePartidaNacimiento=" + perNombrePartidaNacimiento + ", perResponsable=" + perResponsable
+				+ ", perNombrePartidaNacimiento=" + perNombrePartidaNacimiento
 				+ '}';
 	}
-
 }

@@ -27,7 +27,10 @@ public class SgMatricula implements Serializable {
     @Basic(optional = false)
     @Column(name = "mat_pk")
     private Long matPk;
-
+    
+    @Column(name = "mat_seccion_fk")
+    private Integer matSeccion;
+    
     @Size(max = 50)
     @Column(name = "mat_estado", length = 50)
     private String matEstado;
@@ -47,7 +50,12 @@ public class SgMatricula implements Serializable {
     public Long getMatPk() {
         return matPk;
     }
-
+    public void setMatSeccion(Integer seccion) {
+    	this.matSeccion=seccion;
+    }
+    public Integer getMatSeccion() {
+    	return matSeccion;
+    }
     public void setMatPk(Long disPk) {
         this.matPk = disPk;
     }

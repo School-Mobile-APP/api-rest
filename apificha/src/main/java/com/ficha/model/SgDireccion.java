@@ -29,237 +29,218 @@ import javax.validation.constraints.Size;
 @Table(name = "sg_direcciones")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dirPk", scope = SgDireccion.class)
 public class SgDireccion implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "dir_pk", nullable = false)
+	private Long dirPk;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "dir_pk", nullable = false)
-    private Long dirPk;
-    
-    @Size(max = 500)
-    @Column(name = "dir_direccion", length = 500)
-    private String dirDireccion;
-    
-    @JoinColumn(name = "dir_departamento")
-    @ManyToOne(optional = false)
-    private SgDepartamento dirDepartamento;
-    
-    @JoinColumn(name = "dir_municipio")
-    @ManyToOne
-    private SgMunicipio dirMunicipio;
+	@Size(max = 500)
+	@Column(name = "dir_direccion", length = 500)
+	private String dirDireccion;
 
-    @JoinColumn(name = "dir_canton")
-    @ManyToOne
-    private SgCanton dirCanton;
+	@Column(name = "dir_departamento")
+	private Long dirDepartamento;
 
-    @JoinColumn(name = "dir_caserio")
-    @ManyToOne    
-    private SgCaserio dirCaserio;
-    
-    @Column(name="dir_caserio_texto")
-    private String dirCaserioTexto;
-	/*
-	 * @JoinColumn(name = "dir_tipo_calle_fk")
-	 * 
-	 * @ManyToOne private SgTipoCalle dirTipoCalle;
-	 */
-    @JoinColumn(name = "dir_zona")
-    @ManyToOne
-    private SgZona dirZona;
-    
-    @Column(name = "dir_latitud")
-    private Double dirLatitud;    
-    
-    @Column(name = "dir_longitud")
-    private Double dirLongitud;     
-        
-    @Column(name = "dir_ult_mod_fecha")
-    private LocalDateTime dirUltModFecha;  
-    
-    @Size(max = 45)
-    @Column(name = "dir_ult_mod_usuario", length = 45)
-    private String dirUltModUsuario;
-        
-    @Column(name = "dir_version")
-    @Version
-    private Integer dirVersion;
-      
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sedDireccion")
-    private List<SgSede> dirSede;
- 
-  
-    public SgDireccion() {
-    }
-    
-    public SgDireccion clonenew(){
-        SgDireccion dir = new SgDireccion();
-        dir.setDirDepartamento(dirDepartamento);
-        dir.setDirMunicipio(dirMunicipio);
-        dir.setDirCanton(dirCanton);
-        dir.setDirCaserio(dirCaserio);
-        dir.setDirCaserioTexto(dirCaserioTexto);
-        dir.setDirDireccion(dirDireccion);
-        dir.setDirLatitud(dirLatitud);
-        dir.setDirLongitud(dirLongitud);
-        // dir.setDirTipoCalle(dirTipoCalle);
-        dir.setDirZona(dirZona);
-        return dir;
-    }
+	@Column(name = "dir_municipio")
+	private Long dirMunicipio;
 
-    public Long getDirPk() {
-        return dirPk;
-    }
+	@Column(name = "dir_canton")
+	private Long dirCanton;
 
-    public void setDirPk(Long dirPk) {
-        this.dirPk = dirPk;
-    }
+	@Column(name = "dir_caserio")
+	private Long dirCaserio;
 
-    public String getDirDireccion() {
-        return dirDireccion;
-    }
+	@Column(name = "dir_caserio_texto")
+	private String dirCaserioTexto;
 
-    public void setDirDireccion(String dirDireccion) {
-        this.dirDireccion = dirDireccion;
-    }
+	@Column(name = "dir_tipo_calle_fk")
+	private Long dirTipoCalle;
 
-    public SgDepartamento getDirDepartamento() {
-        return dirDepartamento;
-    }
+	@Column(name = "dir_zona")
+	private Long dirZona;
 
-    public void setDirDepartamento(SgDepartamento dirDepartamento) {
-        this.dirDepartamento = dirDepartamento;
-    }
+	@Column(name = "dir_latitud")
+	private Double dirLatitud;
 
-    public SgMunicipio getDirMunicipio() {
-        return dirMunicipio;
-    }
+	@Column(name = "dir_longitud")
+	private Double dirLongitud;
 
-    public void setDirMunicipio(SgMunicipio dirMunicipio) {
-        this.dirMunicipio = dirMunicipio;
-    }
+	@Column(name = "dir_ult_mod_fecha")
+	private LocalDateTime dirUltModFecha;
 
-    public SgCanton getDirCanton() {
-        return dirCanton;
-    }
+	@Size(max = 45)
+	@Column(name = "dir_ult_mod_usuario", length = 45)
+	private String dirUltModUsuario;
 
-    public void setDirCanton(SgCanton dirCanton) {
-        this.dirCanton = dirCanton;
-    }
+	@Column(name = "dir_version")
+	@Version
+	private Integer dirVersion;
 
-    public SgCaserio getDirCaserio() {
-        return dirCaserio;
-    }
+	public SgDireccion() {
+	}
 
-    public void setDirCaserio(SgCaserio dirCaserio) {
-        this.dirCaserio = dirCaserio;
-    }
+	public SgDireccion clonenew() {
+		SgDireccion dir = new SgDireccion();
+		dir.setDirDepartamento(dirDepartamento);
+		dir.setDirMunicipio(dirMunicipio);
+		dir.setDirCanton(dirCanton);
+		dir.setDirCaserio(dirCaserio);
+		dir.setDirCaserioTexto(dirCaserioTexto);
+		dir.setDirDireccion(dirDireccion);
+		dir.setDirLatitud(dirLatitud);
+		dir.setDirLongitud(dirLongitud);
+		// dir.setDirTipoCalle(dirTipoCalle);
+		dir.setDirZona(dirZona);
+		return dir;
+	}
 
-    public SgZona getDirZona() {
-        return dirZona;
-    }
+	public Long getDirPk() {
+		return dirPk;
+	}
 
-    public void setDirZona(SgZona dirZona) {
-        this.dirZona = dirZona;
-    }
+	public void setDirPk(Long dirPk) {
+		this.dirPk = dirPk;
+	}
 
-    
-    public Double getDirLatitud() {
-        return dirLatitud;
-    }
+	public String getDirDireccion() {
+		return dirDireccion;
+	}
 
-    public void setDirLatitud(Double dirLatitud) {
-        this.dirLatitud = dirLatitud;
-    }
+	public void setDirDireccion(String dirDireccion) {
+		this.dirDireccion = dirDireccion;
+	}
 
-    public Double getDirLongitud() {
-        return dirLongitud;
-    }
+	public Long getDirDepartamento() {
+		return dirDepartamento;
+	}
 
-    public void setDirLongitud(Double dirLongitud) {
-        this.dirLongitud = dirLongitud;
-    }
+	public void setDirDepartamento(Long dirDepartamento) {
+		this.dirDepartamento = dirDepartamento;
+	}
 
-    public LocalDateTime getDirUltModFecha() {
-        return dirUltModFecha;
-    }
+	public Long getDirMunicipio() {
+		return dirMunicipio;
+	}
 
-    public void setDirUltModFecha(LocalDateTime dirUltModFecha) {
-        this.dirUltModFecha = dirUltModFecha;
-    }
+	public void setDirMunicipio(Long dirMunicipio) {
+		this.dirMunicipio = dirMunicipio;
+	}
 
-    public String getDirUltModUsuario() {
-        return dirUltModUsuario;
-    }
+	public Long getDirCanton() {
+		return dirCanton;
+	}
 
-    public void setDirUltModUsuario(String dirUltModUsuario) {
-        this.dirUltModUsuario = dirUltModUsuario;
-    }
+	public void setDirCanton(Long dirCanton) {
+		this.dirCanton = dirCanton;
+	}
 
-    public Integer getDirVersion() {
-        return dirVersion;
-    }
+	public Long getDirCaserio() {
+		return dirCaserio;
+	}
 
-    public void setDirVersion(Integer dirVersion) {
-        this.dirVersion = dirVersion;
-    }
+	public void setDirCaserio(Long dirCaserio) {
+		this.dirCaserio = dirCaserio;
+	}
 
+	public Long getDirZona() {
+		return dirZona;
+	}
 
-    public String getDirCaserioTexto() {
-        return dirCaserioTexto;
-    }
+	public void setDirZona(Long dirZona) {
+		this.dirZona = dirZona;
+	}
 
-    public void setDirCaserioTexto(String dirCaserioTexto) {
-        this.dirCaserioTexto = dirCaserioTexto;
-    }
+	public Double getDirLatitud() {
+		return dirLatitud;
+	}
 
-	/*
-	 * public SgTipoCalle getDirTipoCalle() { return dirTipoCalle; }
-	 * 
-	 * public void setDirTipoCalle(SgTipoCalle dirTipoCalle) { this.dirTipoCalle =
-	 * dirTipoCalle; }
-	 */
+	public void setDirLatitud(Double dirLatitud) {
+		this.dirLatitud = dirLatitud;
+	}
 
-    public List<SgSede> getDirSede() {
-        return dirSede;
-    }
+	public Double getDirLongitud() {
+		return dirLongitud;
+	}
 
-    public void setDirSede(List<SgSede> dirSede) {
-        this.dirSede = dirSede;
-    }
-     
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.dirPk);
-        return hash;
-    }
+	public void setDirLongitud(Double dirLongitud) {
+		this.dirLongitud = dirLongitud;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgDireccion other = (SgDireccion) obj;
-        if (!Objects.equals(this.dirPk, other.dirPk)) {
-            return false;
-        }
-        return true;
-    }
+	public LocalDateTime getDirUltModFecha() {
+		return dirUltModFecha;
+	}
 
-    @Override
-    public String toString() {
-        return "SgDireccion{" + "dirPk=" + dirPk + ", dirDireccion=" + dirDireccion + ", dirDepartamento=" + dirDepartamento + ", dirMunicipio=" + dirMunicipio + ", dirCanton=" + dirCanton + ", dirCaserio=" + dirCaserio + ", dirZona=" + dirZona + ", dirLatitud=" + dirLatitud + ", dirLongitud=" + dirLongitud  + ", dirUltModFecha=" + dirUltModFecha + ", dirUltModUsuario=" + dirUltModUsuario + ", dirVersion=" + dirVersion + '}';
-    }
+	public void setDirUltModFecha(LocalDateTime dirUltModFecha) {
+		this.dirUltModFecha = dirUltModFecha;
+	}
 
-    
-  
+	public String getDirUltModUsuario() {
+		return dirUltModUsuario;
+	}
+
+	public void setDirUltModUsuario(String dirUltModUsuario) {
+		this.dirUltModUsuario = dirUltModUsuario;
+	}
+
+	public Integer getDirVersion() {
+		return dirVersion;
+	}
+
+	public void setDirVersion(Integer dirVersion) {
+		this.dirVersion = dirVersion;
+	}
+
+	public String getDirCaserioTexto() {
+		return dirCaserioTexto;
+	}
+
+	public void setDirCaserioTexto(String dirCaserioTexto) {
+		this.dirCaserioTexto = dirCaserioTexto;
+	}
+
+	public Long getDirTipoCalle() {
+		return dirTipoCalle;
+	}
+
+	public void setDirTipoCalle(Long dirTipoCalle) {
+		this.dirTipoCalle = dirTipoCalle;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 11 * hash + Objects.hashCode(this.dirPk);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final SgDireccion other = (SgDireccion) obj;
+		if (!Objects.equals(this.dirPk, other.dirPk)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "SgDireccion{" + "dirPk=" + dirPk + ", dirDireccion=" + dirDireccion + ", dirDepartamento="
+				+ dirDepartamento + ", dirMunicipio=" + dirMunicipio + ", dirCanton=" + dirCanton + ", dirCaserio="
+				+ dirCaserio + ", dirZona=" + dirZona + ", dirLatitud=" + dirLatitud + ", dirLongitud=" + dirLongitud
+				+ ", dirUltModFecha=" + dirUltModFecha + ", dirUltModUsuario=" + dirUltModUsuario + ", dirVersion="
+				+ dirVersion + '}';
+	}
 
 }

@@ -30,15 +30,15 @@ public class SgSede implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sedPk", nullable = false)
+    @Column(name = "sed_pk", nullable = false)
     private Long sedPk;
 
     @Size(max = 4)
-    @Column(name = "sedCodigo", length = 4)
+    @Column(name = "sed_codigo", length = 4)
     private String sedCodigo;
 
     @Size(max = 255)
-    @Column(name = "sedNombre", length = 255)
+    @Column(name = "sed_nombre", length = 255)
     private String sedNombre;
     public SgSede() {
     }

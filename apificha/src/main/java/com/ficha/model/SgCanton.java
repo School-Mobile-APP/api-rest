@@ -34,13 +34,8 @@ public class SgCanton implements Serializable {
 	@Column(name = "can_pk", nullable = false)
 	private Long canPk;
 
-	@JoinColumn(name = "can_municipio_fk", referencedColumnName = "mun_pk")
-	@ManyToOne(optional = false)
-	private SgMunicipio canMunicipio;
-
-	@OneToMany(mappedBy = "casCanton")
-	@JsonIgnore
-	private List<SgCaserio> canCaserios;
+	@Column(name = "can_municipio_fk")
+	private Integer canMunicipio;
 
 	@Size(max = 6)
 	@Column(name = "can_codigo", length = 6)
@@ -79,20 +74,12 @@ public class SgCanton implements Serializable {
 		this.canPk = canPk;
 	}
 
-	public SgMunicipio getCanMunicipio() {
+	public Integer getCanMunicipio() {
 		return canMunicipio;
 	}
 
-	public void setCanMunicipio(SgMunicipio canMunicipio) {
+	public void setCanMunicipio(Integer canMunicipio) {
 		this.canMunicipio = canMunicipio;
-	}
-
-	public List<SgCaserio> getCanCaserios() {
-		return canCaserios;
-	}
-
-	public void setCanCaserios(List<SgCaserio> canCaserios) {
-		this.canCaserios = canCaserios;
 	}
 
 	public String getCanCodigo() {

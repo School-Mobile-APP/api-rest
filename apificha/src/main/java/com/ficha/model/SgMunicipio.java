@@ -33,13 +33,8 @@ public class SgMunicipio implements Serializable {
 	@Column(name = "mun_pk", nullable = false)
 	private Long munPk;
 
-	@JoinColumn(name = "mun_departamento_fk", referencedColumnName = "dep_pk")
-	@ManyToOne(optional = false)
-	private SgDepartamento munDepartamento;
-
-	@OneToMany(mappedBy = "canMunicipio")
-	@JsonIgnore
-	private List<SgCanton> munCantones;
+	@Column(name = "mun_departamento_fk")
+	private Integer munDepartamento;
 
 	@Size(max = 4)
 	@Column(name = "mun_codigo", length = 4)
@@ -78,11 +73,11 @@ public class SgMunicipio implements Serializable {
 		this.munPk = munPk;
 	}
 
-	public SgDepartamento getMunDepartamento() {
+	public Integer getMunDepartamento() {
 		return munDepartamento;
 	}
 
-	public void setMunDepartamento(SgDepartamento munDepartamento) {
+	public void setMunDepartamento(Integer munDepartamento) {
 		this.munDepartamento = munDepartamento;
 	}
 
@@ -140,14 +135,6 @@ public class SgMunicipio implements Serializable {
 
 	public void setMunVersion(Integer munVersion) {
 		this.munVersion = munVersion;
-	}
-
-	public List<SgCanton> getMunCantones() {
-		return munCantones;
-	}
-
-	public void setMunCantones(List<SgCanton> munCantones) {
-		this.munCantones = munCantones;
 	}
 
 	@Override

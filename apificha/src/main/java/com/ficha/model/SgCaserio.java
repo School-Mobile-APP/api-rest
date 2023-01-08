@@ -58,9 +58,8 @@ public class SgCaserio implements Serializable {
     @Version
     private Integer casVersion;
 
-    @JoinColumn(name = "cas_canton_fk", referencedColumnName = "can_pk")
-    @ManyToOne(optional = false)
-    private SgCanton casCanton;
+    @Column(name = "cas_canton_fk")
+    private Integer casCanton;
 
     public SgCaserio() {
     }
@@ -129,11 +128,11 @@ public class SgCaserio implements Serializable {
         this.casVersion = casVersion;
     }
 
-    public SgCanton getCasCanton() {
+    public Integer getCasCanton() {
         return casCanton;
     }
 
-    public void setCasCanton(SgCanton casCanton) {
+    public void setCasCanton(Integer casCanton) {
         this.casCanton = casCanton;
     }
 

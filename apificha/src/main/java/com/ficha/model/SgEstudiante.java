@@ -1,4 +1,5 @@
 package com.ficha.model;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
@@ -22,11 +23,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 @Entity
 @Table(name = "sg_estudiantes")
+@XmlRootElement
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "estPk", scope = SgEstudiante.class)
 public class SgEstudiante implements Serializable {
 
@@ -48,18 +51,11 @@ public class SgEstudiante implements Serializable {
     @Column(name = "est_embarazo")
     private Boolean estEmbarazo;
 
-	/*
-	 * @JoinColumn(name = "est_medio_transporte_fk", referencedColumnName =
-	 * "mtr_pk")
-	 * 
-	 * @ManyToOne private SgMedioTransporte estMedioTransporte;
-	 */
+    @Column(name = "est_medio_transporte_fk")
+    private Integer estMedioTransporte;
 
-	/*
-	 * @JoinColumn(name = "est_dependencia_economica_fk")
-	 * 
-	 * @ManyToOne private SgDependenciaEconomica estDependenciaEconomica;
-	 */
+    @Column(name = "est_dependencia_economica_fk")
+    private Integer estDependenciaEconomica;
 
     @Column(name = "est_habilitado")
     private Boolean estHabilitado;
@@ -87,35 +83,12 @@ public class SgEstudiante implements Serializable {
     @Version
     private Integer estVersion;
 
-    @JoinColumn(name = "est_persona", updatable = false)
-    @OneToOne(optional = false)
-    private SgPersona estPersona;
-
-// TODO: no se utiliza. Cuando se utilice, analizar posibilidad de que estudiante tenga ficha y no al revés. De esta forma podemos hacer que la relación sea lazy.
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "fsaEstudiante")
-//    private SgFichaSalud estFichaSalud;
-	/*
-	 * @OneToMany(mappedBy = "mviEstudiante") private List<SgManifestacionViolencia>
-	 * estManifestacionesViolencia;
-	 * 
-	 * @OneToMany(mappedBy = "esvEstudiante") private List<SgEstudianteValoracion>
-	 * estValoraciones;
-	 */
-
-	/*
-	 * @OneToMany(mappedBy = "caeEstudiante")
-	 * 
-	 * @NotAudited private List<SgCalificacionEstudiante> estCalificaciones;
-	 */
-
-    @OneToMany(mappedBy = "matEstudiante")
-    private List<SgMatricula> estMatriculas;
+    @Column(name = "est_persona", updatable = false)
+    private Integer estPersona;
 
     //Generada con trigger
-    @JoinColumn(name = "est_ultima_matricula_fk", insertable = false, updatable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private SgMatricula estUltimaMatricula;
+    @Column(name = "est_ultima_matricula_fk", insertable = false, updatable = false)
+    private Integer estUltimaMatricula;
     
     @Column(name = "est_ultima_encuesta_fk")
     private Long estUltimaEncuesta;
@@ -140,7 +113,6 @@ public class SgEstudiante implements Serializable {
     private Boolean estEsDeTramite;
 
     public SgEstudiante() {
-        this.estPersona = new SgPersona();
         this.estHabilitado = Boolean.TRUE;
         this.estRealizoServicioSocial = Boolean.FALSE;
     }
@@ -182,6 +154,14 @@ public class SgEstudiante implements Serializable {
         this.estEmbarazo = estEmbarazo;
     }
 
+    public Integer getEstMedioTransporte() {
+        return estMedioTransporte;
+    }
+
+    public void setEstMedioTransporte(Integer estMedioTransporte) {
+        this.estMedioTransporte = estMedioTransporte;
+    }
+
     public Boolean getEstHabilitado() {
         return estHabilitado;
     }
@@ -214,27 +194,28 @@ public class SgEstudiante implements Serializable {
         this.estVersion = estVersion;
     }
 
-    public SgPersona getEstPersona() {
+    public Integer getEstPersona() {
         return estPersona;
     }
 
-    public void setEstPersona(SgPersona estPersona) {
+    public void setEstPersona(Integer estPersona) {
         this.estPersona = estPersona;
     }
 
-    public List<SgMatricula> getEstMatriculas() {
-        return estMatriculas;
+    public Integer getEstDependenciaEconomica() {
+        return estDependenciaEconomica;
     }
 
-    public void setEstMatriculas(List<SgMatricula> estMatriculas) {
-        this.estMatriculas = estMatriculas;
+    public void setEstDependenciaEconomica(Integer estDependenciaEconomica) {
+        this.estDependenciaEconomica = estDependenciaEconomica;
     }
 
-    public SgMatricula getEstUltimaMatricula() {
+
+    public Integer getEstUltimaMatricula() {
         return estUltimaMatricula;
     }
 
-    public void setEstUltimaMatricula(SgMatricula estUltimaMatricula) {
+    public void setEstUltimaMatricula(Integer estUltimaMatricula) {
         this.estUltimaMatricula = estUltimaMatricula;
     }
 
@@ -245,7 +226,6 @@ public class SgEstudiante implements Serializable {
     public void setEstUltimaSedePk(Long estUltimaSedePk) {
         this.estUltimaSedePk = estUltimaSedePk;
     }
-
 
     public Long getEstUltimaSeccionPk() {
         return estUltimaSeccionPk;

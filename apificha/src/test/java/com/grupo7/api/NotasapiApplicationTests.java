@@ -1,10 +1,10 @@
-package com.ficha.api;
+package com.grupo7.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApifichaApplicationTests {
+class NotasapiApplicationTests {
 
 	@Test
 	void contextLoads() {

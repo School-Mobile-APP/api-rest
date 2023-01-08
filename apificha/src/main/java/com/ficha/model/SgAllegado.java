@@ -53,10 +53,8 @@ public class SgAllegado implements Serializable {
     @Version
     private Integer allVersion;
 
-    @JoinColumn(name = "all_persona_ref")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private SgPersona allPersonaReferenciada;
+    @Column(name = "all_persona_ref")
+    private Integer allPersonaReferenciada;
 
     @Column(name = "all_es_familiar")
     private Boolean allEsFamiliar;
@@ -128,11 +126,11 @@ public class SgAllegado implements Serializable {
         this.allPersona = allPersona;
     }
 
-    public SgPersona getAllPersonaReferenciada() {
+    public Integer getAllPersonaReferenciada() {
         return allPersonaReferenciada;
     }
 
-    public void setAllPersonaReferenciada(SgPersona allPersonaReferenciada) {
+    public void setAllPersonaReferenciada(Integer allPersonaReferenciada) {
         this.allPersonaReferenciada = allPersonaReferenciada;
     }
 
