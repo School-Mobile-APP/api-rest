@@ -309,8 +309,19 @@ public class SgPersona implements Serializable {
 	@Column(name = "per_partida_nac_validada_rnpn")
 	private Boolean perPartidaNacValidadaRNPN;
 
+	public Boolean getPerTieneWhatsapp() {
+		return perTieneWhatsapp;
+	}
+
+	public void setPerTieneWhatsapp(Boolean perTieneWhatsapp) {
+		this.perTieneWhatsapp = perTieneWhatsapp;
+	}
+
 	@Column(name = "per_partida_nac_pendiente_validacion_rnpn")
 	private Boolean perPartidaNacPendienteValidacionRNPN;
+
+	@Column(name = "per_tiene_whatsapp")
+	private Boolean perTieneWhatsapp;
 
 	public SgPersona() {
 		this.perDuiValidadoRNPN = Boolean.FALSE;
@@ -1021,7 +1032,7 @@ public class SgPersona implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SgPersona{" + "perPk=" + perPk + ", perPrimerNombre=" + perPrimerNombre + ", perSegundoNombre="
+		return "SgPersona [perPk=" + perPk + ", perPrimerNombre=" + perPrimerNombre + ", perSegundoNombre="
 				+ perSegundoNombre + ", perTercerNombre=" + perTercerNombre + ", perPrimerApellido=" + perPrimerApellido
 				+ ", perSegundoApellido=" + perSegundoApellido + ", perTercerApellido=" + perTercerApellido
 				+ ", perPrimerNombreBusqueda=" + perPrimerNombreBusqueda + ", perSegundoNombreBusqueda="
@@ -1032,24 +1043,34 @@ public class SgPersona implements Serializable {
 				+ ", perEmail=" + perEmail + ", perEtnia=" + perEtnia + ", perEstadoCivil=" + perEstadoCivil
 				+ ", perSexo=" + perSexo + ", perTipoSangre=" + perTipoSangre + ", perCantidadHijos=" + perCantidadHijos
 				+ ", perHabilitado=" + perHabilitado + ", perUltModFecha=" + perUltModFecha + ", perUltModUsuario="
-				+ perUltModUsuario + ", perVersion=" + perVersion + ", perDireccion=" + perDireccion  + ", perDui=" + perDui + ", perCun="
-				+ perCun + ", perNie=" + perNie + ", perNip=" + perNip + ", perNit=" + perNit + ", perInpep=" + perInpep
-				+ ", perIsss=" + perIsss + ", perNup=" + perNup + ", perNaturalizada=" + perNaturalizada
-				+ ", perPartidaNacimiento=" + perPartidaNacimiento + ", perPartidaNacimientoAnio="
+				+ perUltModUsuario + ", perVersion=" + perVersion + ", perDireccion=" + perDireccion + ", perDui="
+				+ perDui + ", perCun=" + perCun + ", perNie=" + perNie + ", perNip=" + perNip + ", perNit=" + perNit
+				+ ", perInpep=" + perInpep + ", perIsss=" + perIsss + ", perNup=" + perNup + ", perNaturalizada="
+				+ perNaturalizada + ", perPartidaNacimiento=" + perPartidaNacimiento + ", perPartidaNacimientoAnio="
 				+ perPartidaNacimientoAnio + ", perPartidaNacimientoFolio=" + perPartidaNacimientoFolio
 				+ ", perPartidaNacimientoLibro=" + perPartidaNacimientoLibro + ", perPartidaNacimientoComplemento="
 				+ perPartidaNacimientoComplemento + ", perPartidaNacimientoPresenta=" + perPartidaNacimientoPresenta
 				+ ", perPartidaDepartamento=" + perPartidaDepartamento + ", perPartidaMunicipio=" + perPartidaMunicipio
 				+ ", perDepartamentoNacimento=" + perDepartamentoNacimento + ", perMunicipioNacimiento="
 				+ perMunicipioNacimiento + ", perFoto=" + perFoto + ", perPartidaNacimientoArchivo="
-				+ perPartidaNacimientoArchivo + ", perNacionalidad=" + perNacionalidad +  ", perProfesion=" + perProfesion
-				+ ", perOcupacion=" + perOcupacion + ", perEscolaridad=" + perEscolaridad + ", perLugarTrabajo="
-				+ perLugarTrabajo + ", perTrabaja=" + perTrabaja + ", perTipoTrabajo=" + perTipoTrabajo
-				+ ", perEmbarazo=" + perEmbarazo + ", perFechaParto=" + perFechaParto + ", perJornadaLaboral="
-				+ perJornadaLaboral + ", perSalario=" + perSalario + ", perPropiedadVivienda=" + perPropiedadVivienda
-				+ ", perServiciosBasicos=" + perServiciosBasicos + ", perAccesoInternet=" + perAccesoInternet
-				+ ", perRecibeRemesas=" + perRecibeRemesas + ", perFamiliaresEmigrados=" + perFamiliaresEmigrados
-				+ ", perNombrePartidaNacimiento=" + perNombrePartidaNacimiento
-				+ '}';
+				+ perPartidaNacimientoArchivo + ", perNacionalidad=" + perNacionalidad + ", perProfesion="
+				+ perProfesion + ", perOcupacion=" + perOcupacion + ", perEscolaridad=" + perEscolaridad
+				+ ", perLugarTrabajo=" + perLugarTrabajo + ", perTrabaja=" + perTrabaja + ", perTipoTrabajo="
+				+ perTipoTrabajo + ", perEmbarazo=" + perEmbarazo + ", perFechaParto=" + perFechaParto
+				+ ", perJornadaLaboral=" + perJornadaLaboral + ", perSalario=" + perSalario + ", perPropiedadVivienda="
+				+ perPropiedadVivienda + ", perServiciosBasicos=" + perServiciosBasicos + ", perAccesoInternet="
+				+ perAccesoInternet + ", perRecibeRemesas=" + perRecibeRemesas + ", perFamiliaresEmigrados="
+				+ perFamiliaresEmigrados + ", perViveConCantidad=" + perViveConCantidad
+				+ ", perNombrePartidaNacimiento=" + perNombrePartidaNacimiento + ", perTieneIdentificacion="
+				+ perTieneIdentificacion + ", perLuceneIndexUpdated=" + perLuceneIndexUpdated + ", perUsuarioPk="
+				+ perUsuarioPk + ", perEstado=" + perEstado + ", perFechaFallecimiento=" + perFechaFallecimiento
+				+ ", perMotivoFallecimiento=" + perMotivoFallecimiento + ", perRetornada=" + perRetornada
+				+ ", perTieneHijos=" + perTieneHijos + ", perTieneDiscapacidades=" + perTieneDiscapacidades
+				+ ", perTieneTrastornoAprendizaje=" + perTieneTrastornoAprendizaje + ", perTieneDiagnostico="
+				+ perTieneDiagnostico + ", perDuiValidadoRNPN=" + perDuiValidadoRNPN
+				+ ", perDuiPendienteValidacionRNPN=" + perDuiPendienteValidacionRNPN + ", perCunValidadoRNPN="
+				+ perCunValidadoRNPN + ", perCunPendienteValidacionRNPN=" + perCunPendienteValidacionRNPN
+				+ ", perPartidaNacValidadaRNPN=" + perPartidaNacValidadaRNPN + ", perPartidaNacPendienteValidacionRNPN="
+				+ perPartidaNacPendienteValidacionRNPN + ", perTieneWhatsapp=" + perTieneWhatsapp + "]";
 	}
 }

@@ -16,15 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ficha.model.SgEtnia;
+import com.ficha.model.SgPersona;
 import com.ficha.repository.EtniaRepository;
-import com.grupo7.model.AlumnoDTO;
+import com.ficha.repository.PersonaRepository;
 
 @RestController()
 @RequestMapping("/etnias")
 public class EtniaController {
 	@Autowired
 	EtniaRepository etniarepository;
-
+	@Autowired
+	PersonaRepository personarepository;
 	@RequestMapping(value = "/modificarEtnia", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarMateria(@RequestBody @Validated SgEtnia etnia) {
 		String mensaje = "";
@@ -45,6 +47,26 @@ public class EtniaController {
 	public @ResponseBody List<SgEtnia> obtenerEtnias() {
 		List<SgEtnia> etnias = etniarepository.findAll();
 		return etnias != null ? etnias : null;
+	}
+	@RequestMapping(value = { "/persona" }, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<SgPersona> obtenerPersonas() {
+		List<SgPersona> personas = personarepository.findAll();
+		return personas != null ? personas : null;
+	}
+	@RequestMapping(value = "/agregarPersona", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	public @ResponseBody ResponseEntity<?> alumno(@RequestBody @Validated SgPersona alumno) {
+		String mensaje = "";
+		SgPersona alumnoagregado = null;
+		try {
+			alumnoagregado = personarepository.save(alumno);
+			if (alumnoagregado != null) {
+				mensaje = "Agregado correctamente";
+			}
+		} catch (Exception e) {
+			mensaje = "Error" + e.toString();
+		}
+		return alumnoagregado != null ? ResponseEntity.status(200).body(alumnoagregado)
+				: ResponseEntity.status(201).body(mensaje);
 	}
 	/*
 	 * @PutMapping("/{id}") public void actualizar(@PathVariable("id") Integer
