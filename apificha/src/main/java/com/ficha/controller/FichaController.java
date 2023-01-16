@@ -1,10 +1,9 @@
 package com.ficha.controller;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,19 +11,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ficha.dto.SgFichaDatos;
 import com.ficha.model.SgFichaPasoDos;
+import com.ficha.model.SgPersonaDiscapacidad;
 import com.ficha.model.SgPersona;
+import com.ficha.repository.DatosFichaRepository;
 import com.ficha.repository.PersonaRepository;
-
-@RestController()
-@RequestMapping("/ficha")
+@CrossOrigin
+@RestController
+@RequestMapping("/")
 public class FichaController {
 	@Autowired
 	PersonaRepository personarepository;
-
+	@Autowired
+	DatosFichaRepository datosrepository;
+	@RequestMapping(value= {"/datos/{id}"},method=RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public @ResponseBody SgFichaDatos getDatosFicha(@PathVariable("id") Long id){
+		SgFichaDatos datos=datosrepository.getFichaDatosPasoDos(id);
+		return datos!=null?datos:null;
+	}
+//	@RequestMapping(value= {"/discapacidades"},method=RequestMethod.GET, produces = "application/json;charset=UTF-8")
+//	public @ResponseBody List<SgPersonaDiscapacidad> getDiscapacidades(@PathVariable("id") Long id){
+//		List<SgPersonaDiscapacidad> discapacidades =datosrepository.getDiscapacidades(id);
+//		return discapacidades != null ? discapacidades : null;
+//	}
 	@RequestMapping(value = {
 			"/pasoDos/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
-	public @ResponseBody ResponseEntity<?> modificarAlumno(@PathVariable("id") Long id,@RequestBody @Validated SgFichaPasoDos ficha) {
+	public @ResponseBody ResponseEntity<?> modificarPasoDos(@PathVariable("id") Long id,@RequestBody @Validated SgFichaPasoDos ficha) {
 		String mensaje = "";
 		SgPersona pasodosmodificado = null;
 		try {
@@ -50,6 +63,7 @@ public class FichaController {
 			registro.setPerTieneHijos(ficha.getPerTieneHijos());
 			registro.setPerCantidadHijos(ficha.getPerCantidadHijos());
 			registro.setPerSexo(ficha.getPerSexo());
+			registro.setPerConvivenciaFam(ficha.getPerConvivenciaFamFk());
 			System.out.print(registro);
 			pasodosmodificado=personarepository.save(registro);
 			if (pasodosmodificado != null) {

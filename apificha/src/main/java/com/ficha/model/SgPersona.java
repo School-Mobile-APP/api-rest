@@ -322,6 +322,26 @@ public class SgPersona implements Serializable {
 
 	@Column(name = "per_tiene_whatsapp")
 	private Boolean perTieneWhatsapp;
+	@Column(name = "per_convivencia_fam_fk")
+	private Integer perConvivenciaFam;
+	@Column(name = "per_tipo_vivienda_fk")
+	private Integer perTipoVivienda;
+
+	public Integer getPerConvivenciaFam() {
+		return perConvivenciaFam;
+	}
+
+	public void setPerConvivenciaFam(Integer perConvivenciaFam) {
+		this.perConvivenciaFam = perConvivenciaFam;
+	}
+
+	public Integer getPerTipoVivienda() {
+		return perTipoVivienda;
+	}
+
+	public void setPerTipoVivienda(Integer perTipoVivienda) {
+		this.perTipoVivienda = perTipoVivienda;
+	}
 
 	public SgPersona() {
 		this.perDuiValidadoRNPN = Boolean.FALSE;

@@ -72,7 +72,17 @@ public class SgFichaPasoDos implements Serializable {
 	
 	@Column(name = "per_cantidad_hijos")
 	private Integer perCantidadHijos;
+	@Column(name = "per_convivencia_fam_fk")
+	private Integer perConvivenciaFamFk;
 	
+	public Integer getPerConvivenciaFamFk() {
+		return perConvivenciaFamFk;
+	}
+
+	public void setPerConvivenciaFamFk(Integer perConvivenciaFamFk) {
+		this.perConvivenciaFamFk = perConvivenciaFamFk;
+	}
+
 	public Long getPerTipoTrabajo() {
 		return perTipoTrabajo;
 	}
