@@ -3,6 +3,7 @@ package com.ficha.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,4 +15,9 @@ public interface DiscapacidadRepository extends JpaRepository<SgPersonaDiscapaci
 			+ " from sg_personas_discapacidades pd" + " where pd.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public List<SgPersonaDiscapacidad> getDiscapacidades(@PathVariable("id") Long id);
+	@Modifying
+	@Query(value = "delete from sg_personas_discapacidades pd where "
+			+"pd.per_pk=:pk", nativeQuery = true)
+	 @Transactional
+	public void deleteDis(@PathVariable("pk") Long pk);
 }

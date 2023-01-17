@@ -12,48 +12,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.ficha.model.SgPersonaDiscapacidad;
-import com.ficha.repository.DiscapacidadRepository;
+
+import com.ficha.model.SgPersonaTerapia;
+import com.ficha.repository.TerapiaRepository;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/")
-public class DiscapacidadController {
+public class TerapiasController {
 	@Autowired
-	DiscapacidadRepository discapacidadrepository;
+	TerapiaRepository terapiasrepository;
 
 	@RequestMapping(value = {
-			"/discapacidades/{id}" }, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<SgPersonaDiscapacidad> getDiscapacidades(@PathVariable("id") Long id) {
-		List<SgPersonaDiscapacidad> discapacidades = discapacidadrepository.getDiscapacidades(id);
-		return discapacidades != null ? discapacidades : null;
+			"/terapias/{id}" }, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<SgPersonaTerapia> getDiscapacidades(@PathVariable("id") Long id) {
+		List<SgPersonaTerapia> terapias = terapiasrepository.getTerapias(id);
+		return terapias != null ? terapias : null;
 	}
 
 	@RequestMapping(value = {
-			"/eliminarDiscapacidades/{id}" }, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-	public @ResponseBody String eliminarDiscapacidades(@PathVariable("id") Long pk) {
+			"/eliminarTerapias/{id}" }, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+	public @ResponseBody String eliminarTerapias(@PathVariable("id") Long pk) {
 		String mensaje = "";
-		discapacidadrepository.deleteDis(pk);
+		terapiasrepository.deleteTer(pk);
 		mensaje = "Eliminado correctamente";
 		return mensaje;
 	}
 
 	@RequestMapping(value = {
-			"/discapacidades" }, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+			"/terapias" }, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarDiscapacidades(
-			@RequestBody @Validated SgPersonaDiscapacidad perDisc) {
+			@RequestBody @Validated SgPersonaTerapia perTer) {
 		String mensaje = "";
-		SgPersonaDiscapacidad discmodificada = null;
+		SgPersonaTerapia termodificada = null;
 		try {
-			discmodificada = discapacidadrepository.save(perDisc);
-			if (discmodificada != null) {
+			termodificada = terapiasrepository.save(perTer);
+			if (termodificada != null) {
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = "Error" + e.toString();
 		}
-		return discmodificada != null ? ResponseEntity.status(200).body(discmodificada)
+		return termodificada != null ? ResponseEntity.status(200).body(termodificada)
 				: ResponseEntity.status(201).body(mensaje);
 	}
 }

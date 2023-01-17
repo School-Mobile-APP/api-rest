@@ -1,53 +1,41 @@
 package com.ficha.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sg_personas_terapias")
+@IdClass(value = SgPersonaTerapiaPk.class)
 public class SgPersonaTerapia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "per_pk")
-    private Long perPk;
+    private Long per_pk;
     @Id
-    @Column(name = "ter_pk")
-    private Integer perTerPk;
-
+    private Long ter_pk;
 
     public SgPersonaTerapia() {
     }
 
-
-    public Long getPerPk() {
-		return perPk;
+	public Long getPer_pk() {
+		return per_pk;
 	}
 
-
-	public void setPerPk(Long perPk) {
-		this.perPk = perPk;
+	public void setPer_pk(Long per_pk) {
+		this.per_pk = per_pk;
 	}
 
-	public Integer getPerTerPk() {
-		return perTerPk;
+	public Long getTer_pk() {
+		return ter_pk;
 	}
 
-
-	public void setPerTerPk(Integer perTerPk) {
-		this.perTerPk = perTerPk;
+	public void setTer_pk(Long ter_pk) {
+		this.ter_pk = ter_pk;
 	}
 
-
-	@Override
-    public String toString() {
-        return "sv.gob.mined.siges.persistencia.entidades.SgProfesion[ proPk=" + perPk + " ]";
-    }
 
 }
