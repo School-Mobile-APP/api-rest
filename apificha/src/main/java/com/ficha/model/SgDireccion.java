@@ -1,11 +1,6 @@
-/*
- *  SIGES
- *  Desarrollado por Sofis Solutions
- */
+
 package com.ficha.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,14 +22,13 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "sg_direcciones")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dirPk", scope = SgDireccion.class)
 public class SgDireccion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@Column(name = "dir_pk", nullable = false)
+	@Column(name = "dir_pk")
 	private Long dirPk;
 
 	@Size(max = 500)
@@ -52,8 +46,8 @@ public class SgDireccion implements Serializable {
 
 	@Column(name = "dir_caserio")
 	private Long dirCaserio;
-
-	@Column(name = "dir_caserio_texto")
+	@Size(max = 255)
+	@Column(name = "dir_caserio_texto", length = 255)
 	private String dirCaserioTexto;
 
 	@Column(name = "dir_tipo_calle_fk")
@@ -82,19 +76,8 @@ public class SgDireccion implements Serializable {
 	public SgDireccion() {
 	}
 
-	public SgDireccion clonenew() {
-		SgDireccion dir = new SgDireccion();
-		dir.setDirDepartamento(dirDepartamento);
-		dir.setDirMunicipio(dirMunicipio);
-		dir.setDirCanton(dirCanton);
-		dir.setDirCaserio(dirCaserio);
-		dir.setDirCaserioTexto(dirCaserioTexto);
-		dir.setDirDireccion(dirDireccion);
-		dir.setDirLatitud(dirLatitud);
-		dir.setDirLongitud(dirLongitud);
-		// dir.setDirTipoCalle(dirTipoCalle);
-		dir.setDirZona(dirZona);
-		return dir;
+	public SgDireccion(Long perPk) {
+		this.dirPk = perPk;
 	}
 
 	public Long getDirPk() {
@@ -236,11 +219,12 @@ public class SgDireccion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SgDireccion{" + "dirPk=" + dirPk + ", dirDireccion=" + dirDireccion + ", dirDepartamento="
-				+ dirDepartamento + ", dirMunicipio=" + dirMunicipio + ", dirCanton=" + dirCanton + ", dirCaserio="
-				+ dirCaserio + ", dirZona=" + dirZona + ", dirLatitud=" + dirLatitud + ", dirLongitud=" + dirLongitud
-				+ ", dirUltModFecha=" + dirUltModFecha + ", dirUltModUsuario=" + dirUltModUsuario + ", dirVersion="
-				+ dirVersion + '}';
+		return "SgDireccion [dirPk=" + dirPk + ", dirDireccion=" + dirDireccion + ", dirDepartamento=" + dirDepartamento
+				+ ", dirMunicipio=" + dirMunicipio + ", dirCanton=" + dirCanton + ", dirCaserio=" + dirCaserio
+				+ ", dirCaserioTexto=" + dirCaserioTexto + ", dirTipoCalle=" + dirTipoCalle + ", dirZona=" + dirZona
+				+ ", dirLatitud=" + dirLatitud + ", dirLongitud=" + dirLongitud + ", dirUltModFecha=" + dirUltModFecha
+				+ ", dirUltModUsuario=" + dirUltModUsuario + ", dirVersion=" + dirVersion + "]";
 	}
+
 
 }

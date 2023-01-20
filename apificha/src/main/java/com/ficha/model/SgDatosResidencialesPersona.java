@@ -5,11 +5,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,7 +36,8 @@ public class SgDatosResidencialesPersona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "per_pk", unique = true, nullable = false)
+	@Basic(optional = false)
+	@Column(name = "per_pk")
 	private Long perPk;
 
 	@Column(name = "per_cantidad_dormitorios_casa")
@@ -65,6 +70,9 @@ public class SgDatosResidencialesPersona implements Serializable {
 
 	@Column(name = "per_material_piso_residencial_otro")
 	private String perMaterialPisoResidencialOtro;
+	
+	@Column(name="per_tiene_servicio_basura")
+	private Boolean peTieneServicioBasura;
 
 	@Column(name = "per_version")
 	@Version
@@ -147,17 +155,6 @@ public class SgDatosResidencialesPersona implements Serializable {
 		this.perTipoServicioSanitarioResidencialOtro = perTipoServicioSanitarioResidencialOtro;
 	}
 
-	/*
-	 * public SgFuenteAbastecimientoAgua getPerFuenteAbastecimientoAguaResidencial()
-	 * { return perFuenteAbastecimientoAguaResidencial; }
-	 * 
-	 * public void
-	 * setPerFuenteAbastecimientoAguaResidencial(SgFuenteAbastecimientoAgua
-	 * perFuenteAbastecimientoAguaResidencial) {
-	 * this.perFuenteAbastecimientoAguaResidencial =
-	 * perFuenteAbastecimientoAguaResidencial; }
-	 */
-
 	public String getPerFuenteAbastecimientoAguaResidencialOtra() {
 		return perFuenteAbastecimientoAguaResidencialOtra;
 	}
@@ -166,14 +163,29 @@ public class SgDatosResidencialesPersona implements Serializable {
 		this.perFuenteAbastecimientoAguaResidencialOtra = perFuenteAbastecimientoAguaResidencialOtra;
 	}
 
-	/*
-	 * public SgMaterialPiso getPerMaterialPisoResidencial() { return
-	 * perMaterialPisoResidencial; }
-	 * 
-	 * public void setPerMaterialPisoResidencial(SgMaterialPiso
-	 * perMaterialPisoResidencial) { this.perMaterialPisoResidencial =
-	 * perMaterialPisoResidencial; }
-	 */
+	public Long getPerFuenteAbastecimientoAguaResidencial() {
+		return perFuenteAbastecimientoAguaResidencial;
+	}
+
+	public void setPerFuenteAbastecimientoAguaResidencial(Long perFuenteAbastecimientoAguaResidencial) {
+		this.perFuenteAbastecimientoAguaResidencial = perFuenteAbastecimientoAguaResidencial;
+	}
+
+	public Long getPerMaterialPisoResidencial() {
+		return perMaterialPisoResidencial;
+	}
+
+	public void setPerMaterialPisoResidencial(Long perMaterialPisoResidencial) {
+		this.perMaterialPisoResidencial = perMaterialPisoResidencial;
+	}
+
+	public Boolean getPeTieneServicioBasura() {
+		return peTieneServicioBasura;
+	}
+
+	public void setPeTieneServicioBasura(Boolean peTieneServicioBasura) {
+		this.peTieneServicioBasura = peTieneServicioBasura;
+	}
 
 	public String getPerMaterialPisoResidencialOtro() {
 		return perMaterialPisoResidencialOtro;

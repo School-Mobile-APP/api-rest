@@ -57,13 +57,6 @@ public class SgFichaPasoDos implements Serializable {
 	@Column(name = "per_estado_civil_fk")
 	private Long perEstadoCivil;
 
-	// personas discapacidades falta
-	// personas referencias apoyo
-	// terapias
-	// sgTelefonos ahi debemos insertar
-
-	// Convivencia familiar necesitamos el endpoint y la clase
-
 	@Column(name = "per_embarazo")
 	private Boolean perEmbarazo;
 

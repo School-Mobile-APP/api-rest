@@ -107,11 +107,21 @@ public class SgEstudiante implements Serializable {
     @Column(name = "est_sintoniza_franja_educativa")
     private Boolean estSintonizaFranjaEducativa;
     
-    //El boolean esDeTramite es true solo cuando el guardado de estudiante se hace desde 
+    @Column(name="est_rec_clases_multimodalidad_fk")
+    private Long estRecClasesMultimodalidadFk;
+    
+    public Long getEstRecClasesMultimodalidadFk() {
+		return estRecClasesMultimodalidadFk;
+	}
+
+	public void setEstRecClasesMultimodalidadFk(Long estRecClasesMultimodalidadFk) {
+		this.estRecClasesMultimodalidadFk = estRecClasesMultimodalidadFk;
+	}
+
+	//El boolean esDeTramite es true solo cuando el guardado de estudiante se hace desde 
     //registrofichaescolaridad, se utiliza para dejar afuera ciertas validaciones
     @Transient
     private Boolean estEsDeTramite;
-
     public SgEstudiante() {
         this.estHabilitado = Boolean.TRUE;
         this.estRealizoServicioSocial = Boolean.FALSE;
