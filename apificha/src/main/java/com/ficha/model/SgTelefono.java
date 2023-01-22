@@ -21,7 +21,6 @@ import javax.validation.constraints.Size;
 public class SgTelefono implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -132,9 +131,12 @@ public class SgTelefono implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "sv.gob.mined.siges.persistencia.entidades.SigesTelefono[ telPk=" + telPk + " ]";
-    }
+	@Override
+	public String toString() {
+		return "SgTelefono [telPk=" + telPk + ", telTelefono=" + telTelefono + ", telTipoTelefono=" + telTipoTelefono
+				+ ", telUltModFecha=" + telUltModFecha + ", telUltModUsuario=" + telUltModUsuario + ", telVersion="
+				+ telVersion + ", telPersona=" + telPersona + "]";
+	}
+
     
 }
