@@ -16,9 +16,8 @@ public interface ElementosHogarRepository extends JpaRepository<SgPersonaElement
 	@Transactional(readOnly = true)
 	public List<SgPersonaElemento> getElementos(@PathVariable("id") Long id);
 
-	// Pueda que necesite un delete con el id especifico del elemento
 	@Modifying
-	@Query(value = "delete from sg_personas_discapacidades pd where " + "pd.per_pk=:pk", nativeQuery = true)
+	@Query(value = "delete from sg_personas_elementos_hogar pe where " + "pe.per_pk=:pk", nativeQuery = true)
 	@Transactional
-	public void deleteDis(@PathVariable("pk") Long pk);
+	public void deleteElementos(@PathVariable("pk") Long pk);
 }

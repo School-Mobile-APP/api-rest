@@ -59,15 +59,29 @@ public class SgAllegado implements Serializable {
     @Column(name = "all_es_familiar")
     private Boolean allEsFamiliar;
 
-    @JoinColumn(name = "all_persona", updatable = false)
-    @OneToOne
-    private SgPersona allPersona;
+    @Column(name = "all_persona")
+    private Long allPersona;
 
+    @Column(name = "all_tipo_parentesco")
+    private Long allTipoParentesco;
     
-    @Column(name = "all_vive_con_allegado")
+    public Long getAllTipoParentesco() {
+		return allTipoParentesco;
+	}
+	public void setAllTipoParentesco(Long allTipoParentesco) {
+		this.allTipoParentesco = allTipoParentesco;
+	}
+	public void setAllPersona(Long allPersona) {
+		this.allPersona = allPersona;
+	}
+
+	@Column(name = "all_vive_con_allegado")
     private Boolean allViveConAllegado;
 
     public SgAllegado() {
+    }
+    public SgAllegado(Long id) {
+    	this.allPk=id;
     }
 
     public Long getAllPk() {
@@ -118,12 +132,8 @@ public class SgAllegado implements Serializable {
         this.allVersion = allVersion;
     }
 
-    public SgPersona getAllPersona() {
+    public Long getAllPersona() {
         return allPersona;
-    }
-
-    public void setAllPersona(SgPersona allPersona) {
-        this.allPersona = allPersona;
     }
 
     public Integer getAllPersonaReferenciada() {

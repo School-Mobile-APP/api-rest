@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ficha.dto.SgPersonaDto;
 import com.ficha.model.SgPersona;
 import com.ficha.model.SgPersonaDiscapacidad;
 public interface PersonaRepository extends JpaRepository<SgPersona, Long>{
@@ -24,4 +25,10 @@ public interface PersonaRepository extends JpaRepository<SgPersona, Long>{
 			, nativeQuery = true)
 	@Transactional
 	Integer updateAccesoInternet(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);
+	@Query(value = "select p.per_dui,p.per_primer_nombre,p.per_primer_apellido,"
+			+ "p.per_segundo_nombre, p.per_segundo_apellido,per_email,per_escolaridad_fk"
+			+ " " + " from sg_personas p"
+			+ " where p.per_pk=:id", nativeQuery = true)
+	@Transactional(readOnly = true)
+	public SgPersonaDto getPersona(@PathVariable("id") Long id);
 }
