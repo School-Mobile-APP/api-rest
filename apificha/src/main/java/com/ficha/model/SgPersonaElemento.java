@@ -8,7 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sg_personas_elementos_hogar")
+@Table(name = "sg_personas_elementos_hogar",schema="centros_educativos")
 @IdClass(value = SgPersonaElementoPk.class)
 public class SgPersonaElemento implements Serializable{
 	private static final long serialVersionUID = 1L;

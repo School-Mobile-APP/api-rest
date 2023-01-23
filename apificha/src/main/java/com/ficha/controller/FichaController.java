@@ -1,11 +1,7 @@
 package com.ficha.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ficha.dto.SgFichaDatos;
 import com.ficha.model.SgFichaPasoCuatro;
 import com.ficha.model.SgDatosResidencialesPersona;
-import com.ficha.model.SgDireccion;
 import com.ficha.model.SgFichaPasoDos;
 import com.ficha.model.SgFichaPasoTres;
-import com.ficha.model.SgPersonaDiscapacidad;
 import com.ficha.model.SgPersona;
 import com.ficha.repository.DatosFichaRepository;
 import com.ficha.repository.DatosPasoCuatroRepository;

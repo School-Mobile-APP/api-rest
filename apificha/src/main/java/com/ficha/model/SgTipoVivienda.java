@@ -15,7 +15,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "sg_tipo_vivienda", uniqueConstraints = {
+@Table(name = "sg_tipo_vivienda",schema="catalogo", uniqueConstraints = {
     @UniqueConstraint(name = "tiv_codigo_uk", columnNames = {"tiv_codigo"})
     ,
     @UniqueConstraint(name = "tiv_nombre_uk", columnNames = {"tiv_nombre"})})

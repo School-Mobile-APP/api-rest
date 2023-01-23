@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 @Entity
-@Table(name = "sg_convivencia_familiar")
+@Table(name = "sg_convivencia_familiar",schema="catalogo")
 public class SgConvivenciaFamiliar implements Serializable{
 	private static final long serialVersionUID = 1L;
 

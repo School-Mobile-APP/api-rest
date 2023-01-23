@@ -14,7 +14,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "sg_est_canales_atencion")
+@Table(name = "sg_est_canales_atencion",schema="centros_educativos")
 public class SgEstCanalesAtencion implements Serializable {
 	  private static final long serialVersionUID = 1L;
 	@Id

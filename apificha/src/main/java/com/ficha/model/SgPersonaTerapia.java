@@ -1,14 +1,13 @@
 package com.ficha.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sg_personas_terapias")
+@Table(name = "sg_personas_terapias",schema="centros_educativos")
 @IdClass(value = SgPersonaTerapiaPk.class)
 public class SgPersonaTerapia implements Serializable {
 

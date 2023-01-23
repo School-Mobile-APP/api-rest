@@ -10,11 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ficha.dto.SgFichaDatos;
-import com.ficha.model.SgPersona;
 import com.ficha.model.SgPersonaReferencia;
-import com.ficha.repository.PersonaRepository;
 import com.ficha.repository.ReferenciasRepository;
 
 @CrossOrigin

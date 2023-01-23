@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ficha.dto.SgPersonaDto;
-import com.ficha.model.SgAllegado;
 import com.ficha.model.SgPersona;
 import com.ficha.repository.PersonaRepository;
-
 
 @CrossOrigin
 @RestController
@@ -23,12 +21,41 @@ import com.ficha.repository.PersonaRepository;
 public class PersonaController {
 	@Autowired
 	PersonaRepository personarepository;
-	
+
 	@RequestMapping(value = {
 			"/persona/{id}" }, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody SgPersonaDto getPersonaAllegado(@PathVariable("id") Long id) {
 		SgPersonaDto elementos = personarepository.getPersona(id);
 		return elementos != null ? elementos : null;
+	}
+
+	@RequestMapping(value = {
+			"/perfil/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+	public @ResponseBody ResponseEntity<?> modificarPerfil(@PathVariable("id") Long id,
+			@RequestBody @Validated SgPersona per) {
+		String mensaje = "";
+		SgPersona permodificado = null;
+		SgPersona registro = personarepository.findById(id).orElse(null);
+		try {
+			if (registro == null) {
+				registro = new SgPersona();
+			}
+			registro.setPerEmail(per.getPerEmail());
+			registro.setPerPrimerApellido(per.getPerPrimerApellido());
+			registro.setPerPrimerNombre(per.getPerPrimerNombre());
+			registro.setPerSegundoApellido(per.getPerSegundoApellido());
+			registro.setPerSegundoNombre(per.getPerSegundoNombre());
+			registro.setPerFechaNacimiento(per.getPerFechaNacimiento());
+			permodificado = personarepository.save(registro);
+			if (permodificado != null) {
+				mensaje = "Modificado correctamente";
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			mensaje = "Error" + e.toString();
+		}
+		return permodificado != null ? ResponseEntity.status(200).body(permodificado)
+				: ResponseEntity.status(201).body(mensaje);
 	}
 
 	@RequestMapping(value = {

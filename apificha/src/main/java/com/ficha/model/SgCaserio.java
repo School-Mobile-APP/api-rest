@@ -12,15 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 @Entity
 @Table(name = "sg_caserios", uniqueConstraints = {
     @UniqueConstraint(name = "cas_codigo_uk", columnNames = {"cas_codigo"})
     ,
-    @UniqueConstraint(name = "cas_nombre_uk", columnNames = {"cas_nombre"})})
+    @UniqueConstraint(name = "cas_nombre_uk", columnNames = {"cas_nombre"})},
+	schema="catalogo")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "casPk", scope = SgCaserio.class)
 public class SgCaserio implements Serializable {
 

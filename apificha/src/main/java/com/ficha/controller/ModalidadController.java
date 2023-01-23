@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ficha.dto.SgFichaDatos;
 import com.ficha.dto.SgModalidadesEst;
-import com.ficha.model.SgEstCanalesAtencion;
 import com.ficha.model.SgMultiModalidad;
-import com.ficha.repository.CanalesRepository;
 import com.ficha.repository.ModalidadPersonaRepository;
 import com.ficha.repository.ModalidadRepository;
 

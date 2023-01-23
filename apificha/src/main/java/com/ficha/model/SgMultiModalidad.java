@@ -14,7 +14,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="sg_multi_modalidades")
+@Table(name="sg_multi_modalidades",schema="catalogo")
 public class SgMultiModalidad implements Serializable{
 	  private static final long serialVersionUID = 1L;
 		@Id

@@ -1,7 +1,4 @@
 package com.ficha.controller;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,10 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ficha.dto.SgAllegadoDto;
-import com.ficha.dto.SgPersonaDto;
 import com.ficha.model.SgAllegado;
-import com.ficha.model.SgDatosResidencialesPersona;
-import com.ficha.model.SgFichaPasoCuatro;
 import com.ficha.repository.AllegadosRepository;
 import com.ficha.repository.PersonaRepository;
 
@@ -36,15 +30,6 @@ public class AllegadosController {
 		SgAllegadoDto elementos = allegadosrepository.getAllegado(id);
 		return elementos != null ? elementos : null;
 	}
-
-	/*
-	 * @RequestMapping(value = { "/persona/{id}" }, method = RequestMethod.GET,
-	 * produces = "application/json;charset=UTF-8") public @ResponseBody
-	 * SgPersonaDto getPersonadeAllegado(@PathVariable("id") Long id) { SgPersonaDto
-	 * elementos = personarepository.getPersona(id); return elementos != null ?
-	 * elementos : null; }
-	 */
-
 	@RequestMapping(value = {
 			"/allegado/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarAllegado(@PathVariable("id") Long id,

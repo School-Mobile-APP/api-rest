@@ -1,7 +1,6 @@
 package com.ficha.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -13,16 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "sg_cantones", uniqueConstraints = {
-		@UniqueConstraint(name = "can_codigo_nombre_uk", columnNames = { "can_codigo", "can_nombre" }) })
+		@UniqueConstraint(name = "can_codigo_nombre_uk", columnNames = { "can_codigo", "can_nombre" }) }
+		,schema="catalogo")
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "canPk", scope = SgCanton.class)
 public class SgCanton implements Serializable {

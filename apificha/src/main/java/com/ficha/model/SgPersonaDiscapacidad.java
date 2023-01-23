@@ -6,7 +6,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sg_personas_discapacidades")
+@Table(name = "sg_personas_discapacidades",schema="centros_educativos")
 @IdClass(value = SgPersonaDiscapacidadPk.class)
 public class SgPersonaDiscapacidad implements Serializable{
 	public Long getPer_pk() {

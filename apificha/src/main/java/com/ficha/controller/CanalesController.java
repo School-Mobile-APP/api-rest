@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ficha.dto.SgCanalesEst;
 import com.ficha.model.SgCanalesAtencion;
 import com.ficha.model.SgEstCanalesAtencion;
-import com.ficha.model.SgPersonaReferencia;
-import com.ficha.model.SgPersonaTerapia;
 import com.ficha.repository.CanalesPersonaRepository;
 import com.ficha.repository.CanalesRepository;
 

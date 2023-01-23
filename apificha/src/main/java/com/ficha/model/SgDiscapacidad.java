@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "sg_discapacidades", uniqueConstraints = {
-    @UniqueConstraint(name = "dis_codigo_uk", columnNames = {"dis_codigo"})})
+    @UniqueConstraint(name = "dis_codigo_uk", columnNames = {"dis_codigo"})},schema="catalogo")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "disPk", scope = SgDiscapacidad.class)
 public class SgDiscapacidad implements Serializable {
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,13 +12,11 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "sg_terapias", uniqueConstraints = {
+@Table(name = "sg_terapias", schema="catalogo", uniqueConstraints = {
     @UniqueConstraint(name = "ter_codigo_uk", columnNames = {"ter_codigo"})
     ,
     @UniqueConstraint(name = "ter_nombre_uk", columnNames = {"ter_nombre"})})
