@@ -61,6 +61,9 @@ public class SgCanton implements Serializable {
 
 	public SgCanton() {
 	}
+	public SgCanton(Long pk) {
+		this.canPk=pk;
+	}
 
 	public Long getCanPk() {
 		return canPk;

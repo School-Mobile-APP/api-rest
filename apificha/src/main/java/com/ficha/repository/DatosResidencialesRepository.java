@@ -10,7 +10,7 @@ import com.ficha.model.SgDatosResidencialesPersona;
 
 public interface DatosResidencialesRepository extends JpaRepository<SgDatosResidencialesPersona,Long>{
 	@Modifying	
-	@Query(value = "update sg_datos_residenciales_personas set per_tiene_conexion_internet_residencial=:internet where per_pk=:id"
+	@Query(value = "update centros_educativos.sg_datos_residenciales_personas set per_tiene_conexion_internet_residencial=:internet where per_pk=:id"
 			, nativeQuery = true)
 	@Transactional
 	Integer updateAccesoInternet(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);

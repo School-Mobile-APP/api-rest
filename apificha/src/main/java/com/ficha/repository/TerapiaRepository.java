@@ -12,11 +12,11 @@ import com.ficha.model.SgPersonaTerapia;
 
 public interface TerapiaRepository extends JpaRepository<SgPersonaTerapia, Long>{
 	@Query(value = "select pt.per_pk,pt.ter_pk"
-			+ " from sg_personas_terapias pt" + " where pt.per_pk=:id", nativeQuery = true)
+			+ " from centros_educativos.sg_personas_terapias pt" + " where pt.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public List<SgPersonaTerapia> getTerapias(@PathVariable("id") Long id);
 	@Modifying
-	@Query(value = "delete from sg_personas_terapias pt where "
+	@Query(value = "delete from centros_educativos.sg_personas_terapias pt where "
 			+"pt.per_pk=:pk", nativeQuery = true)
 	 @Transactional
 	public void deleteTer(@PathVariable("pk") Long pk);

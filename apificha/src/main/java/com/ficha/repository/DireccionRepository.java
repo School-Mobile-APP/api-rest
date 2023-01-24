@@ -10,7 +10,7 @@ import com.ficha.model.SgDireccion;
 
 public interface DireccionRepository extends JpaRepository<SgDireccion, Long> {
 	@Modifying
-	@Query(value = "update sg_direcciones set dir_caserio_texto=:catexto, dir_departamento=:depto"
+	@Query(value = "update catalogo.sg_direcciones set dir_caserio_texto=:catexto, dir_departamento=:depto"
 			+ " ,dir_municipio=:mun, dir_direccion=:dirDireccion, dir_zona=:dirzona, dir_canton=:dircanton where dir_pk=:id"
 			, nativeQuery = true)
 	@Transactional

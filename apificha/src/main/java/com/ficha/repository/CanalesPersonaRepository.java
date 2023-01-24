@@ -14,11 +14,11 @@ import com.ficha.dto.SgCanalesEst;
 public interface CanalesPersonaRepository extends JpaRepository<SgEstCanalesAtencion,Long>{
 	
 	@Query(value = "select ce.eca_pk,ce.eca_canal_fk"
-			+ " from sg_est_canales_atencion ce" + " where ce.eca_estudiante_fk=:id", nativeQuery = true)
+			+ " from centros_educativos.sg_est_canales_atencion ce" + " where ce.eca_estudiante_fk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public List<SgCanalesEst> getPersonaCanales(@PathVariable("id") Long id);
 	@Modifying
-	@Query(value = "delete from sg_est_canales_atencion ec where "
+	@Query(value = "delete from centros_educativos.sg_est_canales_atencion ec where "
 			+"ec.eca_estudiante_fk=:pk", nativeQuery = true)
 	 @Transactional
 	public void deleteCanales(@PathVariable("pk") Long pk);

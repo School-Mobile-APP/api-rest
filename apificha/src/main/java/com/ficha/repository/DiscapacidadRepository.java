@@ -12,11 +12,11 @@ import com.ficha.model.SgPersonaDiscapacidad;
 
 public interface DiscapacidadRepository extends JpaRepository<SgPersonaDiscapacidad, Long>{
 	@Query(value = "select pd.per_pk,pd.dis_pk"
-			+ " from sg_personas_discapacidades pd" + " where pd.per_pk=:id", nativeQuery = true)
+			+ " from centros_educativos.sg_personas_discapacidades pd" + " where pd.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public List<SgPersonaDiscapacidad> getDiscapacidades(@PathVariable("id") Long id);
 	@Modifying
-	@Query(value = "delete from sg_personas_discapacidades pd where "
+	@Query(value = "delete from centros_educativos.sg_personas_discapacidades pd where "
 			+"pd.per_pk=:pk", nativeQuery = true)
 	 @Transactional
 	public void deleteDis(@PathVariable("pk") Long pk);

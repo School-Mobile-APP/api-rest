@@ -11,7 +11,7 @@ public interface DatosPasoCuatroRepository extends JpaRepository<SgDatosResidenc
 	@Query(value = "select r.per_tiene_servicio_energia_electrica_residencial,"
 			+ " r.per_tiene_servicio_basura,r.per_fuente_abastecimiento_agua_residencial,"
 			+ " r.per_tiene_conexion_internet_residencial"
-			+ " from sg_datos_residenciales_personas r" + " where r.per_pk=:id", nativeQuery = true)
+			+ " from centros_educativos.sg_datos_residenciales_personas r" + " where r.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public SgFichaDatosCuatro getFichaDatosPasoCuatro(@PathVariable("id") Long id);
 }	

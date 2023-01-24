@@ -32,30 +32,20 @@ public class PersonaController {
 	@RequestMapping(value = {
 			"/perfil/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPerfil(@PathVariable("id") Long id,
-			@RequestBody @Validated SgPersona per) {
+			@RequestBody @Validated SgPersona ficha) {
 		String mensaje = "";
-		SgPersona permodificado = null;
-		SgPersona registro = personarepository.findById(id).orElse(null);
 		try {
-			if (registro == null) {
-				registro = new SgPersona();
-			}
-			registro.setPerEmail(per.getPerEmail());
-			registro.setPerPrimerApellido(per.getPerPrimerApellido());
-			registro.setPerPrimerNombre(per.getPerPrimerNombre());
-			registro.setPerSegundoApellido(per.getPerSegundoApellido());
-			registro.setPerSegundoNombre(per.getPerSegundoNombre());
-			registro.setPerFechaNacimiento(per.getPerFechaNacimiento());
-			permodificado = personarepository.save(registro);
-			if (permodificado != null) {
+			if(personarepository.updatePerfil(ficha.getPerPrimerNombre(), 
+					ficha.getPerSegundoNombre(), 
+					ficha.getPerPrimerApellido(), ficha.getPerSegundoApellido(), 
+					ficha.getPerFechaNacimiento(), 
+					ficha.getPerEmail(), id)==1) {
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			mensaje = "Error" + e.toString();
+			mensaje = e.toString();
 		}
-		return permodificado != null ? ResponseEntity.status(200).body(permodificado)
-				: ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.status(201).body(mensaje);
 	}
 
 	@RequestMapping(value = {

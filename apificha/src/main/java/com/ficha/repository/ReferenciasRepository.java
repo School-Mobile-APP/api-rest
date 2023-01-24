@@ -9,12 +9,12 @@ import com.ficha.model.SgPersonaReferencia;
 
 public interface ReferenciasRepository extends JpaRepository<SgPersonaReferencia, Long>{
 	@Modifying
-	@Query(value = "delete from sg_personas_referencias_apoyo a where "
+	@Query(value = "delete from centros_educativos.sg_personas_referencias_apoyo a where "
 			+"a.per_pk=:pk and a.rea_pk!=:rea", nativeQuery = true)
 	 @Transactional
 	public void deleteRef(@PathVariable("pk") Long pk,@PathVariable("rea") Long rea);
 	@Query(value = "select a.per_pk,a.rea_pk"
-			+ " from sg_personas_referencias_apoyo a" + " where a.per_pk=:id", nativeQuery = true)
+			+ " from centros_educativos.sg_personas_referencias_apoyo a" + " where a.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public SgPersonaReferencia getPersonaRef(@PathVariable("id") Long id);
 
