@@ -90,7 +90,8 @@ public class FichaController {
 					ficha.getPerPrimerApellido(), ficha.getPerSegundoApellido(), 
 					ficha.getPerFechaNacimiento(), ficha.getPerNacionalidad(), ficha.getPerRetornada(),
 					ficha.getPerPartidaNacimientoPresenta(), ficha.getPerEtnia(), ficha.getPerTieneDiagnostico(), 
-					ficha.getPerEmail(), ficha.getPerTieneWhatsapp(), ficha.getPerTipoTrabajo(),
+					ficha.getPerEmail(), 
+					ficha.getPerTipoTrabajo(),
 					ficha.getPerEstadoCivil(), ficha.getPerEmbarazo(), ficha.getPerTieneHijos(),
 					ficha.getPerCantidadHijos(), ficha.getPerSexo(), ficha.getPerConvivenciaFamFk(), id)==1) {
 				mensaje = "Modificado correctamente";

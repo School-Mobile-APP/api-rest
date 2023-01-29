@@ -282,20 +282,10 @@ public class SgPersona implements Serializable {
 
 	@Column(name = "per_partida_nac_validada_rnpn")
 	private Boolean perPartidaNacValidadaRNPN;
-
-	public Boolean getPerTieneWhatsapp() {
-		return perTieneWhatsapp;
-	}
-
-	public void setPerTieneWhatsapp(Boolean perTieneWhatsapp) {
-		this.perTieneWhatsapp = perTieneWhatsapp;
-	}
-
+	
 	@Column(name = "per_partida_nac_pendiente_validacion_rnpn")
 	private Boolean perPartidaNacPendienteValidacionRNPN;
 
-	@Column(name = "per_tiene_whatsapp")
-	private Boolean perTieneWhatsapp;
 	@Column(name = "per_convivencia_fam_fk")
 	private Integer perConvivenciaFam;
 	@Column(name = "per_tipo_vivienda_fk")
@@ -320,7 +310,6 @@ public class SgPersona implements Serializable {
 	public SgPersona() {
 		this.perDuiValidadoRNPN = Boolean.FALSE;
 		this.perHabilitado = Boolean.TRUE;
-		this.perDireccion = 1;
 		this.perPartidaNacimientoPresenta = Boolean.FALSE;
 		this.perNaturalizada = Boolean.FALSE;
 		this.perTrabaja = Boolean.FALSE;
@@ -332,6 +321,7 @@ public class SgPersona implements Serializable {
 		this.perRecibeRemesas = Boolean.FALSE;
 		this.perTieneIdentificacion = Boolean.FALSE;
 		this.perRetornada = Boolean.FALSE;
+		this.perSexo=Long.valueOf(3);
 	}
 
 	public SgPersona(Long perPk) {
@@ -1065,6 +1055,6 @@ public class SgPersona implements Serializable {
 				+ ", perDuiPendienteValidacionRNPN=" + perDuiPendienteValidacionRNPN + ", perCunValidadoRNPN="
 				+ perCunValidadoRNPN + ", perCunPendienteValidacionRNPN=" + perCunPendienteValidacionRNPN
 				+ ", perPartidaNacValidadaRNPN=" + perPartidaNacValidadaRNPN + ", perPartidaNacPendienteValidacionRNPN="
-				+ perPartidaNacPendienteValidacionRNPN + ", perTieneWhatsapp=" + perTieneWhatsapp + "]";
+				+ perPartidaNacPendienteValidacionRNPN + "]";
 	}
 }

@@ -1,5 +1,7 @@
 package com.ficha.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -63,9 +65,12 @@ public class PersonaController {
 			registro.setPerPrimerApellido(per.getPerPrimerApellido());
 			registro.setPerPrimerNombre(per.getPerPrimerNombre());
 			registro.setPerSegundoApellido(per.getPerSegundoApellido());
+			registro.setPerFechaNacimiento(LocalDate.parse("1992-10-12"));
 			registro.setPerSegundoNombre(per.getPerSegundoNombre());
 			registro.setPerEmail(per.getPerEmail());
 			registro.setPerEscolaridad(per.getPerEscolaridad());
+			registro.setPerEstadoCivil(Long.valueOf(1));
+			registro.setPerDireccion(per.getPerDireccion());
 			permodificado = personarepository.save(registro);
 			if (permodificado != null) {
 				mensaje = "Modificado correctamente";

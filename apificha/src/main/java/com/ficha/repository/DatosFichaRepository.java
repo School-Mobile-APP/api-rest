@@ -8,7 +8,7 @@ import com.ficha.dto.SgFichaDatos;
 
 public interface DatosFichaRepository extends JpaRepository<SgPersona, Long> {
 
-	@Query(value = "select p.per_tiene_whatsapp,p.per_convivencia_fam_fk,p.per_tipo_vivienda_fk"
+	@Query(value = "select p.per_convivencia_fam_fk,p.per_tipo_vivienda_fk"
 			+ " from centros_educativos.sg_personas p" + " where p.per_pk=:id", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public SgFichaDatos getFichaDatosPasoDos(@PathVariable("id") Long id);

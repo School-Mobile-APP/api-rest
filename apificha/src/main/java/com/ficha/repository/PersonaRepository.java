@@ -27,7 +27,7 @@ public interface PersonaRepository extends JpaRepository<SgPersona, Long>{
 			+ " per_segundo_apellido=:segundoa, per_fecha_nacimiento=:fecha, per_nacionalidad_fk=:nac,"
 			+ "per_retornada=:ret, per_partida_nacimiento_presenta=:partida"
 			+ ",per_etnia_fk=:etnia,per_tiene_diagnostico=:diagnostico, per_email=:email"
-			+ ", per_tiene_whatsapp=:whatsapp, per_tipo_trabajo_fk=:trabajo,"
+			+ ",per_tipo_trabajo_fk=:trabajo,"
 			+ "per_estado_civil_fk=:civil, per_embarazo=:embarazo, per_tiene_hijos=:hijos,"
 			+ "per_cantidad_hijos=:cantidad,per_sexo_fk=:sexo, per_convivencia_fam_fk=:convivencia"
 			+ " where per_pk=:id"
@@ -39,7 +39,7 @@ public interface PersonaRepository extends JpaRepository<SgPersona, Long>{
 			@PathVariable("nac") Long nac,@PathVariable("ret") Boolean ret,
 			@PathVariable("partida") Boolean partida,@PathVariable("etnia") Long etnia,
 			@PathVariable("diagnostico") Boolean diagnostico,@PathVariable("email") String email,
-			@PathVariable("whatsapp") Boolean whatsapp,	@PathVariable("trabajo") Long trabajo,
+			@PathVariable("trabajo") Long trabajo,
 			@PathVariable("civil") Long civil,@PathVariable("embarazo") Boolean embarazo,
 			@PathVariable("hijos") Boolean hijos,@PathVariable("cantidad") Integer cantidad,
 			@PathVariable("sexo") Long sexo,@PathVariable("convivencia") Integer convivencia,
