@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.model.SgPersonaElemento;
 import com.ficha.repository.ElementosHogarRepository;
 
@@ -31,11 +36,13 @@ public class ElementosController {
 
 	@RequestMapping(value = {
 			"/eliminarElementos/{id}" }, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-	public @ResponseBody String eliminarElementos(@PathVariable("id") Long pk) {
+	public @ResponseBody ResponseEntity<?> eliminarElementos(@PathVariable("id") Long pk) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
 		elementosrepository.deleteElementos(pk);
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode json= mapper.readTree("{\"Mensaje\":Eliminado Correctamente"+"}");
 		mensaje = "Eliminado correctamente";
-		return mensaje;
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = { "/elementos" }, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

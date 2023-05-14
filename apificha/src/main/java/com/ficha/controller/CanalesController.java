@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.dto.SgCanalesEst;
 import com.ficha.model.SgCanalesAtencion;
 import com.ficha.model.SgEstCanalesAtencion;
@@ -34,9 +38,11 @@ public class CanalesController {
 
 	@RequestMapping(value = {
 			"/canales/{id}" }, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public @ResponseBody ResponseEntity<?> getCanalesId(@PathVariable("id") Long id) {
+	public @ResponseBody ResponseEntity<?> getCanalesId(@PathVariable("id") Long id) throws JsonMappingException, JsonProcessingException {
 		List<SgCanalesEst> datos = canalestrepository.getPersonaCanales(id);
-		return datos != null ? ResponseEntity.status(200).body(datos) : ResponseEntity.status(401).body("No hay datos");
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json= mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
+		return datos != null ? ResponseEntity.status(200).body(datos) : ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = { "/canales/{canal}/{id}" }, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -65,10 +71,12 @@ public class CanalesController {
 
 	@RequestMapping(value = {
 			"/eliminarCanales/{id}" }, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-	public @ResponseBody String eliminarCanales(@PathVariable("id") Long pk) {
+	public @ResponseBody ResponseEntity<?> eliminarCanales(@PathVariable("id") Long pk) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json= mapper.readTree("{\"Mensaje\": \"Eliminado correctamente\"}");
 		canalestrepository.deleteCanales(pk);
 		mensaje = "Eliminado correctamente";
-		return mensaje;
+		return ResponseEntity.ok(json);
 	}
 }

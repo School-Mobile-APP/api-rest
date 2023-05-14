@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.dto.SgFichaDatos;
 import com.ficha.model.SgFichaPasoCuatro;
 import com.ficha.model.SgDatosResidencialesPersona;
@@ -54,8 +58,10 @@ public class FichaController {
 	@RequestMapping(value = {
 			"/pasoCuatro/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPasoCuatro(@PathVariable("id") Long id,
-			@RequestBody @Validated SgFichaPasoCuatro ficha) {
+			@RequestBody @Validated SgFichaPasoCuatro ficha) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		SgDatosResidencialesPersona pasocuatromodificado = null;
 		SgDatosResidencialesPersona registro = datoscuatrorepository.findById(id).orElse(null);
 		try {
@@ -69,21 +75,25 @@ public class FichaController {
 			registro.setPeTieneServicioBasura(ficha.getPeTieneServicioBasura());
 			pasocuatromodificado = datoscuatrorepository.save(registro);
 			if (pasocuatromodificado != null) {
+				json= mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = "Error" + e.toString();
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 		}
 		return pasocuatromodificado != null ? ResponseEntity.status(200).body(registro)
-				: ResponseEntity.status(201).body(mensaje);
+				: ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/pasoDos/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPasoDos(@PathVariable("id") Long id,
-			@RequestBody @Validated SgFichaPasoDos ficha) {
+			@RequestBody @Validated SgFichaPasoDos ficha) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		try {
 			if(personarepository.updatePasoDos(ficha.getPerDui(),
 					ficha.getPerPrimerNombre(), ficha.getPerSegundoNombre(), 
@@ -94,63 +104,75 @@ public class FichaController {
 					ficha.getPerTipoTrabajo(),
 					ficha.getPerEstadoCivil(), ficha.getPerEmbarazo(), ficha.getPerTieneHijos(),
 					ficha.getPerCantidadHijos(), ficha.getPerSexo(), ficha.getPerConvivenciaFamFk(), id)==1) {
+				json= mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 			mensaje = e.toString();
 		}
-		return ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/pasoTres/{id}/{pk}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPasoTres(@PathVariable("id") Long id, @PathVariable("pk") Long pk,
-			@RequestBody @Validated SgFichaPasoTres ficha) {
+			@RequestBody @Validated SgFichaPasoTres ficha) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		try {
 			if (direccionrepository.updateDir(ficha.getDirCaserioTexto(), ficha.getDirDepartamento(),
 					ficha.getDirMunicipio(), ficha.getDirDireccion(), ficha.getDirZona(), ficha.getDirCanton(), id) == 1
 					&& personarepository.updateTipoVivienda(ficha.getPerTipoViviendaFk(), pk) == 1) {
+				json= mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = e.toString();
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 		}
-		return ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/internet/{internet}/{pk}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarInternet(@PathVariable("internet") Boolean internet,
-			@PathVariable("pk") Long pk) {
+			@PathVariable("pk") Long pk) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		try {
 			if (personarepository.updateAccesoInternet(internet, pk) == 1) {
+				json= mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = e.toString();
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 		}
-		return ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/estudiantePasoCinco/{modalidad}/{diez}/{pk}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarEst(@PathVariable("modalidad") Long modalidad,
-			@PathVariable("diez") Boolean diez,
-			@PathVariable("pk") Long pk) {
+			@PathVariable("diez") Boolean diez, @PathVariable("pk") Long pk) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		try {
-			if (estudianterepository.updatePasoCinco(diez,modalidad,pk) == 1) {
+			if (estudianterepository.updatePasoCinco(diez, modalidad, pk) == 1) {
 				mensaje = "Modificado correctamente";
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = e.toString();
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 		}
-		return ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.ok(json);
 	}
 
 }

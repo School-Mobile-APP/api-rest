@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.model.SgPersonaDiscapacidad;
 import com.ficha.repository.DiscapacidadRepository;
 
@@ -31,19 +36,23 @@ public class DiscapacidadController {
 
 	@RequestMapping(value = {
 			"/eliminarDiscapacidades/{id}" }, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-	public @ResponseBody String eliminarDiscapacidades(@PathVariable("id") Long pk) {
+	public @ResponseBody ResponseEntity<?> eliminarDiscapacidades(@PathVariable("id") Long pk) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json= mapper.readTree("{\"Mensaje\": \"Eliminado correctamente\"}");
 		discapacidadrepository.deleteDis(pk);
 		mensaje = "Eliminado correctamente";
-		return mensaje;
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/discapacidades" }, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarDiscapacidades(
-			@RequestBody @Validated SgPersonaDiscapacidad perDisc) {
+			@RequestBody @Validated SgPersonaDiscapacidad perDisc) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
 		SgPersonaDiscapacidad discmodificada = null;
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json= mapper.readTree("{\"Mensaje\": \"Error al modificar\"}");
 		try {
 			discmodificada = discapacidadrepository.save(perDisc);
 			if (discmodificada != null) {
@@ -54,6 +63,6 @@ public class DiscapacidadController {
 			mensaje = "Error" + e.toString();
 		}
 		return discmodificada != null ? ResponseEntity.status(200).body(discmodificada)
-				: ResponseEntity.status(201).body(mensaje);
+				: ResponseEntity.ok(json);
 	}
 }

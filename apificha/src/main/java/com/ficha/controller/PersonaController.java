@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.dto.SgPersonaDto;
+import com.ficha.model.SgDatosResidencialesPersona;
 import com.ficha.model.SgPersona;
 import com.ficha.repository.PersonaRepository;
 
@@ -34,8 +39,10 @@ public class PersonaController {
 	@RequestMapping(value = {
 			"/perfil/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPerfil(@PathVariable("id") Long id,
-			@RequestBody @Validated SgPersona ficha) {
+			@RequestBody @Validated SgPersona ficha) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =mapper.readTree("{\"Mensaje\": \"Modificado correctamente\"}");
 		try {
 			if(personarepository.updatePerfil(ficha.getPerPrimerNombre(), 
 					ficha.getPerSegundoNombre(), 
@@ -47,14 +54,16 @@ public class PersonaController {
 		} catch (Exception e) {
 			mensaje = e.toString();
 		}
-		return ResponseEntity.status(201).body(mensaje);
+		return ResponseEntity.ok(json);
 	}
 
 	@RequestMapping(value = {
 			"/persona/{id}" }, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<?> modificarPersona(@PathVariable("id") Long id,
-			@RequestBody @Validated SgPersona per) {
+			@RequestBody @Validated SgPersona per) throws JsonMappingException, JsonProcessingException {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		SgPersona permodificado = null;
 		SgPersona registro = personarepository.findById(id).orElse(null);
 		try {
@@ -78,8 +87,9 @@ public class PersonaController {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = "Error" + e.toString();
+			json= mapper.readTree("{\"Mensaje\":"+e.toString()+"}");
 		}
 		return permodificado != null ? ResponseEntity.status(200).body(permodificado)
-				: ResponseEntity.status(201).body(mensaje);
+				: ResponseEntity.ok(json);
 	}
 }

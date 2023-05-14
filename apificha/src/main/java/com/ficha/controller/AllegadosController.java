@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficha.dto.SgAllegadoDto;
 import com.ficha.model.SgAllegado;
 import com.ficha.repository.AllegadosRepository;
@@ -35,6 +37,8 @@ public class AllegadosController {
 	public @ResponseBody ResponseEntity<?> modificarAllegado(@PathVariable("id") Long id,
 			@RequestBody @Validated SgAllegado allegado) {
 		String mensaje = "";
+		ObjectMapper mapper = new ObjectMapper();
+        JsonNode json =null;
 		SgAllegado allmodificado = null;
 		SgAllegado registro = allegadosrepository.findById(id).orElse(null);
 		try {
@@ -47,12 +51,13 @@ public class AllegadosController {
 			allmodificado=allegadosrepository.save(registro);
 			if (allmodificado != null) {
 				  mensaje = "Modificado correctamente";
+				  json= mapper.readTree("{\"Mensaje\":Modificado Correctamente"+"}");
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			mensaje = "Error" + e.toString();
 		}
 		return allmodificado != null ? ResponseEntity.status(200).body(registro)
-				: ResponseEntity.status(201).body(mensaje);
+				: ResponseEntity.ok(json);
 	}
 }
