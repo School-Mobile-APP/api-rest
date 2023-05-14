@@ -2,14 +2,15 @@ package com.schoolapi.api.services;
 
 import java.util.List;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
+ 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.schoolapi.api.entities.Departamento;
 import com.schoolapi.api.repositories.DepartamentoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class DepartamentoService implements BaseService<Departamento> {
