@@ -39,41 +39,28 @@ public class DepartamentoService implements BaseService<Departamento> {
 		}
 	}
 
-	@Override
-	@Transactional
-	public Departamento save(Departamento entity) throws Exception {
-		try {
-			entity=departamentoRepository.save(entity);
-			return entity;
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-	}
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public Departamento save(Departamento entity) throws Exception
+	 * { try { entity=departamentoRepository.save(entity); return entity; } catch
+	 * (Exception e) { throw new Exception(e.getMessage()); } }
+	 */
 
-	@Override
-	public Departamento update(Long id, Departamento Entity) throws Exception {
-		try {
-			Optional<Departamento> deptoFindOptional=departamentoRepository.findById(id);
-			Departamento deptoModified=deptoFindOptional.get();
-			deptoModified=departamentoRepository.save(Entity);
-			return deptoModified;
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		} 
-	}
-
-	@Override
-	public boolean delete(Long id) throws Exception {
-		try {
-			if(departamentoRepository.existsById(id)) {
-				departamentoRepository.deleteById(id);
-				return true;
-			}else {
-				throw new Exception();
-			}
-		} catch (Exception e) { 
-			throw new Exception(e.getMessage());
-		}
-	}
+	/*
+	 * @Override public Departamento update(Long id, Departamento Entity) throws
+	 * Exception { try { Optional<Departamento>
+	 * deptoFindOptional=departamentoRepository.findById(id); Departamento
+	 * deptoModified=deptoFindOptional.get();
+	 * deptoModified=departamentoRepository.save(Entity); return deptoModified; }
+	 * catch (Exception e) { throw new Exception(e.getMessage()); } }
+	 */
+	/*
+	 * @Override public boolean delete(Long id) throws Exception { try {
+	 * if(departamentoRepository.existsById(id)) {
+	 * departamentoRepository.deleteById(id); return true; }else { throw new
+	 * Exception(); } } catch (Exception e) { throw new Exception(e.getMessage()); }
+	 * }
+	 */
 
 }
