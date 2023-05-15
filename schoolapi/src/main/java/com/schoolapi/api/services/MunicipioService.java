@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import com.schoolapi.api.entities.Municipio;
 import com.schoolapi.api.repositories.MunicipioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class MunicipioService implements BaseService<Municipio>{
 	private MunicipioRepository municipiosrepository;
 	@Override
+	@Transactional
 	public List<Municipio> findAll() throws Exception {
 		try {
 			List<Municipio> municipios=municipiosrepository.findAll();
@@ -21,6 +24,7 @@ public class MunicipioService implements BaseService<Municipio>{
 	}
 
 	@Override
+	@Transactional
 	public Municipio findById(Long id) throws Exception {
 		try {
 			Optional<Municipio> municipio=municipiosrepository.findById(id);
