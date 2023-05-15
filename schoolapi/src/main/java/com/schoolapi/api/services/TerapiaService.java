@@ -1,6 +1,7 @@
 package com.schoolapi.api.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,13 @@ public class TerapiaService implements BaseService<Terapia>{
 	@Override
 	@Transactional
 	public Terapia findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Optional<Terapia> terapia = terapiaRepository.findById(id);
+			return terapia.get();
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+
+		}
 	}
 
 }

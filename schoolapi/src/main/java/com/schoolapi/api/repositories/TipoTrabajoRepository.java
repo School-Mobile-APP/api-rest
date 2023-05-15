@@ -2,6 +2,8 @@ package com.schoolapi.api.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TipoTrabajoRepository extends JpaRepository<TipoTrabajoRepository, Long>{
+import com.schoolapi.api.entities.TipoTrabajo;
+
+public interface TipoTrabajoRepository extends JpaRepository<TipoTrabajo, Long>{
 
 }
