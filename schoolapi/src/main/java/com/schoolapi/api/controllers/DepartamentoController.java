@@ -19,7 +19,7 @@ import com.schoolapi.api.services.DepartamentoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/ficha/departamentos")
+@RequestMapping("/departamentos")
 public class DepartamentoController {	
 	@Autowired
 	private DepartamentoService deptoService;
