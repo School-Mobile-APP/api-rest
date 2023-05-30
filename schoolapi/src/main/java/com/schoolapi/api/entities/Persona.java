@@ -1,6 +1,7 @@
 package com.schoolapi.api.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,6 +50,16 @@ public class Persona implements Serializable{
 	@OneToOne
 	@JoinColumn(name="per_tipo_trabajo_fk")
 	private TipoTrabajo tipoTrabajo;
-	
-	
+	@Column(name="per_fecha_nacimiento")
+	private Date perFechaNacimiento;
+	@Column (name="per_retornada")
+	private Boolean perRetornada;
+	@Column (name="per_tiene_diagnostico")
+	private Boolean perTieneDiagnostico;
+	@Column (name="per_embarazo")
+	private Boolean perEmbarazo;
+	@Column (name="per_tiene_hijos")
+	private Boolean perTieneHijos;
+	@Column (name="per_acceso_internet")
+	private Boolean perAccesoInternet;
 }
