@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Table;
+@Entity
+@Table(name="sg_datos_residenciales_personas",schema="centros_educativos")
 public class DatosResidenciales implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +28,4 @@ public class DatosResidenciales implements Serializable{
 	
 	@Column(name="per_tiene_servicio_basura")
 	private Boolean peTieneServicioBasura;
-
-
 }
