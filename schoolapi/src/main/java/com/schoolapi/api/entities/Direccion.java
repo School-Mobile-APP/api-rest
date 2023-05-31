@@ -24,10 +24,8 @@ public class Direccion implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	private long dirPk;
-	@Column (name="dir_nombre")
-	private String dirNombre;
-	@Column (name="dir_codigo")
-	private String dirCodigo;
+	@Column (name="dir_direccion")
+	private String dirDireccion;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="dir_municipio")
 	private Municipio municipio;
