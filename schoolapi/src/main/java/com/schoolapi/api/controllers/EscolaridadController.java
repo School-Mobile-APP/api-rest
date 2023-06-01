@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.schoolapi.api.services.CanalService;
+import com.schoolapi.api.services.EscolaridadService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/canales")
-public class CanalAtencionController {
+@RequestMapping("/escolaridad")
+public class EscolaridadController {
 	@Autowired
-	private CanalService canalService;
+	private EscolaridadService escolaridadService;
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(canalService.findAll());
+			return ResponseEntity.status(HttpStatus.OK).body(escolaridadService.findAll());
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
 		}
