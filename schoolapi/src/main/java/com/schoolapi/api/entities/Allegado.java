@@ -28,13 +28,64 @@ public class Allegado implements Serializable {
 
 	@Column(name = "all_es_familiar")
 	private Boolean allEsFamiliar;
+	@OneToOne(optional=false)
+	@JoinColumn(name="all_persona")
+	private Persona allPersona;
 
-	@Column(name = "all_persona")
-	private Long allPersona;
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name="all_tipo_parentesco") private TipoParentesco
+	 * tipoParentesco;
+	 */
+	public long getAllPk() {
+		return allPk;
+	}
+	public void setAllPk(long allPk) {
+		this.allPk = allPk;
+	}
+	public Boolean getAllReferente() {
+		return allReferente;
+	}
+	public void setAllReferente(Boolean allReferente) {
+		this.allReferente = allReferente;
+	}
+	public Boolean getAllContactoEmergencia() {
+		return allContactoEmergencia;
+	}
+	public void setAllContactoEmergencia(Boolean allContactoEmergencia) {
+		this.allContactoEmergencia = allContactoEmergencia;
+	}
+	public Boolean getAllDependiente() {
+		return allDependiente;
+	}
+	public void setAllDependiente(Boolean allDependiente) {
+		this.allDependiente = allDependiente;
+	}
+	public Integer getAllPersonaReferenciada() {
+		return allPersonaReferenciada;
+	}
+	public void setAllPersonaReferenciada(Integer allPersonaReferenciada) {
+		this.allPersonaReferenciada = allPersonaReferenciada;
+	}
+	public Boolean getAllEsFamiliar() {
+		return allEsFamiliar;
+	}
+	public void setAllEsFamiliar(Boolean allEsFamiliar) {
+		this.allEsFamiliar = allEsFamiliar;
+	}
 
-	@OneToOne
-	@JoinColumn(name="all_tipo_parentesco")
-	private TipoParentesco tipoParentesco;
+	/*
+	 * public TipoParentesco getTipoParentesco() { return tipoParentesco; } public
+	 * void setTipoParentesco(TipoParentesco tipoParentesco) { this.tipoParentesco =
+	 * tipoParentesco; }
+	 */
+	public Boolean getAllViveConAllegado() {
+		return allViveConAllegado;
+	}
+	public void setAllViveConAllegado(Boolean allViveConAllegado) {
+		this.allViveConAllegado = allViveConAllegado;
+	}
 	@Column(name = "all_vive_con_allegado")
     private Boolean allViveConAllegado;
 }

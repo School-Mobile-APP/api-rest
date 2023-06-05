@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "sg_personas_elementos_hogar",schema="catalogo")
+@Table(name = "sg_elementos_hogar",schema="catalogo")
 //@IdClass(value = PersonaElementoHogarPk.class)
 public class ElementoHogar implements Serializable {
 	private static final long serialVersionUID = 1L;

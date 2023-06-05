@@ -15,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -65,6 +64,36 @@ public class Persona implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "sg_personas_referencias_apoyo", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "rea_pk"))
 	private List<ReferenciasApoyo> perReferencias;
+	
+
+	@Fetch(FetchMode.SUBSELECT)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "sg_personas_terapias", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "ter_pk"))
+	private List<Terapia> perTerapias;
+	
+	public List<Terapia> getPerTerapias() {
+		return perTerapias;
+	}
+
+	public void setPerTerapias(List<Terapia> perTerapias) {
+		this.perTerapias = perTerapias;
+	}
+
+	public Estudiante getPerEstudiante() {
+		return perEstudiante;
+	}
+
+	public void setPerEstudiante(Estudiante perEstudiante) {
+		this.perEstudiante = perEstudiante;
+	}
+
+	public List<ElementoHogar> getPerElementosHogar() {
+		return perElementosHogar;
+	}
+
+	public void setPerElementosHogar(List<ElementoHogar> perElementosHogar) {
+		this.perElementosHogar = perElementosHogar;
+	}
 
 	@Column(name = "per_email")
 	private String perEmail;
@@ -86,6 +115,17 @@ public class Persona implements Serializable {
 	private Boolean perTieneHijos;
 	@Column(name = "per_cantidad_hijos")
 	private Integer perCantidadHijos;
+	 public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	@OneToOne 
+	 @JoinColumn(name="per_direccion_fk") 
+	 private Direccion direccion;
 	// paso tres
 	/*
 	 * @OneToOne
@@ -113,8 +153,18 @@ public class Persona implements Serializable {
 	private Estudiante perEstudiante;
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_personas_elementos_hogar", schema = "catalogo", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "eho_pk"))
+	@JoinTable(name = "sg_personas_elementos_hogar", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "eho_pk"))
 	private List<ElementoHogar> perElementosHogar;
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "allPersonaReferenciada")
+	private List<Allegado> perAllegados;
+	
+	public List<Allegado> getPerAllegados() {
+		return perAllegados;
+	}
+	public void setPerAllegados(List<Allegado> perAllegados) {
+		this.perAllegados = perAllegados;
+	}
 	public DatosResidenciales getPerDatosResidenciales() {
 		return perDatosResidenciales;
 	}
@@ -178,7 +228,6 @@ public class Persona implements Serializable {
 	public void setPerSegundoApellido(String perSegundoApellido) {
 		this.perSegundoApellido = perSegundoApellido;
 	}
-
 	public Integer getPerNie() {
 		return perNie;
 	}

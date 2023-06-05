@@ -9,17 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "sg_direcciones", schema = "catalogo")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "sg_direcciones", schema = "centros_educativos")
 public class Direccion implements Serializable{ 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -34,6 +26,42 @@ public class Direccion implements Serializable{
 	private Departamento departamento;
 	@Column(name="dir_caserio_texto")
 	private String dirCaserioTexto;
+	public long getDirPk() {
+		return dirPk;
+	}
+	public void setDirPk(long dirPk) {
+		this.dirPk = dirPk;
+	}
+	public String getDirDireccion() {
+		return dirDireccion;
+	}
+	public void setDirDireccion(String dirDireccion) {
+		this.dirDireccion = dirDireccion;
+	}
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+	public String getDirCaserioTexto() {
+		return dirCaserioTexto;
+	}
+	public void setDirCaserioTexto(String dirCaserioTexto) {
+		this.dirCaserioTexto = dirCaserioTexto;
+	}
+	public Canton getCanton() {
+		return canton;
+	}
+	public void setCanton(Canton canton) {
+		this.canton = canton;
+	}
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="dir_canton")
 	private Canton canton;

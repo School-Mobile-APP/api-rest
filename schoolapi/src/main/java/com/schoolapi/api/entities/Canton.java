@@ -25,5 +25,24 @@ public class Canton implements Serializable {
 	private String canNombre;
 	@Column (name="can_codigo")
 	private String canCodigo;
+	public long getCanPk() {
+		return canPk;
+	}
+	public void setCanPk(long canPk) {
+		this.canPk = canPk;
+	}
+	public String getCanNombre() {
+		return canNombre;
+	}
+	public void setCanNombre(String canNombre) {
+		this.canNombre = canNombre;
+	}
+	public String getCanCodigo() {
+		return canCodigo;
+	}
+	public void setCanCodigo(String canCodigo) {
+		this.canCodigo = canCodigo;
+	}
+	
 
 }
