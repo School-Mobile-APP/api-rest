@@ -13,12 +13,51 @@ public class DatosResidenciales implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Basic(optional = false)
 	@Column(name = "per_pk")
 	private Long perPk;
 	
 	@Column(name = "per_tiene_servicio_energia_electrica_residencial")
 	private Boolean perTieneServicioEnergiaElectricaResidencial;
+
+	public Long getPerPk() {
+		return perPk;
+	}
+
+	public void setPerPk(Long perPk) {
+		this.perPk = perPk;
+	}
+
+	public Boolean getPerTieneServicioEnergiaElectricaResidencial() {
+		return perTieneServicioEnergiaElectricaResidencial;
+	}
+
+	public void setPerTieneServicioEnergiaElectricaResidencial(Boolean perTieneServicioEnergiaElectricaResidencial) {
+		this.perTieneServicioEnergiaElectricaResidencial = perTieneServicioEnergiaElectricaResidencial;
+	}
+
+	public Boolean getPerTieneConexionInternetResidencial() {
+		return perTieneConexionInternetResidencial;
+	}
+
+	public void setPerTieneConexionInternetResidencial(Boolean perTieneConexionInternetResidencial) {
+		this.perTieneConexionInternetResidencial = perTieneConexionInternetResidencial;
+	}
+
+	public Long getPerFuenteAbastecimientoAguaResidencial() {
+		return perFuenteAbastecimientoAguaResidencial;
+	}
+
+	public void setPerFuenteAbastecimientoAguaResidencial(Long perFuenteAbastecimientoAguaResidencial) {
+		this.perFuenteAbastecimientoAguaResidencial = perFuenteAbastecimientoAguaResidencial;
+	}
+
+	public Boolean getPeTieneServicioBasura() {
+		return peTieneServicioBasura;
+	}
+
+	public void setPeTieneServicioBasura(Boolean peTieneServicioBasura) {
+		this.peTieneServicioBasura = peTieneServicioBasura;
+	}
 
 	@Column(name = "per_tiene_conexion_internet_residencial")
 	private Boolean perTieneConexionInternetResidencial;
