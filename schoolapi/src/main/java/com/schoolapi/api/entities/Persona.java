@@ -124,11 +124,11 @@ public class Persona implements Serializable {
 	}
 
 	public Estudiante getEstudiante() {
-		return estudiante;
+		return perEstudiante;
 	}
 
 	public void setEstudiante(Estudiante estudiante) {
-		this.estudiante = estudiante;
+		this.perEstudiante = estudiante;
 	}
 
 	public DatosResidenciales getDatosResidenciales() {
