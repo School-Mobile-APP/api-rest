@@ -63,16 +63,25 @@ public class Estudiante implements Serializable {
 	@OneToOne
 	@JoinColumn(name="est_ultima_matricula_fk")
 	private Matricula matricula;
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name="est_ultima_seccion_fk") private Seccion seccion;
-	 */
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name="est_ultima_sede_fk") private Sede sede;
-	 */
+	
+	@OneToOne  
+	@JoinColumn(name="est_ultima_seccion_fk") 
+	private Seccion seccion;
+	public Seccion getSeccion() {
+		return seccion;
+	}
+	public void setSeccion(Seccion seccion) {
+		this.seccion = seccion;
+	}
+	public Sede getSede() {
+		return sede;
+	}
+	public void setSede(Sede sede) {
+		this.sede = sede;
+	}
+	@OneToOne
+	@JoinColumn(name="est_ultima_sede_fk") 
+	private Sede sede;
 	@Column(name="est_sintoniza_canal_10")
 	private Boolean estSintonizaCanal10;
 	@OneToOne

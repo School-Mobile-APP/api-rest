@@ -6,19 +6,29 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name="sg_tipos_parentesco",schema="catalogo")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class TipoParentesco implements Serializable{
 
+	public long getTpaPk() {
+		return tpaPk;
+	}
+	public void setTpaPk(long tpaPk) {
+		this.tpaPk = tpaPk;
+	}
+	public String getTpaCodigo() {
+		return tpaCodigo;
+	}
+	public void setTpaCodigo(String tpaCodigo) {
+		this.tpaCodigo = tpaCodigo;
+	}
+	public String getTpaNombre() {
+		return tpaNombre;
+	}
+	public void setTpaNombre(String tpaNombre) {
+		this.tpaNombre = tpaNombre;
+	}
 	private static final long serialVersionUID = 1L;
 	@Id
 	private long tpaPk;

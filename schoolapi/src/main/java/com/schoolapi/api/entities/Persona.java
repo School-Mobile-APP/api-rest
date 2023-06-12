@@ -126,12 +126,6 @@ public class Persona implements Serializable {
 	@OneToOne 
 	 @JoinColumn(name="per_direccion_fk") 
 	 private Direccion direccion;
-	// paso tres
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name="per_direccion_fk") private Direccion direccion;
-	 */
 	@Column(name = "per_tipo_vivienda_fk")
 	private Long perTipoViviendaFk;
 	/*
@@ -171,14 +165,6 @@ public class Persona implements Serializable {
 
 	public void setPerDatosResidenciales(DatosResidenciales perDatosResidenciales) {
 		this.perDatosResidenciales = perDatosResidenciales;
-	}
-
-	public Estudiante getEstudiante() {
-		return perEstudiante;
-	}
-
-	public void setEstudiante(Estudiante estudiante) {
-		this.perEstudiante = estudiante;
 	}
 
 	public DatosResidenciales getDatosResidenciales() {
