@@ -22,6 +22,15 @@ public class Seccion implements Serializable{
 	@OneToOne  
 	@JoinColumn(name="sec_jornada_fk") 
 	private Jornada jornada;
+	@OneToOne
+	@JoinColumn(name="sec_servicio_educativo_fk")
+	private ServicioEducativo servicioEducativo;
+	public ServicioEducativo getServicioEducativo() {
+		return servicioEducativo;
+	}
+	public void setServicioEducativo(ServicioEducativo servicioEducativo) {
+		this.servicioEducativo = servicioEducativo;
+	}
 	public Long getSecPk() {
 		return secPk;
 	}
