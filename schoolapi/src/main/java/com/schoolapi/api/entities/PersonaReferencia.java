@@ -14,6 +14,18 @@ public class PersonaReferencia implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	private Long per_pk;
+	public Long getPer_pk() {
+		return per_pk;
+	}
+	public void setPer_pk(Long per_pk) {
+		this.per_pk = per_pk;
+	}
+	public Long getRea_pk() {
+		return rea_pk;
+	}
+	public void setRea_pk(Long rea_pk) {
+		this.rea_pk = rea_pk;
+	}
 	@Id
 	private Long rea_pk;
 }

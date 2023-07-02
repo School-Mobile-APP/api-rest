@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.schoolapi.api.entities.Sede;
-import com.schoolapi.api.entities.Sexo;
 import com.schoolapi.api.repositories.SedeRepository;
 
 import jakarta.transaction.Transactional;

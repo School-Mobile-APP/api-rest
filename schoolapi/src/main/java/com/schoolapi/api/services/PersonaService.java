@@ -17,6 +17,7 @@ public class PersonaService implements BaseService<Persona>{
 	public List<Persona> findAll() throws Exception {
 		try {
 			List<Persona> personas=personaRepository.findAll();
+			personaRepository.findBy(null, null);
 			return personas;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

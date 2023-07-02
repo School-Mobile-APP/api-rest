@@ -150,7 +150,7 @@ public class Persona implements Serializable {
 	@JoinTable(name = "sg_personas_elementos_hogar", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "eho_pk"))
 	private List<ElementoHogar> perElementosHogar;
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "allPersonaReferenciada")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "allPersona")
 	private List<Allegado> perAllegados;
 	
 	public List<Allegado> getPerAllegados() {

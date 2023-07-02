@@ -88,7 +88,7 @@ public class Estudiante implements Serializable {
 	private Modalidad modalidad;
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sg_est_canales_atencion", schema = "centros_educativos", joinColumns = @JoinColumn(name = "eca_estudiante_fk"), inverseJoinColumns = @JoinColumn(name = "eca_pk"))
+	@JoinTable(name = "sg_est_canales_atencion", schema = "centros_educativos", joinColumns = @JoinColumn(name = "eca_estudiante_fk"), inverseJoinColumns = @JoinColumn(name = "eca_canal_fk"))
 	private List<CanalAtencion> estCanalesAtencion;
 	public List<CanalAtencion> getEstCanalesAtencion() {
 		return estCanalesAtencion;

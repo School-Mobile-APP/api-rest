@@ -26,6 +26,15 @@ public class Direccion implements Serializable{
 	private Departamento departamento;
 	@Column(name="dir_caserio_texto")
 	private String dirCaserioTexto;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="dir_zona")
+	private Zona dirZona;
+	public Zona getDirZona() {
+		return dirZona;
+	}
+	public void setDirZona(Zona dirZona) {
+		this.dirZona = dirZona;
+	}
 	public long getDirPk() {
 		return dirPk;
 	}

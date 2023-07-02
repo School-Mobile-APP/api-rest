@@ -23,14 +23,14 @@ public class Allegado implements Serializable {
 	@Column(name = "all_dependiente")
 	private Boolean allDependiente;
 
-	@Column(name = "all_persona_ref")
-	private Integer allPersonaReferenciada;
+	@Column(name = "all_persona")
+	private Long allPersona;
 
 	@Column(name = "all_es_familiar")
 	private Boolean allEsFamiliar;
 	@OneToOne(optional=false)
-	@JoinColumn(name="all_persona")
-	private Persona allPersona;
+	@JoinColumn(name="all_persona_ref")
+	private Persona allPersonaReferenciada;
 
 	/*
 	 * @OneToOne
@@ -53,6 +53,12 @@ public class Allegado implements Serializable {
 	public Boolean getAllContactoEmergencia() {
 		return allContactoEmergencia;
 	}
+	public Long getAllPersona() {
+		return allPersona;
+	}
+	public void setAllPersona(Long allPersona) {
+		this.allPersona = allPersona;
+	}
 	public void setAllContactoEmergencia(Boolean allContactoEmergencia) {
 		this.allContactoEmergencia = allContactoEmergencia;
 	}
@@ -62,10 +68,10 @@ public class Allegado implements Serializable {
 	public void setAllDependiente(Boolean allDependiente) {
 		this.allDependiente = allDependiente;
 	}
-	public Integer getAllPersonaReferenciada() {
+	public Persona getAllPersonaReferenciada() {
 		return allPersonaReferenciada;
 	}
-	public void setAllPersonaReferenciada(Integer allPersonaReferenciada) {
+	public void setAllPersonaReferenciada(Persona allPersonaReferenciada) {
 		this.allPersonaReferenciada = allPersonaReferenciada;
 	}
 	public Boolean getAllEsFamiliar() {

@@ -20,9 +20,33 @@ public class Telefono implements Serializable {
 	@Column(name = "tel_pk")
 	private Long telPk;
 
+	public Long getTelPk() {
+		return telPk;
+	}
+
+	public void setTelPk(Long telPk) {
+		this.telPk = telPk;
+	}
+
+	public String getTelTelefono() {
+		return telTelefono;
+	}
+
+	public void setTelTelefono(String telTelefono) {
+		this.telTelefono = telTelefono;
+	}
+
+	public Long getTelPersona() {
+		return telPersona;
+	}
+
+	public void setTelPersona(Long telPersona) {
+		this.telPersona = telPersona;
+	}
+
 	@Column(name = "tel_telefono", length = 15)
 	private String telTelefono;
 
 	@Column(name = "tel_persona")
-	private Integer telPersona;
+	private Long telPersona;
 }
