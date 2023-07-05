@@ -6,10 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.schoolapi.api.entities.Persona;
+import com.schoolapi.api.entities.PersonaElementoHogarPk;
+import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
 import com.schoolapi.api.services.PersonaService;
 
 import jakarta.persistence.EntityManager;
@@ -28,6 +32,8 @@ public class PersonaController {
 	EntityManager em;
 	@Autowired
 	private PersonaService personaService;
+	@Autowired
+	private PersonaElementosHogarRepository personaElementosHogarRepository;
 	@GetMapping("/{dui}")
 	public ResponseEntity<?> getPerson(@PathVariable String dui){
 		try {
@@ -42,6 +48,15 @@ public class PersonaController {
 	        }
 	        return ResponseEntity.status(HttpStatus.OK).body(query.getResultList());
 			//return ResponseEntity.status(HttpStatus.OK).body(personaService.findById(id));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+		}
+	}
+	@PostMapping("/elementos/")
+	public ResponseEntity<?> addElemento(@RequestBody PersonaElementoHogarPk perEl){
+		try {
+			PersonaElementoHogarPk perEleNuevo=personaElementosHogarRepository.save(perEl);
+			return ResponseEntity.status(HttpStatus.OK).body(perEleNuevo);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
 		}

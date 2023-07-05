@@ -115,7 +115,17 @@ public class Persona implements Serializable {
 	private Boolean perTieneHijos;
 	@Column(name = "per_cantidad_hijos")
 	private Integer perCantidadHijos;
-	 public Direccion getDireccion() {
+	@Column(name="per_escolaridad_fk")
+	private Integer perEscolaridadFk;
+	 public Integer getPerEscolaridadFk() {
+		return perEscolaridadFk;
+	}
+
+	public void setPerEscolaridadFk(Integer perEscolaridadFk) {
+		this.perEscolaridadFk = perEscolaridadFk;
+	}
+
+	public Direccion getDireccion() {
 		return direccion;
 	}
 

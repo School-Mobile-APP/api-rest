@@ -2,13 +2,20 @@ package com.schoolapi.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.schoolapi.api.entities.PersonaReferencia;
+import com.schoolapi.api.entities.ReferenciasApoyo;
+import com.schoolapi.api.repositories.PersonaReferenciaRepository;
+import com.schoolapi.api.repositories.ReferenciasApoyoRepository;
 import com.schoolapi.api.services.ReferenciaService;
 
 @RestController
@@ -17,6 +24,8 @@ import com.schoolapi.api.services.ReferenciaService;
 public class ReferenciasApoyoController {
 	@Autowired
 	private ReferenciaService referenciaService;
+	@Autowired
+	private PersonaReferenciaRepository personaReferenciaRepository;
 	@GetMapping("")
 	public ResponseEntity<?> getAll(){
 		try {
@@ -31,6 +40,15 @@ public class ReferenciasApoyoController {
 			return ResponseEntity.status(HttpStatus.OK).body(referenciaService.findById(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+		}
+	}
+	@PostMapping("/")
+	public ResponseEntity<?> addReferencia(@RequestBody PersonaReferencia ref){
+		try {
+			PersonaReferencia refNewApoyo=personaReferenciaRepository.save(ref);
+			return ResponseEntity.status(HttpStatus.OK).body(refNewApoyo);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":"+e.toString()+"}");
 		}
 	}
 }

@@ -31,7 +31,15 @@ public class Allegado implements Serializable {
 	@OneToOne(optional=false)
 	@JoinColumn(name="all_persona_ref")
 	private Persona allPersonaReferenciada;
+	@Column(name="all_tipo_parentesco")
+	private Long allTipoParentesco;
 
+	public Long getAllTipoParentesco() {
+		return allTipoParentesco;
+	}
+	public void setAllTipoParentesco(Long allTipoParentesco) {
+		this.allTipoParentesco = allTipoParentesco;
+	}
 	/*
 	 * @OneToOne
 	 * 

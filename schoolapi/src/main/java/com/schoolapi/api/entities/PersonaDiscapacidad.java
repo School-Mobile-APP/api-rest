@@ -16,4 +16,16 @@ public class PersonaDiscapacidad implements Serializable {
 	private Long per_pk;
 	@Id
 	private Long dis_pk;
+	public Long getPer_pk() {
+		return per_pk;
+	}
+	public void setPer_pk(Long per_pk) {
+		this.per_pk = per_pk;
+	}
+	public Long getDis_pk() {
+		return dis_pk;
+	}
+	public void setDis_pk(Long dis_pk) {
+		this.dis_pk = dis_pk;
+	}
 }
