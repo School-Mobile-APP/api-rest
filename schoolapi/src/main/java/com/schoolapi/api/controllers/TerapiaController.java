@@ -48,6 +48,5 @@ public class TerapiaController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
 		}
-		
 	}
 }
