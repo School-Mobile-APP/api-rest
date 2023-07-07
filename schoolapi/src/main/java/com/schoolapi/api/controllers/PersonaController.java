@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.schoolapi.api.entities.DatosResidenciales;
+import com.schoolapi.api.entities.EstudianteCanal;
 import com.schoolapi.api.entities.Persona;
 import com.schoolapi.api.entities.PersonaElementoHogarPk;
+import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
 import com.schoolapi.api.repositories.PersonaRepository;
 import com.schoolapi.api.services.PersonaService;
@@ -34,6 +36,8 @@ import jakarta.persistence.criteria.Root;
 public class PersonaController {
 	@PersistenceContext
 	EntityManager em;
+	@Autowired 
+	private EstudianteCanalAtencionRepository estudianteCanalAtencionRepository;
 	@Autowired
 	private PersonaService personaService;
 	@Autowired
@@ -86,4 +90,40 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
 		}
 	}
+	@PutMapping("/internet")
+	public ResponseEntity<?> actualizarInternet(@RequestBody Persona per) {
+		try {
+			Boolean actualizado=personaRepository.updateInternet(per.getPerAccesoInternet(),per.getPerPk());
+			if(actualizado) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
+		}
+	}
+	@PutMapping("/internetResidencial")
+	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat) {
+		try {
+			Boolean actualizado=personaRepository.updateInternetResidencial(dat.getPerTieneConexionInternetResidencial(),dat.getPerPk());
+			if(actualizado) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
+		}
+	}
+	@PostMapping("/estCanal")
+	public ResponseEntity<?> addElemento(@RequestBody EstudianteCanal estCan) {
+		try {
+			EstudianteCanal estudianteCanal = estudianteCanalAtencionRepository.save(estCan);
+			return ResponseEntity.status(HttpStatus.OK).body(estudianteCanal);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+	
 }

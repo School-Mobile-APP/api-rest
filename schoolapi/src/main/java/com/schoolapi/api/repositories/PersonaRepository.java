@@ -39,9 +39,18 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@Param("segundoApellido") String segundoApellido,@Param("email") String email,@Param("escolaridad")Integer escolaidad);
 	@Modifying
 	@Query(value ="update centros_educativos.sg_datos_residenciales_personas dp"
-			+ " set dp.per_tiene_servicio_basura:=basura, dp.per_fuente_abastecimiento_agua_residencial"
-			+ ":=agua,dp.per_tiene_servicio_energia_electrica_residencial=:energia"
-			+ " where dp.per_pk=:",nativeQuery = true)
+			+ " set dp.per_tiene_servicio_basura=:basura, dp.per_fuente_abastecimiento_agua_residencial"
+			+ "=:agua,dp.per_tiene_servicio_energia_electrica_residencial=:energia"
+			+ " where dp.per_pk=:id",nativeQuery = true)
 	boolean updateStepFour(@Param("basura") Boolean basura,@Param("agua") Long agua,
 			@Param("energia") Boolean energia,@Param("id") Long id);
+	@Modifying
+	@Query(value="update centros_educativos.sg_personas p set p.per_acceso_internet=:internet"
+			+ " where p.per_pk=:id",nativeQuery = true)
+	boolean updateInternet(@Param("internet") Boolean internet, @Param("id") Long id);
+	@Modifying
+	@Query(value="update centros_educativos.sg_datos_residenciales_personas dp"
+			+ " set dp.per_tiene_conexion_internet_residencial=:internet where "
+			+ "dp.per_pk=:id",nativeQuery = true)
+	boolean updateInternetResidencial(@Param("internet") Boolean internet,@Param("id") Long id);
 }
