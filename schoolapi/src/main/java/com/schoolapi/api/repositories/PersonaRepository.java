@@ -53,4 +53,24 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ " set dp.per_tiene_conexion_internet_residencial=:internet where "
 			+ "dp.per_pk=:id",nativeQuery = true)
 	boolean updateInternetResidencial(@Param("internet") Boolean internet,@Param("id") Long id);
+	@Modifying
+	@Query(value="update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:"
+			+ "pnombre,p.per_segundo_nombre=:snombre,p.per_primer_apellido=:papellido,"
+			+ "p.per_segundo_apellido=:sapellido,p.per_email=:email,p.per_escolaridad_fk=:escolaridad"
+			+ " where p.per_pk=:id",nativeQuery = true)
+	boolean updatePasoSeis(@Param("dui")String dui,@Param("pnombre") String pnombre,
+			@Param("snombre") String snombre, @Param("papellido")String papellido,
+			@Param("sapellido") String sapellido,@Param("email") String email,
+			@Param("escolaridad") Integer escolaridad,@Param("id") Integer id);
+	@Modifying
+	@Query(value="update centros_educativos.sg_allegados a set a.all_tipo_parentesco=:"
+			+ "parentesco where a.all_persona_ref=:perpk",nativeQuery = true)
+	boolean updateParentesco(@Param("parentesco") Integer parentesco,@Param("perpk") Integer perpk);
+	@Modifying
+	@Query(value="update centros_educativos.sg_personas p set p.per_primer_nombre=:pnombre,"
+			+ "p.per_segundo_nombre=:snombre,p.per_primer_apellido=:papellido,p.per_segundo_apellido"
+			+ "=:sapellido,p.per_fecha_nacimiento=:pfecha,p.per_email=:email where p.per_pk=:id",nativeQuery = true)
+	boolean updatePerfil(@Param("pnombre")String pnombre,@Param("snombre") String snombre,
+			@Param("papellido")String papellido,@Param("sapellido") String sapellido,
+			@Param("pfecha")String pfecha,@Param("email")String email,@Param("id") Integer id);
 }

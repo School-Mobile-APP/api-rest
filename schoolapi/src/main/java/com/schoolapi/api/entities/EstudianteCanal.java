@@ -12,11 +12,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sg_est_canales_atencion",schema="centros_educativos")
-@IdClass(value = EstudianteCanal.class)
 public class EstudianteCanal implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="eca_pk")
 	private Long ecaPk;
 	@Column(name="eca_estudiante_fk")
 	private Long ecaEstudianteFk;
