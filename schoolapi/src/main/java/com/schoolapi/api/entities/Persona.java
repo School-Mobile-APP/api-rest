@@ -1,7 +1,7 @@
 package com.schoolapi.api.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.annotations.Fetch;
@@ -38,7 +38,7 @@ public class Persona implements Serializable {
 	@Column(name = "per_dui")
 	private String perDui;
 	@Column(name = "per_fecha_nacimiento")
-	private Date perFechaNacimiento;
+	private LocalDate perFechaNacimiento;
 	@OneToOne
 	@JoinColumn(name = "per_nacionalidad_fk")
 	private Nacionalidad nacionalidad;
@@ -240,11 +240,11 @@ public class Persona implements Serializable {
 		this.perDui = perDui;
 	}
 
-	public Date getPerFechaNacimiento() {
+	public LocalDate getPerFechaNacimiento() {
 		return perFechaNacimiento;
 	}
 
-	public void setPerFechaNacimiento(Date perFechaNacimiento) {
+	public void setPerFechaNacimiento(LocalDate perFechaNacimiento) {
 		this.perFechaNacimiento = perFechaNacimiento;
 	}
 
