@@ -55,7 +55,7 @@ public class PersonaController {
 			cq.where(duiFound);
 			TypedQuery<Persona> query = em.createQuery(cq);
 			if (query.getResultList().size() == 0) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + "No encontrado" + "}");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No encontrado\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(query.getResultList());
 			// return
@@ -125,5 +125,17 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
-	
+	@PutMapping("/perfil")
+	public ResponseEntity<?> updatePerfil(@RequestBody Persona per){
+		try {
+			if(personaRepository.updatePerfil(per.getPerPrimerNombre(),
+					per.getPerSegundoNombre(), per.getPerPrimerApellido(),per.getPerSegundoApellido(),
+					per.getPerFechaNacimiento(),per.getPerEmail(), per.getPerPk())==1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+ "}");
+		}
+	}
 }
