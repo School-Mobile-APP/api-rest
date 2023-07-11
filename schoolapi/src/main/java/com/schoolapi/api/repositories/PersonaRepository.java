@@ -17,24 +17,26 @@ import jakarta.transaction.Transactional;
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	//falta fecha
 	@Modifying
-	@Query(value="update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:primerNombre"
-			+ ", p.per_segundo_nombre=:segundoNombre,p.per_primer_apellido=:primerApellido,"
-			+ "p.per_segundo_apellido=:segundoApellido,p.per_fecha_nacimiento=:fecha,"
-			+ "p.per_nac_fk=:nac,p.per_retornada=:ret,"
-			+ "p.per_partida_nacimiento_posee=:partida,p.per_sexo_fk=:sex,"
-			+ "p.per_etnia_fk=:etnia,p.per_tiene_diagnostico=:diagnostico,p.per_email=:email,"
-			+ "p.per_tipo_trabajo_fk=:trabajo,p.per_estado_civil_fk=:civil,"
-			+ "p.per_convivencia_familiar_fk=:convivencia,p.per_embarazo=:embarazo,"
-			+ "p.per_tiene_hijos=:tienehijos,p.per_cantidad_hijos=:cantidad"
-			+ " where p.per_pk=:id",nativeQuery = true)
-	Boolean updatePersonStepTwo(@PathVariable("dui") String dui,@PathVariable("primerNombre") String primerNombre,@PathVariable("segundoNombre") String segundoNombre,
+	@Query(value="update centros_educativos.sg_personas set per_dui=:dui,per_primer_nombre=:primerNombre"
+			+ ", per_segundo_nombre=:segundoNombre,per_primer_apellido=:primerApellido,"
+			+ "per_segundo_apellido=:segundoApellido,per_fecha_nacimiento=:fecha,"
+			+ "per_nacionalidad_fk=:nac,per_retornada=:ret,"
+			+ "per_partida_nacimiento_posee=:partida,per_sexo_fk=:sex,"
+			+ "per_etnia_fk=:etnia,per_tiene_diagnostico=:diagnostico,per_email=:email,"
+			+ "per_tipo_trabajo_fk=:trabajo,per_estado_civil_fk=:civil,"
+			+ "per_convivencia_fam_fk=:convivencia,per_embarazo=:embarazo,"
+			+ "per_tiene_hijos=:tienehijos,per_cantidad_hijos=:cantidad"
+			+ " where per_pk=:id",nativeQuery = true)
+	@Transactional
+	Integer updatePasoDos(@PathVariable("dui") String dui,@PathVariable("primerNombre") String primerNombre,@PathVariable("segundoNombre") String segundoNombre,
 			@PathVariable("primerApellido")String primerApellido,@PathVariable("segundoApellido") String segundoApellido,
-			@PathVariable("nac") Integer nac,@PathVariable("ret") Boolean ret,@PathVariable("partida") Boolean partida,
-			@PathVariable("sex") Integer sex,@PathVariable("etn") Integer etn,@PathVariable("diagnostico") Boolean diagnostico,
-			@PathVariable("email") String email,@PathVariable("trabajo") Integer trabajo,
-			@PathVariable("civil") Integer civil,@PathVariable("convivencia") Integer convivencia,
+			@PathVariable("nac") Long nac,@PathVariable("ret") Boolean ret,@PathVariable("partida") Boolean partida,
+			@PathVariable("sex") Long sex,@PathVariable("etnia") Long etnia,@PathVariable("diagnostico") Boolean diagnostico,
+			@PathVariable("email") String email,@PathVariable("trabajo") Long trabajo,
+			@PathVariable("civil") Long civil,@PathVariable("convivencia") Integer convivencia,
 			@PathVariable("embarazo")Boolean embarazo,@PathVariable("tienehijos") Boolean tienehijos,
-			@PathVariable("cantidad") Integer cantidad,@PathVariable("id") Integer id);
+			@PathVariable("cantidad") Integer cantidad,@PathVariable("fecha") LocalDate fecha,
+			@PathVariable("id") Long id);
 	@Modifying
 	@Query(value="update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:primerNombre,"
 			+ "p.per_segundo_nombre=:segundoNombre,p.per_primer_apellido=:primerApellido,"

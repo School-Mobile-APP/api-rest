@@ -1,5 +1,7 @@
 package com.schoolapi.api.controllers;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -36,7 +38,7 @@ import jakarta.persistence.criteria.Root;
 public class PersonaController {
 	@PersistenceContext
 	EntityManager em;
-	@Autowired 
+	@Autowired
 	private EstudianteCanalAtencionRepository estudianteCanalAtencionRepository;
 	@Autowired
 	private PersonaService personaService;
@@ -78,44 +80,48 @@ public class PersonaController {
 	@PutMapping("/pasoCuatro")
 	public ResponseEntity<?> actualizarPasoCuatro(@RequestBody DatosResidenciales datos) {
 		try {
-			Boolean actualizado=personaRepository.updateStepFour(datos.getPeTieneServicioBasura(),
+			Boolean actualizado = personaRepository.updateStepFour(datos.getPeTieneServicioBasura(),
 					datos.getPerFuenteAbastecimientoAguaResidencial(),
 					datos.getPerTieneServicioEnergiaElectricaResidencial(), datos.getPerPk());
-			if(actualizado) {
+			if (actualizado) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
 			}
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PutMapping("/internet")
 	public ResponseEntity<?> actualizarInternet(@RequestBody Persona per) {
 		try {
-			Boolean actualizado=personaRepository.updateInternet(per.getPerAccesoInternet(),per.getPerPk());
-			if(actualizado) {
+			Boolean actualizado = personaRepository.updateInternet(per.getPerAccesoInternet(), per.getPerPk());
+			if (actualizado) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
 			}
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PutMapping("/internetResidencial")
 	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat) {
 		try {
-			Boolean actualizado=personaRepository.updateInternetResidencial(dat.getPerTieneConexionInternetResidencial(),dat.getPerPk());
-			if(actualizado) {
+			Boolean actualizado = personaRepository
+					.updateInternetResidencial(dat.getPerTieneConexionInternetResidencial(), dat.getPerPk());
+			if (actualizado) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
 			}
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");	
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PostMapping("/estCanal")
 	public ResponseEntity<?> addElemento(@RequestBody EstudianteCanal estCan) {
 		try {
@@ -125,17 +131,39 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PutMapping("/perfil")
-	public ResponseEntity<?> updatePerfil(@RequestBody Persona per){
+	public ResponseEntity<?> updatePerfil(@RequestBody Persona per) {
 		try {
-			if(personaRepository.updatePerfil(per.getPerPrimerNombre(),
-					per.getPerSegundoNombre(), per.getPerPrimerApellido(),per.getPerSegundoApellido(),
-					per.getPerFechaNacimiento(),per.getPerEmail(), per.getPerPk())==1) {
+			if (personaRepository.updatePerfil(per.getPerPrimerNombre(), per.getPerSegundoNombre(),
+					per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getPerFechaNacimiento(),
+					per.getPerEmail(), per.getPerPk()) == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+ "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+	
+	@PutMapping("/pasoDos")
+	public ResponseEntity<?> updatePasoDos(@RequestBody Persona per) {
+		try {
+			System.out.print(per.getEtnia().getEtnPk());
+			
+			if (personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
+					per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
+					per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(), 
+					per.getEtnia().getEtnPk(),
+					per.getPerTieneDiagnostico(), per.getPerEmail(), per.getPerTipoTrabajo().getTtrPk(), 
+					per.getPerEstadoCivil().getEciPk(),
+					per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
+					per.getPerCantidadHijos(), per.getPerFechaNacimiento(),per.getPerPk()) == 1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
 }
