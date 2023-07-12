@@ -63,7 +63,7 @@ public class PersonaController {
 			// return
 			// ResponseEntity.status(HttpStatus.OK).body(personaService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -73,7 +73,7 @@ public class PersonaController {
 			PersonaElementoHogarPk perEleNuevo = personaElementosHogarRepository.save(perEl);
 			return ResponseEntity.status(HttpStatus.OK).body(perEleNuevo);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -86,10 +86,10 @@ public class PersonaController {
 			if (actualizado) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
 			}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"" +"No se modificó" + "\"}");
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
