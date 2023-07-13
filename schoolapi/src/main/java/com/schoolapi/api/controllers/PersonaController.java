@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.schoolapi.api.entities.DatosResidenciales;
 import com.schoolapi.api.entities.EstudianteCanal;
 import com.schoolapi.api.entities.Persona;
+import com.schoolapi.api.entities.PersonaDiscapacidad;
 import com.schoolapi.api.entities.PersonaElementoHogarPk;
 import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
@@ -73,23 +75,7 @@ public class PersonaController {
 			PersonaElementoHogarPk perEleNuevo = personaElementosHogarRepository.save(perEl);
 			return ResponseEntity.status(HttpStatus.OK).body(perEleNuevo);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
-		}
-	}
-
-	@PutMapping("/pasoCuatro")
-	public ResponseEntity<?> actualizarPasoCuatro(@RequestBody DatosResidenciales datos) {
-		try {
-			Boolean actualizado = personaRepository.updateStepFour(datos.getPeTieneServicioBasura(),
-					datos.getPerFuenteAbastecimientoAguaResidencial(),
-					datos.getPerTieneServicioEnergiaElectricaResidencial(), datos.getPerPk());
-			if (actualizado) {
-				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
-			}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"" +"No se modificó" + "\"}");
-
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
 		}
 	}
 
@@ -164,6 +150,27 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+	@PutMapping("/pasoCuatro")
+	public ResponseEntity<?> updatePasoCuatro(@RequestBody DatosResidenciales dat) {
+		try {
+			if (personaRepository.updatePasoCuatro(dat.getPeTieneServicioBasura(), 
+					dat.getPerFuenteAbastecimientoAguaResidencial(), dat.getPerTieneServicioEnergiaElectricaResidencial(),dat.getPerPk()) == 1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+	@DeleteMapping("/elementos/{id}")
+	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id) {
+		try {
+			personaElementosHogarRepository.deleteElementos(id);
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\""+"Eliminado"+"\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
 		}
 	}
 }

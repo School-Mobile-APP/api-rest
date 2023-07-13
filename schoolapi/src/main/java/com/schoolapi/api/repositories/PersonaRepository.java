@@ -45,11 +45,12 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@PathVariable("segundoNombre") String segundoNombre,@PathVariable("primerApellido")String primerApellido,
 			@PathVariable("segundoApellido") String segundoApellido,@PathVariable("email") String email,@PathVariable("escolaridad")Integer escolaridad);
 	@Modifying
-	@Query(value ="update centros_educativos.sg_datos_residenciales_personas dp"
-			+ " set dp.per_tiene_servicio_basura=:basura, dp.per_fuente_abastecimiento_agua_residencial"
-			+ "=:agua,dp.per_tiene_servicio_energia_electrica_residencial=:energia"
-			+ " where dp.per_pk=:id",nativeQuery = true)
-	boolean updateStepFour(@PathVariable("basura") Boolean basura,@PathVariable("agua") Long agua,
+	@Query(value ="update centros_educativos.sg_datos_residenciales_personas"
+			+ " set per_tiene_servicio_basura=:basura, per_fuente_abastecimiento_agua_residencial"
+			+ "=:agua,per_tiene_servicio_energia_electrica_residencial=:energia"
+			+ " where per_pk=:id",nativeQuery = true)
+	@Transactional
+	Integer updatePasoCuatro(@PathVariable("basura") Boolean basura,@PathVariable("agua") Long agua,
 			@PathVariable("energia") Boolean energia,@PathVariable("id") Long id);
 	@Modifying
 	@Query(value="update centros_educativos.sg_personas p set p.per_acceso_internet=:internet"
