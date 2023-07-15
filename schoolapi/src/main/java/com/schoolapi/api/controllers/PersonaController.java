@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.schoolapi.api.entities.Allegado;
 import com.schoolapi.api.entities.DatosResidenciales;
 import com.schoolapi.api.entities.Estudiante;
 import com.schoolapi.api.entities.EstudianteCanal;
@@ -105,7 +107,18 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
-
+	@PutMapping("/parentesco")
+	public ResponseEntity<?> actualizarAllegado(@RequestBody Allegado all) {
+		try {
+			Integer actualizado = personaRepository.updateParentesco(all.getAllTipoParentesco(), all.getAllPersona());
+			if (actualizado == 1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
 	@PutMapping("/internetResidencial")
 	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat) {
 		try {
