@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -53,27 +52,31 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	Integer updatePasoCuatro(@PathVariable("basura") Boolean basura,@PathVariable("agua") Long agua,
 			@PathVariable("energia") Boolean energia,@PathVariable("id") Long id);
 	@Modifying
-	@Query(value="update centros_educativos.sg_personas p set p.per_acceso_internet=:internet"
-			+ " where p.per_pk=:id",nativeQuery = true)
-	boolean updateInternet(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);
+	@Query(value="update centros_educativos.sg_personas set per_acceso_internet=:internet"
+			+ " where per_pk=:id",nativeQuery = true)
+	@Transactional
+	Integer updateInternet(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);
 	@Modifying
-	@Query(value="update centros_educativos.sg_datos_residenciales_personas dp"
-			+ " set dp.per_tiene_conexion_internet_residencial=:internet where "
-			+ "dp.per_pk=:id",nativeQuery = true)
-	boolean updateInternetResidencial(@PathVariable("internet") Boolean internet,@PathVariable("id") Long id);
+	@Query(value="update centros_educativos.sg_datos_residenciales_personas"
+			+ " set per_tiene_conexion_internet_residencial=:internet where "
+			+ "per_pk=:id",nativeQuery = true)
+	@Transactional
+	Integer updateInternetResidencial(@PathVariable("internet") Boolean internet,@PathVariable("id") Long id);
 	@Modifying
-	@Query(value="update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:"
-			+ "pnombre,p.per_segundo_nombre=:snombre,p.per_primer_apellido=:papellido,"
-			+ "p.per_segundo_apellido=:sapellido,p.per_email=:email,p.per_escolaridad_fk=:escolaridad"
-			+ " where p.per_pk=:id",nativeQuery = true)
-	boolean updatePasoSeis(@PathVariable("dui")String dui,@PathVariable("pnombre") String pnombre,
+	@Query(value="update centros_educativos.sg_personas set per_dui=:dui,"
+			+ "per_primer_nombre=:pnombre,per_segundo_nombre=:snombre,per_primer_apellido=:papellido,"
+			+ "per_segundo_apellido=:sapellido,per_email=:email,per_escolaridad_fk=:escolaridad"
+			+ " where per_pk=:id",nativeQuery = true)
+	@Transactional
+	Integer updatePasoSeis(@PathVariable("dui")String dui,@PathVariable("pnombre") String pnombre,
 			@PathVariable("snombre") String snombre, @PathVariable("papellido")String papellido,
 			@PathVariable("sapellido") String sapellido,@PathVariable("email") String email,
-			@PathVariable("escolaridad") Integer escolaridad,@PathVariable("id") Integer id);
+			@PathVariable("escolaridad") Integer escolaridad,@PathVariable("id") Long id);
 	@Modifying
 	@Query(value="update centros_educativos.sg_allegados a set a.all_tipo_parentesco=:"
 			+ "parentesco where a.all_persona_ref=:perpk",nativeQuery = true)
-	boolean updateParentesco(@PathVariable("parentesco") Integer parentesco,@PathVariable("perpk") Integer perpk);
+	@Transactional
+	Integer updateParentesco(@PathVariable("parentesco") Integer parentesco,@PathVariable("perpk") Integer perpk);
 	@Modifying
 	@Query(value="update centros_educativos.sg_personas set per_primer_nombre=:pnombre,"
 			+ "per_segundo_nombre=:snombre,per_primer_apellido=:papellido,per_segundo_apellido"
