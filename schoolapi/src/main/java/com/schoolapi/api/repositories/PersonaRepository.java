@@ -52,6 +52,11 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	Integer updatePasoCuatro(@PathVariable("basura") Boolean basura,@PathVariable("agua") Long agua,
 			@PathVariable("energia") Boolean energia,@PathVariable("id") Long id);
 	@Modifying
+	@Query(value="update centros_educativos.sg_personas set per_tipo_vivienda_fk=:tipo"
+			+ " where per_pk=:id",nativeQuery  = true)
+	@Transactional
+	Integer updateTipoVivienda(@PathVariable("tipo")Long tipo,@PathVariable("id")Long id);
+	@Modifying
 	@Query(value="update centros_educativos.sg_personas set per_acceso_internet=:internet"
 			+ " where per_pk=:id",nativeQuery = true)
 	@Transactional

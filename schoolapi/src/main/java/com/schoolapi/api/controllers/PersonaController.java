@@ -1,4 +1,5 @@
 package com.schoolapi.api.controllers;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.schoolapi.api.entities.Allegado;
+import com.schoolapi.api.entities.Canton;
 import com.schoolapi.api.entities.DatosResidenciales;
+import com.schoolapi.api.entities.Direccion;
 import com.schoolapi.api.entities.Estudiante;
 import com.schoolapi.api.entities.EstudianteCanal;
 import com.schoolapi.api.entities.Persona;
 import com.schoolapi.api.entities.PersonaElementoHogarPk;
+import com.schoolapi.api.repositories.CantonRepository;
+import com.schoolapi.api.repositories.DireccionRepository;
 import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.EstudianteRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
@@ -48,6 +53,10 @@ public class PersonaController {
 	private PersonaElementosHogarRepository personaElementosHogarRepository;
 	@Autowired
 	private EstudianteRepository estudianteRepository;
+	@Autowired
+	private DireccionRepository direccionRepository;
+	@Autowired
+	private CantonRepository cantonRepository;
 
 	@GetMapping("/{dui}")
 	public ResponseEntity<?> getPerson(@PathVariable String dui) {
@@ -107,6 +116,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PutMapping("/parentesco")
 	public ResponseEntity<?> actualizarAllegado(@RequestBody Allegado all) {
 		try {
@@ -119,6 +129,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
 		}
 	}
+
 	@PutMapping("/internetResidencial")
 	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat) {
 		try {
@@ -141,6 +152,62 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.OK).body(estudianteCanal);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+
+	@PutMapping("/direccion")
+	public ResponseEntity<?> updateDireccion(@RequestBody Direccion dir) {
+		try {
+			if (direccionRepository.updateDireccion(dir.getDirDireccion(), dir.getMunicipio().getMunPk(),
+					dir.getDepartamento().getDepPk(), dir.getDirCaserioTexto(), dir.getDirZona().getZonPk(),
+					dir.getDirPk()) == 1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+
+	@PutMapping("/vivienda")
+	public ResponseEntity<?> updateVivienda(@RequestBody Persona per) {
+		try {
+
+			if (personaRepository.updateTipoVivienda(per.getPerTipoViviendaFk(),per.getPerPk()) == 1) {
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			}
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+
+	@PutMapping("/canton")
+	public ResponseEntity<?> updateCanton(@RequestBody Direccion can) {
+		try {
+			if (can.getCanton().getCanPk() == 0) {
+				if (direccionRepository.updateCanton(null, can.getDirPk()) == 1) {
+					return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+				}
+			} else {
+				if (direccionRepository.updateCanton(can.getCanton().getCanPk(), can.getDirPk()) == 1) {
+					return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+				}
+			}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+		}
+	}
+
+	@PostMapping("/canton")
+	public ResponseEntity<?> addCanton(@RequestBody Canton can) {
+		try {
+			Canton cantonAgregado = cantonRepository.save(can);
+			return ResponseEntity.status(HttpStatus.OK).body(cantonAgregado);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "\"}");
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.schoolapi.api.entities;
 
 import java.io.Serializable;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -71,7 +72,8 @@ public class Direccion implements Serializable{
 	public void setCanton(Canton canton) {
 		this.canton = canton;
 	}
+	@Nullable
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="dir_canton")
+	@JoinColumn(name="dir_canton",nullable = true)
 	private Canton canton;
 }

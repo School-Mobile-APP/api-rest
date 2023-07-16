@@ -4,27 +4,32 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "sg_cantones", schema = "catalogo")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Canton implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	private long canPk;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long canPk;
+	public Long getCanMunicipioFk() {
+		return canMunicipioFk;
+	}
+	public void setCanMunicipioFk(Long canMunicipioFk) {
+		this.canMunicipioFk = canMunicipioFk;
+	}
+	public void setCanPk(Long canPk) {
+		this.canPk = canPk;
+	}
 	@Column (name="can_nombre")
 	private String canNombre;
 	@Column (name="can_codigo")
 	private String canCodigo;
+	@Column (name="can_municipio_fk")
+	private Long canMunicipioFk;
 	public long getCanPk() {
 		return canPk;
 	}
