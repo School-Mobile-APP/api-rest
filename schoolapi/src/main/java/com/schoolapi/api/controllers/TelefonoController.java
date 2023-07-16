@@ -25,7 +25,7 @@ public class TelefonoController {
 			Telefono agregadoTelefono=telefonoRepository.save(tel);
 			return ResponseEntity.status(HttpStatus.OK).body(agregadoTelefono);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@DeleteMapping("/{id}")

@@ -30,7 +30,7 @@ public class TerapiaController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(terapiaService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@GetMapping("/{id}")
@@ -38,7 +38,7 @@ public class TerapiaController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(terapiaService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@PostMapping("/")
@@ -47,7 +47,7 @@ public class TerapiaController {
 			PersonaTerapia perTer = personaTerapiaRepository.save(ter);
 			return ResponseEntity.status(HttpStatus.OK).body(perTer);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@DeleteMapping("/{id}")
@@ -56,7 +56,7 @@ public class TerapiaController {
 			personaTerapiaRepository.deleteTerapia(id);
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\""+"Eliminado"+"\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }

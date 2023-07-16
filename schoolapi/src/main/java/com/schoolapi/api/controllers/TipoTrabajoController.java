@@ -22,7 +22,7 @@ public class TipoTrabajoController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(tipoTrabajoService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@GetMapping("/{id}")
@@ -30,7 +30,7 @@ public class TipoTrabajoController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(tipoTrabajoService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }

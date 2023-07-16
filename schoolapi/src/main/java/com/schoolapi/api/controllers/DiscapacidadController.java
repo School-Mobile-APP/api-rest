@@ -2,7 +2,6 @@ package com.schoolapi.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,13 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.schoolapi.api.entities.PersonaDiscapacidad;
 import com.schoolapi.api.repositories.PersonaDiscapacidadRepository;
 import com.schoolapi.api.services.DiscapacidadService;
-
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -42,7 +38,7 @@ public class DiscapacidadController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(discapacidadService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+e.toString()+"\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -52,16 +48,16 @@ public class DiscapacidadController {
 			PersonaDiscapacidad perDis = personaDiscapacidadRepository.save(disc);
 			return ResponseEntity.status(HttpStatus.OK).body(perDis);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id) {
 		try {
 			personaDiscapacidadRepository.deleteDiscapacidad(id);
-			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\""+"Eliminado"+"\"}");
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"Eliminado\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\""+ e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }

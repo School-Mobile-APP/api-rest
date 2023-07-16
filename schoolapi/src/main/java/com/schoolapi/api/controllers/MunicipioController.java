@@ -21,7 +21,7 @@ public class MunicipioController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(municipioService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@GetMapping("/{id}")
@@ -29,7 +29,7 @@ public class MunicipioController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(municipioService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }

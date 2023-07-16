@@ -21,7 +21,7 @@ public class EscolaridadController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(escolaridadService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }

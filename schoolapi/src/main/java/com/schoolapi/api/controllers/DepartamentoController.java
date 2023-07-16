@@ -21,7 +21,7 @@ public class DepartamentoController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(deptoService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@GetMapping("/{id}")
@@ -29,29 +29,7 @@ public class DepartamentoController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(deptoService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-	/*
-	 * @PostMapping("") public ResponseEntity<?> save(@RequestBody Departamento
-	 * Entity){ try { return
-	 * ResponseEntity.status(HttpStatus.OK).body(deptoService.save(Entity)); } catch
-	 * (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":"+e.toString()
-	 * +"}"); } }
-	 * 
-	 * @PutMapping("/{id}") public ResponseEntity<?> update(@PathVariable Long
-	 * id,@RequestBody Departamento Entity){ try { return
-	 * ResponseEntity.status(HttpStatus.OK).body(deptoService.update(id,Entity)); }
-	 * catch (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":"+e.toString()
-	 * +"}"); } }
-	 * 
-	 * @DeleteMapping("/{id}") public ResponseEntity<?> delete(@PathVariable Long
-	 * id){ try { return
-	 * ResponseEntity.status(HttpStatus.NO_CONTENT).body(deptoService.delete(id)); }
-	 * catch (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":"+e.toString()
-	 * +"}"); } }
-	 */
 }

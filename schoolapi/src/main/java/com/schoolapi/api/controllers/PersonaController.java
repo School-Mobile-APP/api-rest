@@ -27,8 +27,6 @@ import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.EstudianteRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
 import com.schoolapi.api.repositories.PersonaRepository;
-import com.schoolapi.api.services.PersonaService;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -45,8 +43,6 @@ public class PersonaController {
 	EntityManager em;
 	@Autowired
 	private EstudianteCanalAtencionRepository estudianteCanalAtencionRepository;
-	@Autowired
-	private PersonaService personaService;
 	@Autowired
 	private PersonaRepository personaRepository;
 	@Autowired
@@ -71,8 +67,6 @@ public class PersonaController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No encontrado\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(query.getResultList());
-			// return
-			// ResponseEntity.status(HttpStatus.OK).body(personaService.findById(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
@@ -93,9 +87,9 @@ public class PersonaController {
 		try {
 			Integer actualizado = personaRepository.updateInternet(per.getPerAccesoInternet(), per.getPerPk());
 			if (actualizado == 1) {
-				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":\"Exito\"}");
 			}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"No se modificó\"}");
 
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
@@ -109,11 +103,11 @@ public class PersonaController {
 					per.getPerSegundoNombre(), per.getPerPrimerApellido(), per.getPerSegundoApellido(),
 					per.getPerEmail(), per.getPerEscolaridadFk(), per.getPerPk());
 			if (actualizado == 1) {
-				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":\"Exito\"}");
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -122,11 +116,11 @@ public class PersonaController {
 		try {
 			Integer actualizado = personaRepository.updateParentesco(all.getAllTipoParentesco(), all.getAllPersona());
 			if (actualizado == 1) {
-				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":" + "Exito" + "}");
+				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":\"Exito\"}");
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -138,10 +132,10 @@ public class PersonaController {
 			if (actualizado == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 			}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":" + "No se modificó" + "}");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"No se modificó\"}");
 
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -151,7 +145,7 @@ public class PersonaController {
 			EstudianteCanal estudianteCanal = estudianteCanalAtencionRepository.save(estCan);
 			return ResponseEntity.status(HttpStatus.OK).body(estudianteCanal);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -165,7 +159,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -179,7 +173,7 @@ public class PersonaController {
 
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -197,7 +191,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -207,7 +201,7 @@ public class PersonaController {
 			Canton cantonAgregado = cantonRepository.save(can);
 			return ResponseEntity.status(HttpStatus.OK).body(cantonAgregado);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "\"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -221,7 +215,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -234,7 +228,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -254,7 +248,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -268,7 +262,7 @@ public class PersonaController {
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":" + e.toString() + "}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 
@@ -276,7 +270,7 @@ public class PersonaController {
 	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id) {
 		try {
 			personaElementosHogarRepository.deleteElementos(id);
-			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"" + "Eliminado" + "\"}");
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"Eliminado\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
@@ -286,7 +280,7 @@ public class PersonaController {
 	public ResponseEntity<?> deleteCanal(@PathVariable("id") Long id) {
 		try {
 			estudianteCanalAtencionRepository.deleteCanalesEstudiantes(id);
-			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"" + "Eliminado" + "\"}");
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"Eliminado\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}

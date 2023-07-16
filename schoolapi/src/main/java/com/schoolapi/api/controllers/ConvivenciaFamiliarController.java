@@ -22,7 +22,7 @@ public class ConvivenciaFamiliarController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(convivenciaFamiliarService.findAll());
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 	@GetMapping("/{id}")
@@ -30,7 +30,7 @@ public class ConvivenciaFamiliarController {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(convivenciaFamiliarService.findById(id));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":"+e.toString()+"}");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
 }
