@@ -23,6 +23,17 @@ public class Estudiante implements Serializable {
 	@Id
 	private Long estPk;
 	@Column(name="est_persona")
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "sg_alertas", schema = "alertas", joinColumns = @JoinColumn(name = "ale_estudiante_fk"), inverseJoinColumns = @JoinColumn(name = "ale_pk"))
+    private List<Alerta> alertas;
+	public List<Alerta> getAlertas() {
+		return alertas;
+	}
+	public void setAlertas(List<Alerta> alertas) {
+		this.alertas = alertas;
+	}
 	private Integer estPersona;
 	public Long getEstPk() {
 		return estPk;
@@ -36,11 +47,6 @@ public class Estudiante implements Serializable {
 	public void setMatricula(Matricula matricula) {
 		this.matricula = matricula;
 	}
-
-	/*
-	 * public Seccion getSeccion() { return seccion; } public void
-	 * setSeccion(Seccion seccion) { this.seccion = seccion; }
-	 */
 	public Boolean getEstSintonizaCanal10() {
 		return estSintonizaCanal10;
 	}
@@ -54,11 +60,6 @@ public class Estudiante implements Serializable {
 	public void setEstPersona(Integer estPersona) {
 		this.estPersona = estPersona;
 	}
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name="est_persona") private Persona persona;
-	 */
 	@OneToOne
 	@JoinColumn(name="est_ultima_matricula_fk")
 	private Matricula matricula;

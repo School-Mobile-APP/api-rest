@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.schoolapi.api.entities.PersonaDiscapacidad;
 import com.schoolapi.api.entities.PersonaTerapia;
 import com.schoolapi.api.repositories.PersonaTerapiaRepository;
 import com.schoolapi.api.services.TerapiaService;

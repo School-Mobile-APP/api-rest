@@ -55,7 +55,7 @@ public class Persona implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "sg_personas_discapacidades", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "dis_pk"))
 	private List<Discapacidad> perDiscapacidades;
-
+	
 	@Column(name = "per_tiene_diagnostico")
 	private Boolean perTieneDiagnostico;
 
@@ -137,17 +137,7 @@ public class Persona implements Serializable {
 	 private Direccion direccion;
 	@Column(name = "per_tipo_vivienda_fk")
 	private Long perTipoViviendaFk;
-	/*
-	 * @Column(name = "per_tiene_servicio_energia_electrica_residencial") private
-	 * Boolean perTieneServicioEnergiaElectricaResidencial;
-	 * 
-	 * @Column(name = "per_fuente_abastecimiento_agua_residencial") private Long
-	 * perFuenteAbastecimientoAguaResidencial;
-	 * 
-	 * @Column(name="per_tiene_servicio_basura") private Boolean
-	 * peTieneServicioBasura;
-	 */
-	// Serán obtenidos de datos residenciales
+
 	@OneToOne(optional = false)
 	@JoinColumn(name = "per_pk", updatable = false, insertable = false)
 	private DatosResidenciales perDatosResidenciales;

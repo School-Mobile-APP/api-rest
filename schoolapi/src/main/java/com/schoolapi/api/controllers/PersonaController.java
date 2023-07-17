@@ -53,7 +53,6 @@ public class PersonaController {
 	private DireccionRepository direccionRepository;
 	@Autowired
 	private CantonRepository cantonRepository;
-
 	@GetMapping("/{dui}")
 	public ResponseEntity<?> getPerson(@PathVariable String dui) {
 		try {
@@ -172,6 +171,14 @@ public class PersonaController {
 			}
 
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
+	@GetMapping("/est/")
+	public ResponseEntity<?> getEst(@RequestBody Estudiante est) {
+		try {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(estudianteRepository.findById(est.getEstPk()));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
