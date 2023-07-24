@@ -70,7 +70,23 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	@GetMapping("/nie/{nie}")
+	public ResponseEntity<?> getPersonNie(@PathVariable String nie) {
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Persona> cq = cb.createQuery(Persona.class);
+			Root<Persona> person = cq.from(Persona.class);
+			Predicate duiFound = cb.equal(person.get("perNie"), nie);
+			cq.where(duiFound);
+			TypedQuery<Persona> query = em.createQuery(cq);
+			if (query.getResultList().size() == 0) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No encontrado\"}");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(query.getResultList());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
 	@PostMapping("/elementos/")
 	public ResponseEntity<?> addElemento(@RequestBody PersonaElementoHogarPk perEl) {
 		try {

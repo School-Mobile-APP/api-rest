@@ -1,6 +1,7 @@
 package com.schoolapi.api.repositories;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.schoolapi.api.AllegadoDTO;
 import com.schoolapi.api.entities.Persona;
 
 import jakarta.transaction.Transactional;
@@ -90,4 +92,10 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	Integer updatePerfil(@PathVariable("pnombre")String pnombre,@PathVariable("snombre") String snombre,
 			@PathVariable("papellido")String papellido,@PathVariable("sapellido") String sapellido,
 			@PathVariable("pfecha")LocalDate pfecha,@PathVariable("email") String email,@PathVariable("id") Long id);
+	@Query(value="select a.all_persona,all_pk,all_tipo_parentesco,p.per_pk,p.per_primer_nombre,"
+			+ "p.per_segundo_nombre,p.per_primer_apellido,p.per_segundo_apellido,p.per_email,"
+			+ "p.per_escolaridad_fk from centros_educativos.sg_allegados a,centros_educativos.sg_personas p"
+			+ " where a.all_persona_ref=:pk and p.per_pk=a.all_persona and a.all_referente=true",nativeQuery = true)
+	@Transactional
+	public List<AllegadoDTO> getAllegados(@PathVariable("pk") Long pk);
 }
