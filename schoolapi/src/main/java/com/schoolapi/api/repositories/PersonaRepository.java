@@ -9,8 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.schoolapi.api.AllegadoDTO;
+import com.schoolapi.api.entities.AllegadoDTO;
 import com.schoolapi.api.entities.Persona;
+import com.schoolapi.api.entities.TelefonoDTO;
 
 import jakarta.transaction.Transactional;
 
@@ -98,4 +99,9 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ " where a.all_persona_ref=:pk and p.per_pk=a.all_persona and a.all_referente=true",nativeQuery = true)
 	@Transactional
 	public List<AllegadoDTO> getAllegados(@PathVariable("pk") Long pk);
+	@Query(value="select t.tel_pk,t.tel_telefono,t.tel_persona from centros_educativos.sg_telefonos "
+			+ "t,centros_educativos.sg_personas p"
+			+ " where t.tel_persona=:pk and p.per_pk=t.tel_persona",nativeQuery = true)
+	@Transactional
+	public List<TelefonoDTO> getTelefonosAllegado(@PathVariable("pk") Long pk);
 }

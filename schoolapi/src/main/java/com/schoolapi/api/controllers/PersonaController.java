@@ -1,5 +1,7 @@
 package com.schoolapi.api.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +24,15 @@ import com.schoolapi.api.entities.Estudiante;
 import com.schoolapi.api.entities.EstudianteCanal;
 import com.schoolapi.api.entities.Persona;
 import com.schoolapi.api.entities.PersonaElementoHogarPk;
+import com.schoolapi.api.entities.TelefonoDTO;
 import com.schoolapi.api.repositories.CantonRepository;
 import com.schoolapi.api.repositories.DireccionRepository;
 import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.EstudianteRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
 import com.schoolapi.api.repositories.PersonaRepository;
+import com.schoolapi.api.utils.JwtUtils;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -53,9 +59,32 @@ public class PersonaController {
 	private DireccionRepository direccionRepository;
 	@Autowired
 	private CantonRepository cantonRepository;
-	@GetMapping("/{dui}")
-	public ResponseEntity<?> getPerson(@PathVariable String dui) {
+	@Autowired
+	private JwtUtils jwtUtils;
+	@GetMapping("/telefono/{pk}")
+	public ResponseEntity<?> getAllegadosTelefonos(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable("pk") Long pk) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
+			List<TelefonoDTO> telefonosDtos=personaRepository.getTelefonosAllegado(pk);
+			return ResponseEntity.status(HttpStatus.OK).body(telefonosDtos);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
+	@GetMapping("/{dui}")
+	public ResponseEntity<?> getPerson(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable String dui) {
+		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Persona> cq = cb.createQuery(Persona.class);
 			Root<Persona> person = cq.from(Persona.class);
@@ -71,8 +100,14 @@ public class PersonaController {
 		}
 	}
 	@GetMapping("/nie/{nie}")
-	public ResponseEntity<?> getPersonNie(@PathVariable String nie) {
+	public ResponseEntity<?> getPersonNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code,@PathVariable String nie) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Persona> cq = cb.createQuery(Persona.class);
 			Root<Persona> person = cq.from(Persona.class);
@@ -88,8 +123,14 @@ public class PersonaController {
 		}
 	}
 	@PostMapping("/elementos/")
-	public ResponseEntity<?> addElemento(@RequestBody PersonaElementoHogarPk perEl) {
+	public ResponseEntity<?> addElemento(@RequestBody PersonaElementoHogarPk perEl,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			PersonaElementoHogarPk perEleNuevo = personaElementosHogarRepository.save(perEl);
 			return ResponseEntity.status(HttpStatus.OK).body(perEleNuevo);
 		} catch (Exception e) {
@@ -98,8 +139,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/internet")
-	public ResponseEntity<?> actualizarInternet(@RequestBody Persona per) {
+	public ResponseEntity<?> actualizarInternet(@RequestBody Persona per,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			Integer actualizado = personaRepository.updateInternet(per.getPerAccesoInternet(), per.getPerPk());
 			if (actualizado == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":\"Exito\"}");
@@ -112,8 +159,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/pasoSeis")
-	public ResponseEntity<?> actualizarPasoSeis(@RequestBody Persona per) {
+	public ResponseEntity<?> actualizarPasoSeis(@RequestBody Persona per,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			Integer actualizado = personaRepository.updatePasoSeis(per.getPerDui(), per.getPerPrimerNombre(),
 					per.getPerSegundoNombre(), per.getPerPrimerApellido(), per.getPerSegundoApellido(),
 					per.getPerEmail(), per.getPerEscolaridadFk(), per.getPerPk());
@@ -127,8 +180,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/parentesco")
-	public ResponseEntity<?> actualizarAllegado(@RequestBody Allegado all) {
+	public ResponseEntity<?> actualizarAllegado(@RequestBody Allegado all,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			Integer actualizado = personaRepository.updateParentesco(all.getAllTipoParentesco(), all.getAllPersona());
 			if (actualizado == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Modificado\":\"Exito\"}");
@@ -140,8 +199,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/internetResidencial")
-	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat) {
+	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			Integer actualizado = personaRepository
 					.updateInternetResidencial(dat.getPerTieneConexionInternetResidencial(), dat.getPerPk());
 			if (actualizado == 1) {
@@ -155,8 +220,14 @@ public class PersonaController {
 	}
 
 	@PostMapping("/estCanal")
-	public ResponseEntity<?> addElemento(@RequestBody EstudianteCanal estCan) {
+	public ResponseEntity<?> addElemento(@RequestBody EstudianteCanal estCan,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			EstudianteCanal estudianteCanal = estudianteCanalAtencionRepository.save(estCan);
 			return ResponseEntity.status(HttpStatus.OK).body(estudianteCanal);
 		} catch (Exception e) {
@@ -165,8 +236,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/direccion")
-	public ResponseEntity<?> updateDireccion(@RequestBody Direccion dir) {
+	public ResponseEntity<?> updateDireccion(@RequestBody Direccion dir,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (direccionRepository.updateDireccion(dir.getDirDireccion(), dir.getMunicipio().getMunPk(),
 					dir.getDepartamento().getDepPk(), dir.getDirCaserioTexto(), dir.getDirZona().getZonPk(),
 					dir.getDirPk()) == 1) {
@@ -179,9 +256,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/vivienda")
-	public ResponseEntity<?> updateVivienda(@RequestBody Persona per) {
+	public ResponseEntity<?> updateVivienda(@RequestBody Persona per,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
-
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (personaRepository.updateTipoVivienda(per.getPerTipoViviendaFk(),per.getPerPk()) == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 			}
@@ -192,8 +274,14 @@ public class PersonaController {
 		}
 	}
 	@GetMapping("/est/")
-	public ResponseEntity<?> getEst(@RequestBody Estudiante est) {
+	public ResponseEntity<?> getEst(@RequestBody Estudiante est,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(estudianteRepository.findById(est.getEstPk()));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
@@ -201,8 +289,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/canton")
-	public ResponseEntity<?> updateCanton(@RequestBody Direccion can) {
+	public ResponseEntity<?> updateCanton(@RequestBody Direccion can,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (can.getCanton().getCanPk() == 0) {
 				if (direccionRepository.updateCanton(null, can.getDirPk()) == 1) {
 					return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
@@ -219,8 +313,14 @@ public class PersonaController {
 	}
 
 	@PostMapping("/canton")
-	public ResponseEntity<?> addCanton(@RequestBody Canton can) {
+	public ResponseEntity<?> addCanton(@RequestBody Canton can,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			Canton cantonAgregado = cantonRepository.save(can);
 			return ResponseEntity.status(HttpStatus.OK).body(cantonAgregado);
 		} catch (Exception e) {
@@ -229,8 +329,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/perfil")
-	public ResponseEntity<?> updatePerfil(@RequestBody Persona per) {
+	public ResponseEntity<?> updatePerfil(@RequestBody Persona per,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (personaRepository.updatePerfil(per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 					per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getPerFechaNacimiento(),
 					per.getPerEmail(), per.getPerPk()) == 1) {
@@ -243,8 +349,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/estPasoCinco/")
-	public ResponseEntity<?> updatePasoCinco(@RequestBody Estudiante est) {
+	public ResponseEntity<?> updatePasoCinco(@RequestBody Estudiante est,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (estudianteRepository.updateEstudiante(est.getModalidad().getMulPk(), est.getEstSintonizaCanal10(),
 					est.getEstPersona()) == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
@@ -256,10 +368,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/pasoDos")
-	public ResponseEntity<?> updatePasoDos(@RequestBody Persona per) {
+	public ResponseEntity<?> updatePasoDos(@RequestBody Persona per,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
-			System.out.print(per.getEtnia().getEtnPk());
-
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 					per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
 					per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
@@ -276,8 +392,14 @@ public class PersonaController {
 	}
 
 	@PutMapping("/pasoCuatro")
-	public ResponseEntity<?> updatePasoCuatro(@RequestBody DatosResidenciales dat) {
+	public ResponseEntity<?> updatePasoCuatro(@RequestBody DatosResidenciales dat,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			if (personaRepository.updatePasoCuatro(dat.getPeTieneServicioBasura(),
 					dat.getPerFuenteAbastecimientoAguaResidencial(),
 					dat.getPerTieneServicioEnergiaElectricaResidencial(), dat.getPerPk()) == 1) {
@@ -290,8 +412,14 @@ public class PersonaController {
 	}
 
 	@DeleteMapping("/elementos/{id}")
-	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id) {
+	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			personaElementosHogarRepository.deleteElementos(id);
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"Eliminado\"}");
 		} catch (Exception e) {
@@ -300,8 +428,14 @@ public class PersonaController {
 	}
 
 	@DeleteMapping("/canales/{id}")
-	public ResponseEntity<?> deleteCanal(@PathVariable("id") Long id) {
+	public ResponseEntity<?> deleteCanal(@PathVariable("id") Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
+			if(auth.isEmpty() || auth==null || auth.isBlank() || code.isEmpty() || code==null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if(!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
 			estudianteCanalAtencionRepository.deleteCanalesEstudiantes(id);
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Mensaje\":\"Eliminado\"}");
 		} catch (Exception e) {

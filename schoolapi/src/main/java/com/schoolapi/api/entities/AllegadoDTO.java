@@ -1,4 +1,4 @@
-package com.schoolapi.api;
+package com.schoolapi.api.entities;
 
 public interface AllegadoDTO {
 		public Long getAll_pk();
