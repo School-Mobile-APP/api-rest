@@ -40,6 +40,14 @@ public class Matricula implements Serializable{
 	private String matEstado;
 	@Column(name="mat_fecha_registro")
 	private Date matFechaRegistro;
+	@Column(name="mat_fecha_hasta")
+	private Date matFechaHasta; 
+	public Date getMatFechaHasta() {
+		return matFechaHasta;
+	}
+	public void setMatFechaHasta(Date matFechaHasta) {
+		this.matFechaHasta = matFechaHasta;
+	}
 	public List<Seccion> getSeccion() {
 		return seccion;
 	}
