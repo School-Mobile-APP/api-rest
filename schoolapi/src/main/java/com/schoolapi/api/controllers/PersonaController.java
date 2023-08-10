@@ -358,7 +358,7 @@ public class PersonaController {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
 			if (estudianteRepository.updateEstudiante(est.getModalidad().getMulPk(), est.getEstSintonizaCanal10(),
-					est.getEstPersona()) == 1) {
+					est.getEstPersona().getPerPk()) == 1) {
 				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Datos incorrectos\"}");

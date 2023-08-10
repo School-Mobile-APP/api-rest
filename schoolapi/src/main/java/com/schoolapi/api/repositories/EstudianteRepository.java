@@ -16,5 +16,5 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
 	@Query(value="update centros_educativos.sg_estudiantes set est_rec_clases_multimodalidad_fk=:"
 			+ "mul, est_sintoniza_canal_10=:canal where est_persona=:id",nativeQuery = true)
 	@Transactional
-	Integer updateEstudiante(@Param("mul")Long mul,@Param("canal") Boolean canal,@Param("id") Integer id);
+	Integer updateEstudiante(@Param("mul")Long mul,@Param("canal") Boolean canal,@Param("id") Long id);
 }
