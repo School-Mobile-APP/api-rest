@@ -6,6 +6,9 @@ import java.util.List;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -141,8 +144,8 @@ public class Persona implements Serializable {
 	@OneToOne(optional = false)
 	@JoinColumn(name = "per_pk", updatable = false, insertable = false)
 	private DatosResidenciales perDatosResidenciales;
-	@OneToOne(optional=false)
-	@JoinColumn(name="per_pk")
+	@JsonManagedReference
+	@OneToOne(mappedBy = "estPersona")
 	private Estudiante perEstudiante;
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)

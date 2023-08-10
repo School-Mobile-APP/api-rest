@@ -6,6 +6,9 @@ import java.util.List;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,8 +25,10 @@ public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private Long estPk;
-	@Column(name="est_persona")
-	
+	@JsonBackReference
+	@JoinColumn(name="est_persona", updatable = false)
+    @OneToOne(optional = false)
+	private Persona estPersona;
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "sg_alertas", schema = "alertas", joinColumns = @JoinColumn(name = "ale_estudiante_fk"), inverseJoinColumns = @JoinColumn(name = "ale_pk"))
@@ -34,7 +39,6 @@ public class Estudiante implements Serializable {
 	public void setAlertas(List<Alerta> alertas) {
 		this.alertas = alertas;
 	}
-	private Integer estPersona;
 	public Long getEstPk() {
 		return estPk;
 	}
@@ -54,10 +58,10 @@ public class Estudiante implements Serializable {
 		this.estSintonizaCanal10 = estSintonizaCanal10;
 	}
 	
-	public Integer getEstPersona() {
+	public Persona getEstPersona() {
 		return estPersona;
 	}
-	public void setEstPersona(Integer estPersona) {
+	public void setEstPersona(Persona estPersona) {
 		this.estPersona = estPersona;
 	}
 	@OneToOne
