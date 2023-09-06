@@ -29,6 +29,12 @@ public class Municipio implements Serializable {
 	public void setMunNombre(String munNombre) {
 		this.munNombre = munNombre;
 	}
+	public Integer getMunDeptoPk() {
+		return munDeptoPk;
+	}
+	public void setMunDeptoPk(Integer munDeptoPk) {
+		this.munDeptoPk = munDeptoPk;
+	}
 	private static final long serialVersionUID = 1L;
 	@Id
 	private long munPk;
@@ -36,5 +42,6 @@ public class Municipio implements Serializable {
 	private String munCodigo;
 	@Column(name = "mun_nombre", length = 255)
 	private String munNombre;
-
+	@Column(name="mun_departamento_fk")
+	private Integer munDeptoPk;
 }
