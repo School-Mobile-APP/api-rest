@@ -10,5 +10,6 @@ public interface AllegadoDTO {
 		public String getPer_primer_apellido();
 		public String getPer_segundo_apellido();
 		public String getPer_email();
+		public String getPer_dui();
 		public String getPer_escolaridad_fk();
 }
