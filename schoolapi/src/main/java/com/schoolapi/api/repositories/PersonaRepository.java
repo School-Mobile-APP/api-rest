@@ -96,7 +96,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Query(value="select a.all_persona,all_pk,all_tipo_parentesco,p.per_pk,p.per_primer_nombre,"
 			+ "p.per_segundo_nombre,p.per_primer_apellido,p.per_segundo_apellido,p.per_email,"
 			+ "p.per_dui,p.per_escolaridad_fk from centros_educativos.sg_allegados a,centros_educativos.sg_personas p"
-			+ " where a.all_persona_ref=:pk and p.per_pk=a.all_persona and a.all_referente=true",nativeQuery = true)
+			+ " where a.all_persona_ref=:pk and p.per_pk=a.all_persona",nativeQuery = true)
 	@Transactional
 	public List<AllegadoDTO> getAllegados(@PathVariable("pk") Long pk);
 	@Query(value="select t.tel_pk,t.tel_telefono,t.tel_persona from centros_educativos.sg_telefonos "

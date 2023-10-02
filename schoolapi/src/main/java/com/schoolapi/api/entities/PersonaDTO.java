@@ -23,7 +23,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sg_personas", schema = "centros_educativos")
-public class Persona implements Serializable {
+public class PersonaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private long perPk;
@@ -151,15 +151,15 @@ public class Persona implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "sg_personas_elementos_hogar", schema = "centros_educativos", joinColumns = @JoinColumn(name = "per_pk"), inverseJoinColumns = @JoinColumn(name = "eho_pk"))
 	private List<ElementoHogar> perElementosHogar;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "allPersona")
-	private List<Allegado> perAllegados;
-	
-	public List<Allegado> getPerAllegados() {
-		return perAllegados;
-	}
-	public void setPerAllegados(List<Allegado> perAllegados) {
-		this.perAllegados = perAllegados;
-	}
+
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY,mappedBy = "allPersona") private
+	 * List<Allegado> perAllegados;
+	 * 
+	 * public List<Allegado> getPerAllegados() { return perAllegados; } public void
+	 * setPerAllegados(List<Allegado> perAllegados) { this.perAllegados =
+	 * perAllegados; }
+	 */
 	public DatosResidenciales getPerDatosResidenciales() {
 		return perDatosResidenciales;
 	}

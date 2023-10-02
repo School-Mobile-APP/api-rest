@@ -23,6 +23,7 @@ import com.schoolapi.api.entities.Direccion;
 import com.schoolapi.api.entities.Estudiante;
 import com.schoolapi.api.entities.EstudianteCanal;
 import com.schoolapi.api.entities.Persona;
+import com.schoolapi.api.entities.PersonaDTO;
 import com.schoolapi.api.entities.PersonaElementoHogarPk;
 import com.schoolapi.api.entities.TelefonoDTO;
 import com.schoolapi.api.repositories.CantonRepository;
@@ -116,11 +117,11 @@ public class PersonaController {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<Persona> cq = cb.createQuery(Persona.class);
-			Root<Persona> person = cq.from(Persona.class);
+			CriteriaQuery<PersonaDTO> cq = cb.createQuery(PersonaDTO.class);
+			Root<PersonaDTO> person = cq.from(PersonaDTO.class);
 			Predicate duiFound = cb.equal(person.get("perNie"), nie);
 			cq.where(duiFound);
-			TypedQuery<Persona> query = em.createQuery(cq);
+			TypedQuery<PersonaDTO> query = em.createQuery(cq);
 			if (query.getResultList().size() == 0) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No encontrado\"}");
 			}
@@ -387,13 +388,24 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
-					per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
-					per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
-					per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(),
-					per.getPerTipoTrabajo().getTtrPk(), per.getPerEstadoCivil().getEciPk(),
-					per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
-					per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+			long ttrPk=	per.getPerTipoTrabajo().getTtrPk();
+			if(ttrPk!=0) {
+				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
+						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
+						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
+						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(),
+					ttrPk, per.getPerEstadoCivil().getEciPk(),
+						per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
+						per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+			}else {
+				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
+						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
+						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
+						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(),
+					null, per.getPerEstadoCivil().getEciPk(),
+						per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
+						per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+			}
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");

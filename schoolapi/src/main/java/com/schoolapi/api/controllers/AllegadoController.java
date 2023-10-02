@@ -33,7 +33,8 @@ public class AllegadoController {
 			if(!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			List<AllegadoDTO> allegado=personaRepository.getAllegados(all.getAllPersonaReferenciada().getPerPk());
+			System.out.print(all.getAllPersona());
+			List<AllegadoDTO> allegado=personaRepository.getAllegados(all.getAllPersona());
 			if(allegado.size()==0) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" +"No encontrado" + "\"}");
 			}
