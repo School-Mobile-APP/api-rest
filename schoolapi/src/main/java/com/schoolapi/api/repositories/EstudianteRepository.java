@@ -17,4 +17,9 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
 			+ "mul, est_sintoniza_canal_10=:canal where est_persona=:id",nativeQuery = true)
 	@Transactional
 	Integer updateEstudiante(@Param("mul")Long mul,@Param("canal") Boolean canal,@Param("id") Long id);
+	@Query(value="select e.est_pk from centros_educativos.sg_personas p,"
+			+ "	centros_educativos.sg_estudiantes e where p.per_nie=:nie "
+			+ "and p.per_pk=e.est_persona",nativeQuery = true)
+	@Transactional
+	Long getEstPkByNie(@Param("nie")Long nie);
 }

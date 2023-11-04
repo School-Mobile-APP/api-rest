@@ -105,6 +105,25 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	@GetMapping("/matriculaByNie/{nie}")
+	public ResponseEntity<?> getMatByNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,
+			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
+		try {
+			if (auth.isEmpty() || auth == null || auth.isBlank() || code.isEmpty() || code == null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if (!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
+			Long estPk=estudianteRepository.getEstPkByNie(nie);
+			if(estPk==null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body("{\"EstPk\":\"" + estPk + "\"}" );
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
 
 	@GetMapping("/nie/{nie}")
 	public ResponseEntity<?> getPersonNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,

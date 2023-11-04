@@ -1,5 +1,4 @@
 package com.schoolapi.api.entities;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +7,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -40,6 +41,14 @@ public class Matricula implements Serializable{
 	private String matEstado;
 	@Column(name="mat_fecha_registro")
 	private Date matFechaRegistro;
+	@Column(name="mat_estudiante_fk")
+	private Long matEstudianteFk;
+	public Long getMatEstudianteFk() {
+		return matEstudianteFk;
+	}
+	public void setMatEstudianteFk(Long matEstudianteFk) {
+		this.matEstudianteFk = matEstudianteFk;
+	}
 	@Column(name="mat_fecha_hasta")
 	private Date matFechaHasta; 
 	public Date getMatFechaHasta() {
@@ -48,12 +57,13 @@ public class Matricula implements Serializable{
 	public void setMatFechaHasta(Date matFechaHasta) {
 		this.matFechaHasta = matFechaHasta;
 	}
-	public List<Seccion> getSeccion() {
+	public Seccion getSeccion() {
 		return seccion;
 	}
-	public void setSeccion(List<Seccion> seccion) {
+	public void setSeccion(Seccion seccion) {
 		this.seccion = seccion;
 	}
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "secPk")
-	private List<Seccion> seccion;
+	@OneToOne
+	@JoinColumn(name="mat_seccion_fk")
+	private Seccion seccion;
 }
