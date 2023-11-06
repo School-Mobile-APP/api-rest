@@ -19,6 +19,15 @@ public class ServicioEducativo implements Serializable{
 	@OneToOne  
 	@JoinColumn(name="sdu_grado_fk") 
 	private GradoEscolaridad grado;
+	@OneToOne
+	@JoinColumn(name="sdu_sede_fk")
+	private Sede sede;
+	public Sede getSede() {
+		return sede;
+	}
+	public void setSede(Sede sede) {
+		this.sede = sede;
+	}
 	public Long getSduPk() {
 		return sduPk;
 	}
