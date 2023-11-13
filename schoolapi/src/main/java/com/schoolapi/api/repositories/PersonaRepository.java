@@ -2,6 +2,7 @@ package com.schoolapi.api.repositories;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,7 +18,6 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
-	//falta fecha
 	@Modifying
 	@Query(value="update centros_educativos.sg_personas set per_dui=:dui,per_primer_nombre=:primerNombre"
 			+ ", per_segundo_nombre=:segundoNombre,per_primer_apellido=:primerApellido,"
@@ -104,4 +104,17 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ " where t.tel_persona=:pk and p.per_pk=t.tel_persona",nativeQuery = true)
 	@Transactional
 	public List<TelefonoDTO> getTelefonosAllegado(@PathVariable("pk") Long pk);
+	@Query(value="select cae.cae_calificacion_fk,gra.gra_nombre,sec.sec_nombre,cpe.cpe_nombre,"
+			+ " cae.cae_calificacion,ca.cal_seccion_fk,ca.cal_fecha from "
+			+ " centros_educativos.sg_estudiantes est, centros_educativos.sg_personas per,"
+			+ " centros_educativos.sg_calificaciones_estudiante cae,centros_educativos.sg_calificaciones ca,"
+			+ " centros_educativos.sg_secciones sec,centros_educativos.sg_servicio_educativo sdu,"
+			+ " centros_educativos.sg_grados gra,centros_educativos.sg_componente_plan_estudio cpe"
+			+ " where ca.cal_pk=cae.cae_calificacion_fk and ca.cal_seccion_fk=sec.sec_pk"
+			+ " and est.est_pk=cae.cae_estudiante_fk and per.per_nie=:nie and "
+			+ "sdu.sdu_pk=sec.sec_servicio_educativo_fk and sdu.sdu_grado_fk=gra.gra_pk and "
+			+ "ca.cal_componente_plan_estudio_fk=cpe.cpe_pk and cae.cae_calificacion is not NULL "
+			+ " and per.per_pk=est.est_persona",nativeQuery=true)
+	@Transactional
+	public List<Map<String, Object>> getNotas(@PathVariable("nie") Long nie);
 }

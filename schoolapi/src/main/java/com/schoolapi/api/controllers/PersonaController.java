@@ -1,6 +1,6 @@
 package com.schoolapi.api.controllers;
-
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -120,6 +120,25 @@ public class PersonaController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body("{\"EstPk\":\"" + estPk + "\"}" );
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
+	@GetMapping("/notas/{nie}")
+	public ResponseEntity<?> getNotas(@RequestHeader(value = "authorization", defaultValue = "") String auth,
+			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
+		try {
+			if (auth.isEmpty() || auth == null || auth.isBlank() || code.isEmpty() || code == null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if (!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
+			List<Map<String, Object>> notas=personaRepository.getNotas(nie);
+			if(notas.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(notas);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
@@ -407,23 +426,21 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			long ttrPk=	per.getPerTipoTrabajo().getTtrPk();
-			if(ttrPk!=0) {
+			long ttrPk = per.getPerTipoTrabajo().getTtrPk();
+			if (ttrPk != 0) {
 				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
-						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(),
-					ttrPk, per.getPerEstadoCivil().getEciPk(),
-						per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
-						per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
-			}else {
+						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), ttrPk,
+						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+			} else {
 				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
-						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(),
-					null, per.getPerEstadoCivil().getEciPk(),
-						per.getPerConvivenciaFamFk(), per.getPerEmbarazo(), per.getPerTieneHijos(),
-						per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), null,
+						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
 			}
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 		} catch (Exception e) {
@@ -445,7 +462,7 @@ public class PersonaController {
 			personaRepository.updatePasoCuatro(dat.getPeTieneServicioBasura(),
 					dat.getPerFuenteAbastecimientoAguaResidencial(),
 					dat.getPerTieneServicioEnergiaElectricaResidencial(), dat.getPerPk());
-				return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}

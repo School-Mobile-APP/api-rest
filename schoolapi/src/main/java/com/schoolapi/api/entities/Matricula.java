@@ -1,14 +1,10 @@
 package com.schoolapi.api.entities;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -43,6 +39,14 @@ public class Matricula implements Serializable{
 	private Date matFechaRegistro;
 	@Column(name="mat_estudiante_fk")
 	private Long matEstudianteFk;
+	@Column(name="mat_promocion_grado")
+	private String matPromocionGrado;
+	public String getMatPromocionGrado() {
+		return matPromocionGrado;
+	}
+	public void setMatPromocionGrado(String matPromocionGrado) {
+		this.matPromocionGrado = matPromocionGrado;
+	}
 	public Long getMatEstudianteFk() {
 		return matEstudianteFk;
 	}
