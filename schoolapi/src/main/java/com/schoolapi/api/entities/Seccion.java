@@ -19,9 +19,25 @@ public class Seccion implements Serializable{
 	private Long secPk;
 	@Column(name="sec_nombre")
 	private String secNombre;
+	@Column(name="sec_tipo_periodo")
+	private String secTipoPeriodo;
+	@Column(name="sec_estado")
+	private String secEstado;
 	@OneToOne  
 	@JoinColumn(name="sec_jornada_fk") 
 	private Jornada jornada;
+	public String getSecTipoPeriodo() {
+		return secTipoPeriodo;
+	}
+	public void setSecTipoPeriodo(String secTipoPeriodo) {
+		this.secTipoPeriodo = secTipoPeriodo;
+	}
+	public String getSecEstado() {
+		return secEstado;
+	}
+	public void setSecEstado(String secEstado) {
+		this.secEstado = secEstado;
+	}
 	@OneToOne
 	@JoinColumn(name="sec_servicio_educativo_fk")
 	private ServicioEducativo servicioEducativo;
