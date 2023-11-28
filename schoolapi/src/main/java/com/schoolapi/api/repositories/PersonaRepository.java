@@ -128,32 +128,42 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Transactional
 	public List<Map<String, Object>> getNotas(@PathVariable("nie") Long nie);
 
-	@Query(value = "select cali.cal_pk,mat.mat_fecha_hasta,mat.mat_fecha_registro,cali.cal_rango_fecha_fk, cali.cal_tipo_periodo_calificacion, \n"
+	@Query(value = "\n"
+			+ "select cale.cae_calificacion_conceptual_fk,mat.mat_fecha_hasta,mat.mat_fecha_registro,"
+			+ "cali.cal_rango_fecha_fk, cali.cal_tipo_periodo_calificacion, \n"
 			+ "SEDE.SED_NOMBRE,per.per_primer_nombre,\n"
 			+ "per.per_segundo_nombre,per.per_primer_apellido,per.per_segundo_apellido, per.per_pk,PER.PER_NIE, \n"
-			+ "G.GRA_NOMBRE,sec.sec_nombre,jola.jla_nombre, MOE.MOD_NOMBRE,\n"
-			+ "raf.rfe_codigo,cpe.cpe_nombre, cale.cae_calificacion\n" + "from  centros_educativos.sg_matriculas mat\n"
-			+ "left JOIN centros_educativos.sg_secciones SEC\n" + "ON MAT.MAT_SECCION_FK=SEC.SEC_PK\n"
+			+ "G.GRA_NOMBRE, MOE.MOD_NOMBRE,\n"
+			+ "raf.rfe_codigo,cpe.cpe_nombre, cale.cae_calificacion\n"
+			+ "from  centros_educativos.sg_matriculas mat\n"
+			+ "left JOIN centros_educativos.sg_secciones SEC\n"
+			+ "ON MAT.MAT_SECCION_FK=SEC.SEC_PK\n"
 			+ "left JOIN centros_educativos.sg_servicio_educativo SEE\n"
-			+ "ON SEC.SEC_SERVICIO_EDUCATIVO_FK=SEE.SDU_PK\n" + "left JOIN centros_educativos.sg_grados G \n"
-			+ "ON G.GRA_PK= SEE.SDU_GRADO_FK\n" + "left JOIN centros_educativos.sg_rel_mod_ed_mod_aten MOD\n"
-			+ "ON G.GRA_RELACION_MODALIDAD_FK=MOD.REA_PK\n" + "left JOIN centros_educativos.sg_modalidades MOE\n"
-			+ "ON MOD.REA_MODALIDAD_EDUCATIVA_FK=MOE.MOD_PK\n" + "left JOIN centros_educativos.sg_sedes SEDE\n"
-			+ "ON SEE.SDU_SEDE_FK=SEDE.SED_PK\n" + "left JOIN centros_educativos.sg_direcciones DIR\n"
-			+ "ON SEDE.SED_DIRECCION_FK=DIR.DIR_PK\n" + "left JOIN catalogo.sg_departamentos DEP\n"
-			+ "ON DIR.DIR_DEPARTAMENTO=DEP.DEP_PK\n" + "left JOIN catalogo.sg_municipios MUN\n"
-			+ "ON DIR.DIR_MUNICIPIO=MUN.MUN_PK\n" + "left JOIN centros_educativos.sg_estudiantes EST\n"
-			+ "ON MAT.MAT_ESTUDIANTE_FK=EST.EST_PK\n" + "left JOIN centros_educativos.sg_personas PER\n"
-			+ "ON EST.EST_PERSONA=PER.PER_PK\n" + "left JOIN CATALOGO.SG_SEXOS S\n" + "ON S.SEX_PK=PER.PER_SEXO_FK\n"
-			+ "left join centros_educativos.sg_planes_estudio pes\n" + "on sec.sec_plan_estudio_fk=pes.pes_pk\n"
-			+ "left join centros_educativos.sg_calificaciones cali\n" + "on sec.sec_pk=cali.cal_seccion_fk\n"
+			+ "ON SEC.SEC_SERVICIO_EDUCATIVO_FK=SEE.SDU_PK\n"
+			+ "left JOIN centros_educativos.sg_grados G \n"
+			+ "ON G.GRA_PK= SEE.SDU_GRADO_FK\n"
+			+ "left JOIN centros_educativos.sg_rel_mod_ed_mod_aten MOD\n"
+			+ "ON G.GRA_RELACION_MODALIDAD_FK=MOD.REA_PK\n"
+			+ "left JOIN centros_educativos.sg_modalidades MOE\n"
+			+ "ON MOD.REA_MODALIDAD_EDUCATIVA_FK=MOE.MOD_PK\n"
+			+ "left JOIN centros_educativos.sg_sedes SEDE\n"
+			+ "ON SEE.SDU_SEDE_FK=SEDE.SED_PK\n"
+			+ "left JOIN centros_educativos.sg_estudiantes EST\n"
+			+ "ON MAT.MAT_ESTUDIANTE_FK=EST.EST_PK\n"
+			+ "left JOIN centros_educativos.sg_personas PER\n"
+			+ "ON EST.EST_PERSONA=PER.PER_PK\n"
+			+ "left join centros_educativos.sg_planes_estudio pes\n"
+			+ "on sec.sec_plan_estudio_fk=pes.pes_pk\n"
+			+ "left join centros_educativos.sg_calificaciones cali\n"
+			+ "on sec.sec_pk=cali.cal_seccion_fk\n"
 			+ "left join centros_educativos.sg_componente_plan_estudio cpe\n"
 			+ "on cali.cal_componente_plan_Estudio_fk=cpe.cpe_pk\n"
 			+ "left join centros_educativos.sg_calificaciones_estudiante cale\n"
 			+ "on cali.cal_pk=cale.cae_calificacion_fk and est.est_pk=cale.cae_estudiante_fk\n"
-			+ "left join centros_educativos.sg_rango_fecha raf\n" + "on cali.cal_rango_fecha_fk=raf.rfe_pk\n"
-			+ "left join catalogo.sg_jornadas_laborales jola\n" + "on sec.sec_jornada_fk=jola.jla_pk\n" + "\n"
-			+ "where mat.mat_anulada= false and est.est_persona=per.per_pk and per.per_nie=:nie and mat.mat_estudiante_fk=est.est_pk", nativeQuery = true)
+			+ "left join centros_educativos.sg_rango_fecha raf\n"
+			+ "on cali.cal_rango_fecha_fk=raf.rfe_pk\n"
+			+ "where mat.mat_anulada= false and est.est_persona=per.per_pk and per.per_nie=:nie \n"
+			+ "and mat.mat_estudiante_fk=est.est_pk", nativeQuery = true)
 	public List<Map<String, Object>> getNotasv2(@PathVariable("nie") Long nie);
 
 	@Query(value="select cpe.cpe_nombre,max(mat.mat_fecha_hasta),max(mat.mat_fecha_registro)\n"
@@ -179,4 +189,6 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ "where mat.mat_anulada= false and est.est_persona=per.per_pk and per.per_nie=:nie group by cpe.cpe_nombre\n"
 			+ "",nativeQuery=true)
 	public List<Map<String, Object>> getNotasMaterias(@PathVariable("nie") Long nie);
+	@Query(value="select cal_valor,cal_pk from catalogo.sg_calificaciones",nativeQuery=true)
+	public List<Map<String, Object>> getNotasNoNumericas();
 }
