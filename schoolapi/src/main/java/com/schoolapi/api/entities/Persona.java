@@ -37,6 +37,16 @@ public class Persona implements Serializable {
 	private Integer perNie;
 	@Column(name = "per_dui")
 	private String perDui;
+	@Column(name="per_vive_con_cantidad")
+	private Integer perViveConCantidad;
+	public Integer getPerViveConCantidad() {
+		return perViveConCantidad;
+	}
+
+	public void setPerViveConCantidad(Integer perViveConCantidad) {
+		this.perViveConCantidad = perViveConCantidad;
+	}
+
 	@Column(name = "per_fecha_nacimiento")
 	private LocalDate perFechaNacimiento;
 	@OneToOne

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,5 +37,15 @@ public class GradoEscolaridad implements Serializable {
 	}
 	@Column (name="gra_codigo")
 	private String graCodigo;
+	@OneToOne
+	@JoinColumn(name = "gra_relacion_modalidad_fk")
+	private ModalidadAtencion modalidad;
+	public ModalidadAtencion getModalidad() {
+		return modalidad;
+	}
+	public void setModalidad(ModalidadAtencion modalidad) {
+		this.modalidad = modalidad;
+	}
+	
 
 }

@@ -470,14 +470,14 @@ public class PersonaController {
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
 						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), ttrPk,
 						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
-						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),per.getPerViveConCantidad());
 			} else {
 				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
 						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), null,
 						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
-						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk());
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),per.getPerViveConCantidad());
 			}
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 		} catch (Exception e) {

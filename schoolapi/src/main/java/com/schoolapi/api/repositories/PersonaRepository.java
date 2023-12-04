@@ -25,7 +25,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ "per_nacionalidad_fk=:nac,per_retornada=:ret," + "per_partida_nacimiento_posee=:partida,per_sexo_fk=:sex,"
 			+ "per_etnia_fk=:etnia,per_tiene_diagnostico=:diagnostico,per_email=:email,"
 			+ "per_tipo_trabajo_fk=:trabajo,per_estado_civil_fk=:civil,"
-			+ "per_convivencia_fam_fk=:convivencia,per_embarazo=:embarazo,"
+			+ "per_convivencia_fam_fk=:convivencia,per_embarazo=:embarazo, per_vive_con_cantidad=:vivecon, "
 			+ "per_tiene_hijos=:tienehijos,per_cantidad_hijos=:cantidad" + " where per_pk=:id", nativeQuery = true)
 	@Transactional
 	Integer updatePasoDos(@PathVariable("dui") String dui, @PathVariable("primerNombre") String primerNombre,
@@ -37,7 +37,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@PathVariable("civil") Long civil, @PathVariable("convivencia") Integer convivencia,
 			@PathVariable("embarazo") Boolean embarazo, @PathVariable("tienehijos") Boolean tienehijos,
 			@PathVariable("cantidad") Integer cantidad, @PathVariable("fecha") LocalDate fecha,
-			@PathVariable("id") Long id);
+			@PathVariable("id") Long id,@PathVariable("vivecon") Integer vivecon);
 
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:primerNombre,"
