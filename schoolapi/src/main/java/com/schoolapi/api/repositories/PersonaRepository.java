@@ -127,7 +127,20 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ " and per.per_pk=est.est_persona", nativeQuery = true)
 	@Transactional
 	public List<Map<String, Object>> getNotas(@PathVariable("nie") Long nie);
-
+	@Query(value="select p.per_primer_nombre,max(p.per_pk) as perpk,max(a.all_tipo_parentesco) as tipoparentesco,\n"
+			+ "max(p.per_escolaridad_fk) as per_escolaridad, max(pa.tpa_nombre) as parentesco  from \n"
+			+ "centros_educativos.sg_personas p,centros_educativos.sg_allegados a,\n"
+			+ "catalogo.sg_escolaridades e, catalogo.sg_tipos_parentesco pa\n"
+			+ "where a.all_persona_ref=:pk and p.per_pk=a.all_persona and pa.tpa_pk=a.all_tipo_parentesco\n"
+			+ "group by p.per_primer_nombre",nativeQuery=true)
+	@Transactional
+	public List<Map<String, Object>> getAll(@PathVariable("pk") Long pk);
+	
+	@Modifying
+	@Query(value="update centros_educativos.sg_personas set per_escolaridad_fk=:pk where per_pk=:per ",nativeQuery=true)
+	@Transactional
+	Integer updateAll(@PathVariable("pk") Integer pk, @PathVariable("per") Integer per);
+	
 	@Query(value = "\n"
 			+ "select cale.cae_calificacion_conceptual_fk,mat.mat_fecha_hasta,mat.mat_fecha_registro,"
 			+ "cali.cal_rango_fecha_fk, cali.cal_tipo_periodo_calificacion, \n"
