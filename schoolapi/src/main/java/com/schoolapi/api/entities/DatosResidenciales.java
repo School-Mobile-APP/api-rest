@@ -16,6 +16,15 @@ public class DatosResidenciales implements Serializable{
 	
 	@Column(name = "per_tiene_servicio_energia_electrica_residencial")
 	private Boolean perTieneServicioEnergiaElectricaResidencial;
+	@Column(name="per_ingresos_familiares")
+	private Integer perIngresosFamiliares;
+	public Integer getPerIngresosFamiliares() {
+		return perIngresosFamiliares;
+	}
+
+	public void setPerIngresosFamiliares(Integer perIngresosFamiliares) {
+		this.perIngresosFamiliares = perIngresosFamiliares;
+	}
 
 	public Long getPerPk() {
 		return perPk;

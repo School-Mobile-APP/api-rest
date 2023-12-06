@@ -1,4 +1,5 @@
 package com.schoolapi.api.controllers;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import com.schoolapi.api.repositories.CantonRepository;
 import com.schoolapi.api.repositories.DireccionRepository;
 import com.schoolapi.api.repositories.EstudianteCanalAtencionRepository;
 import com.schoolapi.api.repositories.EstudianteRepository;
+import com.schoolapi.api.repositories.IngresosRepository;
 import com.schoolapi.api.repositories.PersonaElementosHogarRepository;
 import com.schoolapi.api.repositories.PersonaRepository;
 import com.schoolapi.api.utils.JwtUtils;
@@ -56,6 +58,8 @@ public class PersonaController {
 	private PersonaElementosHogarRepository personaElementosHogarRepository;
 	@Autowired
 	private EstudianteRepository estudianteRepository;
+	@Autowired
+	private IngresosRepository ingresosRepository;
 	@Autowired
 	private DireccionRepository direccionRepository;
 	@Autowired
@@ -105,6 +109,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+
 	@GetMapping("/matriculaByNie/{nie}")
 	public ResponseEntity<?> getMatByNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -115,15 +120,16 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			Long estPk=estudianteRepository.getEstPkByNie(nie);
-			if(estPk==null) {
+			Long estPk = estudianteRepository.getEstPkByNie(nie);
+			if (estPk == null) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
 			}
-			return ResponseEntity.status(HttpStatus.OK).body("{\"EstPk\":\"" + estPk + "\"}" );
+			return ResponseEntity.status(HttpStatus.OK).body("{\"EstPk\":\"" + estPk + "\"}");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+
 	@GetMapping("/notas/{nie}")
 	public ResponseEntity<?> getNotas(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -134,8 +140,8 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			List<Map<String, Object>> notas=personaRepository.getNotasv2(nie);
-			if(notas.isEmpty()) {
+			List<Map<String, Object>> notas = personaRepository.getNotasv2(nie);
+			if (notas.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(notas);
@@ -143,6 +149,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+
 	@GetMapping("/notas/materias/{nie}")
 	public ResponseEntity<?> getNotasMateria(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -153,8 +160,8 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			List<Map<String, Object>> notas=personaRepository.getNotasMaterias(nie);
-			if(notas.isEmpty()) {
+			List<Map<String, Object>> notas = personaRepository.getNotasMaterias(nie);
+			if (notas.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(notas);
@@ -162,6 +169,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+
 	@GetMapping("/notasnonumericas")
 	public ResponseEntity<?> getNotasNoNumericas(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code) {
@@ -172,8 +180,8 @@ public class PersonaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
-			List<Map<String, Object>> notas=personaRepository.getNotasNoNumericas();
-			if(notas.isEmpty()) {
+			List<Map<String, Object>> notas = personaRepository.getNotasNoNumericas();
+			if (notas.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + "No encontrado" + "\"}");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(notas);
@@ -181,6 +189,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+
 	@GetMapping("/nie/{nie}")
 	public ResponseEntity<?> getPersonNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable String nie) {
@@ -452,6 +461,40 @@ public class PersonaController {
 		}
 	}
 
+	@GetMapping("/ingresos")
+	public ResponseEntity<?> getIn(@RequestHeader(value = "authorization", defaultValue = "") String auth,
+			@RequestHeader(value = "code", defaultValue = "") String code) {
+		try {
+			if (auth.isEmpty() || auth == null || auth.isBlank() || code.isEmpty() || code == null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if (!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(ingresosRepository.findAll());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
+
+	@PutMapping("/pasoDosIngresos/{in}/{pk}")
+	public ResponseEntity<?> updatePasoDosIngresos(
+			@RequestHeader(value = "authorization", defaultValue = "") String auth,
+			@RequestHeader(value = "code", defaultValue = "") String code,@PathVariable("in") Integer in,@PathVariable("pk") Integer pk) {
+		try {
+			if (auth.isEmpty() || auth == null || auth.isBlank() || code.isEmpty() || code == null || code.isBlank()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Error\":\"No autorizado\"}");
+			}
+			if (!jwtUtils.checkToken(auth, code)) {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
+			}
+			personaRepository.updatePerDos(in,pk);
+			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
+		}
+	}
+
 	@PutMapping("/pasoDos")
 	public ResponseEntity<?> updatePasoDos(@RequestBody Persona per,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -470,14 +513,16 @@ public class PersonaController {
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
 						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), ttrPk,
 						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
-						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),per.getPerViveConCantidad());
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),
+						per.getPerViveConCantidad());
 			} else {
 				personaRepository.updatePasoDos(per.getPerDui(), per.getPerPrimerNombre(), per.getPerSegundoNombre(),
 						per.getPerPrimerApellido(), per.getPerSegundoApellido(), per.getNacionalidad().getNacPk(),
 						per.getPerRetornada(), per.getPerPartidaNacimientoPosee(), per.getSexo().getSexPk(),
 						per.getEtnia().getEtnPk(), per.getPerTieneDiagnostico(), per.getPerEmail(), null,
 						per.getPerEstadoCivil().getEciPk(), per.getPerConvivenciaFamFk(), per.getPerEmbarazo(),
-						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),per.getPerViveConCantidad());
+						per.getPerTieneHijos(), per.getPerCantidadHijos(), per.getPerFechaNacimiento(), per.getPerPk(),
+						per.getPerViveConCantidad());
 			}
 			return ResponseEntity.status(HttpStatus.OK).body("{\"Exito\":\"Modificado correctamente\"}");
 		} catch (Exception e) {

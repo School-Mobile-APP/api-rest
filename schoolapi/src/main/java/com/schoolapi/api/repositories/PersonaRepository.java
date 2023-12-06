@@ -140,6 +140,11 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Query(value="update centros_educativos.sg_personas set per_escolaridad_fk=:pk where per_pk=:per ",nativeQuery=true)
 	@Transactional
 	Integer updateAll(@PathVariable("pk") Integer pk, @PathVariable("per") Integer per);
+	@Modifying
+	@Query(value="update centros_educativos.sg_datos_residenciales_personas "
+			+ "set per_ingresos_familiares=:in where per_pk=:per ",nativeQuery=true)
+	@Transactional
+	Integer updatePerDos(@PathVariable("in") Integer in, @PathVariable("per") Integer per);
 	
 	@Query(value = "\n"
 			+ "select cale.cae_calificacion_conceptual_fk,mat.mat_fecha_hasta,mat.mat_fecha_registro,"
