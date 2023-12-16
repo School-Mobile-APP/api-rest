@@ -21,6 +21,7 @@ public class ConvivenciaFamiliarController {
 	private ConvivenciaFamiliarService convivenciaFamiliarService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	// Obtiene todos los datos de convivencia familiar
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -35,6 +36,7 @@ public class ConvivenciaFamiliarController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene un dato de convivencia familiar basado en la pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

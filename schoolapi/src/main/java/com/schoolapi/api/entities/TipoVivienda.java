@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Representa tipo vivienda
 @Entity
 @Table(name = "sg_tipo_vivienda",schema="catalogo")
 public class TipoVivienda implements Serializable{

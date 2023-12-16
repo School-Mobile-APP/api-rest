@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+// representa la tabla matriculas
 @Entity
 @Table(name="sg_matriculas",schema="centros_educativos")
 public class Matricula implements Serializable{

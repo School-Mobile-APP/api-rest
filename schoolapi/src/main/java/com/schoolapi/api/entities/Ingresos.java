@@ -1,5 +1,5 @@
 package com.schoolapi.api.entities;
-
+//Representa la tabla ingresos familiares
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

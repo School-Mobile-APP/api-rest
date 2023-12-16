@@ -20,6 +20,7 @@ public class TipoParentescoController {
 	private TipoParentescoService tipoParentescoService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	// Obtiene todos los parentescos de la base de datos
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

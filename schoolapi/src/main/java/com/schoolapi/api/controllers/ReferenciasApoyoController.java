@@ -27,6 +27,7 @@ public class ReferenciasApoyoController {
 	private PersonaReferenciaRepository personaReferenciaRepository;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todas las referencias apoyo
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -41,6 +42,7 @@ public class ReferenciasApoyoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene una referencia basada en una pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

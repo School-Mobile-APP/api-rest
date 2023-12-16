@@ -1,5 +1,6 @@
-package com.schoolapi.api.entities;
 
+package com.schoolapi.api.entities;
+//Utilizado para manipular informacion de personas y allegados
 public interface AllegadoDTO {
 		public Long getAll_pk();
 		public Long getAll_tipo_parentesco();

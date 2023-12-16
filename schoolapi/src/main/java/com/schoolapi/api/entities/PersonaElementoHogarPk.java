@@ -1,5 +1,5 @@
 package com.schoolapi.api.entities;
-
+//Representa la llave compuesta de la tabla persona elemento hogar
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;

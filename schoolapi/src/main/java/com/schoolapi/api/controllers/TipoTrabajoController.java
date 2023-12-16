@@ -21,6 +21,7 @@ public class TipoTrabajoController {
 	private TipoTrabajoService tipoTrabajoService;
 	@Autowired 
 	private JwtUtils jwtUtils;
+	// Obtiene todos los tipos de trabajos
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -35,6 +36,7 @@ public class TipoTrabajoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene un tipo de trabajo basado en una pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

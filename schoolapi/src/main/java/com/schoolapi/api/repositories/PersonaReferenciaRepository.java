@@ -12,6 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @Repository
 public interface PersonaReferenciaRepository extends JpaRepository<PersonaReferencia, Long> {
+	//Elimina las referencias apoyo de la persona
 	@Modifying
 	@Query(value="delete from centros_educativos.sg_personas_referencias_apoyo where per_pk=:id",nativeQuery = true)
 	@Transactional

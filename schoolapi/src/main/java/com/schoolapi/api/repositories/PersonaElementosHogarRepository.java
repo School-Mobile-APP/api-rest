@@ -12,6 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @Repository
 public interface PersonaElementosHogarRepository extends JpaRepository<PersonaElementoHogarPk, Long> {
+	//Elimina los elementos del hogar de la persona
 	@Modifying
 	@Query(value="delete from centros_educativos.sg_personas_elementos_hogar where per_pk=:id",nativeQuery = true)
 	@Transactional

@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla secciones
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

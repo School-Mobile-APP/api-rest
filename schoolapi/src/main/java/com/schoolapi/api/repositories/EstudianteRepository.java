@@ -12,11 +12,13 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
+	//Actualiza los datos de estudiantes
 	@Modifying
 	@Query(value="update centros_educativos.sg_estudiantes set est_rec_clases_multimodalidad_fk=:"
 			+ "mul, est_sintoniza_canal_10=:canal where est_persona=:id",nativeQuery = true)
 	@Transactional
 	Integer updateEstudiante(@Param("mul")Long mul,@Param("canal") Boolean canal,@Param("id") Long id);
+	//Obtiene la pk del estudiante
 	@Query(value="select e.est_pk from centros_educativos.sg_personas p,"
 			+ "	centros_educativos.sg_estudiantes e where p.per_nie=:nie "
 			+ "and p.per_pk=e.est_persona",nativeQuery = true)

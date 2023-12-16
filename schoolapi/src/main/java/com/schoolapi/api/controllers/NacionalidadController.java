@@ -20,6 +20,7 @@ public class NacionalidadController {
 	private NacionalidadesService nacionalidadService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todas las nacionalidades
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -34,6 +35,7 @@ public class NacionalidadController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene una nacionalidad basado en una pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 
 public interface PersonaDiscapacidadRepository extends JpaRepository<PersonaDiscapacidad, Long>{
+	//Elimina las discapacidades de la persona
 	@Modifying
 	@Query(value="delete from centros_educativos.sg_personas_discapacidades where per_pk=:id",nativeQuery = true)
 	@Transactional

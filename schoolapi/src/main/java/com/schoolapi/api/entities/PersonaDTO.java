@@ -1,5 +1,5 @@
 package com.schoolapi.api.entities;
-
+//Representa los datos del paso uno
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;

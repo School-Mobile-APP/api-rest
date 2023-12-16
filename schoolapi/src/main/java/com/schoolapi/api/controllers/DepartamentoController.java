@@ -20,6 +20,7 @@ public class DepartamentoController {
 	private DepartamentoService deptoService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Se obtienen todos los departamentos
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -34,6 +35,7 @@ public class DepartamentoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Se obtiene un departamento basado en una pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

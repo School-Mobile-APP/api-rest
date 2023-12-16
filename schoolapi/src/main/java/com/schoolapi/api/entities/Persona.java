@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+//Representa la tabla persona
 @Entity
 @Table(name = "sg_personas", schema = "centros_educativos")
 public class Persona implements Serializable {

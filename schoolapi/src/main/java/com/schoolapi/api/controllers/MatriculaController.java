@@ -29,6 +29,7 @@ public class MatriculaController {
 	EntityManager em;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene las matriculas basado en una Pk del estudiante
 	@GetMapping("/{pk}")
 	public ResponseEntity<?> getPerson(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable String pk) {
@@ -39,11 +40,14 @@ public class MatriculaController {
 			if (!jwtUtils.checkToken(auth, code)) {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Error\":\"No autorizado\"}");
 			}
+			//Ordena las matriculas descendentemente y busca por un parametro distinto a 
+			//la pk de la matricula
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Matricula> cq = cb.createQuery(Matricula.class);
 			Root<Matricula> person = cq.from(Matricula.class);
 			Predicate duiFound = cb.equal(person.get("matEstudianteFk"), pk);
 			cq.where(duiFound);
+			cq.orderBy(cb.desc(person.get("matFechaHasta")));
 			TypedQuery<Matricula> query = em.createQuery(cq);
 			if (query.getResultList().size() == 0) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No encontrado\"}");

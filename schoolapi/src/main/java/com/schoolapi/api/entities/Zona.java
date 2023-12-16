@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Representa zonas
 @Entity
 @Table(name="sg_zonas",schema="catalogo")
 public class Zona implements Serializable{

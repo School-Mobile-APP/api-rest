@@ -18,6 +18,7 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
+	//Actualiza la informacion del paso dos
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas set per_dui=:dui,per_primer_nombre=:primerNombre"
 			+ ", per_segundo_nombre=:segundoNombre,per_primer_apellido=:primerApellido,"
@@ -38,7 +39,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@PathVariable("embarazo") Boolean embarazo, @PathVariable("tienehijos") Boolean tienehijos,
 			@PathVariable("cantidad") Integer cantidad, @PathVariable("fecha") LocalDate fecha,
 			@PathVariable("id") Long id,@PathVariable("vivecon") Integer vivecon);
-
+	//Actualiza el allegado
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas p set p.per_dui=:dui,p.per_primer_nombre=:primerNombre,"
 			+ "p.per_segundo_nombre=:segundoNombre,p.per_primer_apellido=:primerApellido,"
@@ -47,7 +48,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@PathVariable("segundoNombre") String segundoNombre, @PathVariable("primerApellido") String primerApellido,
 			@PathVariable("segundoApellido") String segundoApellido, @PathVariable("email") String email,
 			@PathVariable("escolaridad") Integer escolaridad);
-
+	//Actualiza el paso cuatro
 	@Modifying
 	@Query(value = "update centros_educativos.sg_datos_residenciales_personas"
 			+ " set per_tiene_servicio_basura=:basura, per_fuente_abastecimiento_agua_residencial"
@@ -56,25 +57,25 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Transactional
 	Integer updatePasoCuatro(@PathVariable("basura") Boolean basura, @PathVariable("agua") Long agua,
 			@PathVariable("energia") Boolean energia, @PathVariable("id") Long id);
-
+	//Actualiza el tipo de vivienda 
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas set per_tipo_vivienda_fk=:tipo"
 			+ " where per_pk=:id", nativeQuery = true)
 	@Transactional
 	Integer updateTipoVivienda(@PathVariable("tipo") Long tipo, @PathVariable("id") Long id);
-
+	//Actualiza el acceso a internet de una persona
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas set per_acceso_internet=:internet"
 			+ " where per_pk=:id", nativeQuery = true)
 	@Transactional
 	Integer updateInternet(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);
-
+	//Actualiza si una persona tiene conexion a internet residencial
 	@Modifying
 	@Query(value = "update centros_educativos.sg_datos_residenciales_personas"
 			+ " set per_tiene_conexion_internet_residencial=:internet where " + "per_pk=:id", nativeQuery = true)
 	@Transactional
 	Integer updateInternetResidencial(@PathVariable("internet") Boolean internet, @PathVariable("id") Long id);
-
+	//Actualiza el paso seis
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas set per_dui=:dui,"
 			+ "per_primer_nombre=:pnombre,per_segundo_nombre=:snombre,per_primer_apellido=:papellido,"
@@ -85,13 +86,13 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			@PathVariable("snombre") String snombre, @PathVariable("papellido") String papellido,
 			@PathVariable("sapellido") String sapellido, @PathVariable("email") String email,
 			@PathVariable("escolaridad") Integer escolaridad, @PathVariable("id") Long id);
-
+	//Actualiza el tipo de parentesco de los allegados
 	@Modifying
 	@Query(value = "update centros_educativos.sg_allegados set all_tipo_parentesco=:"
 			+ "parentesco where all_persona=:perpk", nativeQuery = true)
 	@Transactional
 	Integer updateParentesco(@PathVariable("parentesco") Long parentesco, @PathVariable("perpk") Long perpk);
-
+	//Actualiza el perfil
 	@Modifying
 	@Query(value = "update centros_educativos.sg_personas set per_primer_nombre=:pnombre,"
 			+ "per_segundo_nombre=:snombre,per_primer_apellido=:papellido,per_segundo_apellido"
@@ -100,20 +101,20 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	Integer updatePerfil(@PathVariable("pnombre") String pnombre, @PathVariable("snombre") String snombre,
 			@PathVariable("papellido") String papellido, @PathVariable("sapellido") String sapellido,
 			@PathVariable("pfecha") LocalDate pfecha, @PathVariable("email") String email, @PathVariable("id") Long id);
-
+	//Obtiene los allegados
 	@Query(value = "select a.all_persona,all_pk,all_tipo_parentesco,p.per_pk,p.per_primer_nombre,"
 			+ "p.per_segundo_nombre,p.per_primer_apellido,p.per_segundo_apellido,p.per_email,"
 			+ "p.per_dui,p.per_escolaridad_fk,a.all_referente from centros_educativos.sg_allegados a,centros_educativos.sg_personas p"
 			+ " where a.all_persona_ref=:pk and p.per_pk=a.all_persona", nativeQuery = true)
 	@Transactional
 	public List<AllegadoDTO> getAllegados(@PathVariable("pk") Long pk);
-
+	//Obtiene los telefonos del allegado
 	@Query(value = "select t.tel_pk,t.tel_telefono,t.tel_persona from centros_educativos.sg_telefonos "
 			+ "t,centros_educativos.sg_personas p"
 			+ " where t.tel_persona=:pk and p.per_pk=t.tel_persona", nativeQuery = true)
 	@Transactional
 	public List<TelefonoDTO> getTelefonosAllegado(@PathVariable("pk") Long pk);
-
+	//Obtiene version de las notas(antigua, no es la que se esta usando en la app)
 	@Query(value = "select cae.cae_calificacion_fk,gra.gra_nombre,sec.sec_nombre,cpe.cpe_nombre,"
 			+ " cae.cae_calificacion,ca.cal_seccion_fk,ca.cal_fecha from "
 			+ " centros_educativos.sg_estudiantes est, centros_educativos.sg_personas per,"
@@ -127,6 +128,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ " and per.per_pk=est.est_persona", nativeQuery = true)
 	@Transactional
 	public List<Map<String, Object>> getNotas(@PathVariable("nie") Long nie);
+	//Obtiene los allegados
 	@Query(value="select p.per_primer_nombre,max(p.per_pk) as perpk,max(a.all_tipo_parentesco) as tipoparentesco,\n"
 			+ "max(p.per_escolaridad_fk) as per_escolaridad, max(pa.tpa_nombre) as parentesco  from \n"
 			+ "centros_educativos.sg_personas p,centros_educativos.sg_allegados a,\n"
@@ -135,17 +137,18 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ "group by p.per_primer_nombre",nativeQuery=true)
 	@Transactional
 	public List<Map<String, Object>> getAll(@PathVariable("pk") Long pk);
-	
+	//Modifica la escolaridad de una persona
 	@Modifying
 	@Query(value="update centros_educativos.sg_personas set per_escolaridad_fk=:pk where per_pk=:per ",nativeQuery=true)
 	@Transactional
 	Integer updateAll(@PathVariable("pk") Integer pk, @PathVariable("per") Integer per);
+	//Modifica los ingresos familiares de una persona
 	@Modifying
 	@Query(value="update centros_educativos.sg_datos_residenciales_personas "
 			+ "set per_ingresos_familiares=:in where per_pk=:per ",nativeQuery=true)
 	@Transactional
 	Integer updatePerDos(@PathVariable("in") Integer in, @PathVariable("per") Integer per);
-	
+	//Obtiene las notas basado en un nie(es el utilizado en la app)
 	@Query(value = "\n"
 			+ "select cale.cae_calificacion_conceptual_fk,mat.mat_fecha_hasta,mat.mat_fecha_registro,"
 			+ "cali.cal_rango_fecha_fk, cali.cal_tipo_periodo_calificacion, \n"
@@ -183,7 +186,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ "where mat.mat_anulada= false and est.est_persona=per.per_pk and per.per_nie=:nie \n"
 			+ "and mat.mat_estudiante_fk=est.est_pk", nativeQuery = true)
 	public List<Map<String, Object>> getNotasv2(@PathVariable("nie") Long nie);
-
+	//Obtiene las materias cursadas por el alumno
 	@Query(value="select cpe.cpe_nombre,max(mat.mat_fecha_hasta),max(mat.mat_fecha_registro)\n"
 			+ "from  centros_educativos.sg_matriculas mat\n"
 			+ "left JOIN centros_educativos.sg_secciones SEC\n"
@@ -207,6 +210,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 			+ "where mat.mat_anulada= false and est.est_persona=per.per_pk and per.per_nie=:nie group by cpe.cpe_nombre\n"
 			+ "",nativeQuery=true)
 	public List<Map<String, Object>> getNotasMaterias(@PathVariable("nie") Long nie);
+	//Obtiene el catalogo de calificaciones conceptuales
 	@Query(value="select cal_valor,cal_pk from catalogo.sg_calificaciones",nativeQuery=true)
 	public List<Map<String, Object>> getNotasNoNumericas();
 }

@@ -20,6 +20,7 @@ public class EscolaridadEstudianteController {
 	private EscolaridadEstudianteService escolaridadEstudianteService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene las escolaridades
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

@@ -1,5 +1,5 @@
 package com.schoolapi.api.entities;
-
+//representa la tabla canales atencion
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

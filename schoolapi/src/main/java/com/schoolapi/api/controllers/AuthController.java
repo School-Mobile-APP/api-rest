@@ -15,6 +15,7 @@ import com.schoolapi.api.utils.JwtUtils;
 public class AuthController {
 	@Autowired
 	private JwtUtils jwtUtils;
+	//este endpoint genera un jwt basado en un codigo uuid valido que viene de la app
 	@GetMapping("/{code}")
 	public ResponseEntity<?> getToken(@PathVariable("code") String code) {
 		try {

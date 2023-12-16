@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tala canton
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

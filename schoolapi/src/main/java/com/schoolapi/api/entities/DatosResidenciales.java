@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla datos residenciales
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

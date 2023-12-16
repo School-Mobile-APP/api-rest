@@ -20,6 +20,7 @@ public class MunicipioController {
 	private MunicipioService municipioService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todos los municipios
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -34,6 +35,7 @@ public class MunicipioController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene un municipio basado en una pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

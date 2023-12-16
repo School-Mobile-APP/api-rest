@@ -84,7 +84,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//obtiene una persona basado en el dui que se envia como parametro
 	@GetMapping("/{dui}")
 	public ResponseEntity<?> getPerson(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable String dui) {
@@ -109,7 +109,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Obtiene la matricula de una persona por el nie
 	@GetMapping("/matriculaByNie/{nie}")
 	public ResponseEntity<?> getMatByNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -129,7 +129,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Obtiene las notas de una persona por nie
 	@GetMapping("/notas/{nie}")
 	public ResponseEntity<?> getNotas(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -149,7 +149,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Obtiene las materias que el alumno ha cursado basado en nie
 	@GetMapping("/notas/materias/{nie}")
 	public ResponseEntity<?> getNotasMateria(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable Long nie) {
@@ -169,7 +169,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Este endpoint obtiene notas no numericas (MB,E,B) de un alumno 
 	@GetMapping("/notasnonumericas")
 	public ResponseEntity<?> getNotasNoNumericas(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code) {
@@ -189,7 +189,8 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Obtiene los datos mas generales de una personas
+	//Contemplados en personaDTO basado en nie
 	@GetMapping("/nie/{nie}")
 	public ResponseEntity<?> getPersonNie(@RequestHeader(value = "authorization", defaultValue = "") String auth,
 			@RequestHeader(value = "code", defaultValue = "") String code, @PathVariable String nie) {
@@ -214,7 +215,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Modifica los elementos de cada persona(tablet,tv, radio,etc)
 	@PostMapping("/elementos/")
 	public ResponseEntity<?> addElemento(@RequestBody PersonaElementoHogarPk perEl,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -232,7 +233,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Actualiza si una persona tiene acceso a internet
 	@PutMapping("/internet")
 	public ResponseEntity<?> actualizarInternet(@RequestBody Persona per,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -250,7 +251,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Actualiza la informacion del paso seis 
 	@PutMapping("/pasoSeis")
 	public ResponseEntity<?> actualizarPasoSeis(@RequestBody Persona per,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -270,7 +271,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Actualiza el tipo de parentesco
 	@PutMapping("/parentesco")
 	public ResponseEntity<?> actualizarAllegado(@RequestBody Allegado all,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -288,7 +289,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Actualiza si la persona tiene internet residencial
 	@PutMapping("/internetResidencial")
 	public ResponseEntity<?> actualizarInternet(@RequestBody DatosResidenciales dat,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -307,7 +308,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	// Actualiza el canal de atencion de la persona
 	@PostMapping("/estCanal")
 	public ResponseEntity<?> addElemento(@RequestBody EstudianteCanal estCan,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -325,7 +326,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Modifica la direccion de la persona
 	@PutMapping("/direccion")
 	public ResponseEntity<?> updateDireccion(@RequestBody Direccion dir,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -345,7 +346,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//modifica el tipo de vivienda
 	@PutMapping("/vivienda")
 	public ResponseEntity<?> updateVivienda(@RequestBody Persona per,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -363,7 +364,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//obtiene la informacion del estudiante
 	@GetMapping("/est/")
 	public ResponseEntity<?> getEst(@RequestBody Estudiante est,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -380,7 +381,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Modifica la informacion del canton
 	@PutMapping("/canton")
 	public ResponseEntity<?> updateCanton(@RequestBody Direccion can,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,
@@ -403,7 +404,7 @@ public class PersonaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//agrega un canton si no existe
 	@PostMapping("/canton")
 	public ResponseEntity<?> addCanton(@RequestBody Canton can,
 			@RequestHeader(value = "authorization", defaultValue = "") String auth,

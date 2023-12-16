@@ -12,6 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @Repository
 public interface PersonaTerapiaRepository extends JpaRepository<PersonaTerapia, Long> {
+	//Elimina las terapias de la persona
 	@Modifying
 	@Query(value="delete from centros_educativos.sg_personas_terapias where per_pk=:id",nativeQuery = true)
 	@Transactional

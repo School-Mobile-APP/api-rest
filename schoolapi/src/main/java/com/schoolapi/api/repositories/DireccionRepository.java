@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 
 public interface DireccionRepository extends JpaRepository<Direccion, Long> {
+	//Actualiza los datos de direccion basado en el id de la direccion
 	@Modifying
 	@Query(value="update centros_educativos.sg_direcciones "
 			+ "set dir_direccion=:direccion, dir_municipio=:municipio,"
@@ -19,6 +20,7 @@ public interface DireccionRepository extends JpaRepository<Direccion, Long> {
 	Integer updateDireccion(@PathParam("direccion")String direccion,@PathParam("municipio") Long municipio,
 			@PathParam("departamento") Long departamento, @PathParam("caserio") String caserio,
 			@PathParam("zona")Long zona,@PathParam("id")Long id);
+	//Actualiza el fk del canton 
 	@Modifying
 	@Query(value = "update centros_educativos.sg_direcciones set "
 			+ "dir_canton=:can where dir_pk=:id",nativeQuery = true)

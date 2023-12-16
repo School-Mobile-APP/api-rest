@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla departamentos
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

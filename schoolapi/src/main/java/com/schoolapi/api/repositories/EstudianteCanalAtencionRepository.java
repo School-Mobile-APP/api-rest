@@ -12,6 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @Repository
 public interface EstudianteCanalAtencionRepository extends JpaRepository<EstudianteCanal, Long>{
+	//Elimina los canales de atencion de un estudiante
 	@Modifying
 	@Query(value = "delete from centros_educativos.sg_est_canales_atencion e"
 			+ " where e.eca_estudiante_fk=:id",nativeQuery = true)

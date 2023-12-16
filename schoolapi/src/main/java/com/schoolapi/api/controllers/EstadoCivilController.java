@@ -20,6 +20,7 @@ public class EstadoCivilController {
 	private EstadoCivilService estadoCivilService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todos los estados civiles
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -34,6 +35,7 @@ public class EstadoCivilController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene un estado civil basado en pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

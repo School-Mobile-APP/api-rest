@@ -21,6 +21,7 @@ public class ModalidadController {
 	private ModalidadService modalidadService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todas las modalidades
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -35,6 +36,7 @@ public class ModalidadController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene una modalidad basado en la pk de la misma
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

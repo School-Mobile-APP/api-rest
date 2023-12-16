@@ -20,6 +20,7 @@ public class CanalAtencionController {
 	private CanalService canalService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//obtiene todos los canales de atencion definidos
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {

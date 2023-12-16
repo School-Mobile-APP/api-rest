@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla direccion
 import java.io.Serializable;
 
 import jakarta.annotation.Nullable;

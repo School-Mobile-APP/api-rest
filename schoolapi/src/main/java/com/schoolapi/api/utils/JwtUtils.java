@@ -10,9 +10,10 @@ import java.util.UUID;
 
 @Component
 public class JwtUtils {
-
+	//Puede ser cambiada esta clave secreta
     private static String secret = "This_is_secret";
-    private static long expiryDuration = 60 * 60;
+    private static long expiryDuration = 60 * 120;
+    //Verifica la validez del codigo que genera la app
     public Boolean checkCode(String code) {
     	try{
     	    UUID uuid = UUID.fromString(code);
@@ -21,6 +22,7 @@ public class JwtUtils {
     	}
     	return true;
     }
+    //Genera el jwtToken
     public String generateJwt(String code){
 
         long milliTime = System.currentTimeMillis();
@@ -44,7 +46,7 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
-
+    //Verifica el jwt
     public Claims verify(String authorization,String code) throws Exception {
 
         try {
@@ -55,6 +57,7 @@ public class JwtUtils {
         }
 
     }
+    //Verifica la validez del jwt
     public Boolean checkToken(String token,String code) {
     	Claims oClaims;
 		try {

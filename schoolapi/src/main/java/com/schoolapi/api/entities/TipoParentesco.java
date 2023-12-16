@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Representa la tabla tipos parentesco
 @Entity
 @Table(name="sg_tipos_parentesco",schema="catalogo")
 public class TipoParentesco implements Serializable{

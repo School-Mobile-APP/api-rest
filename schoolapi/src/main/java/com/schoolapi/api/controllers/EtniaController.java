@@ -21,6 +21,7 @@ public class EtniaController {
 	private EtniaService etniaService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todas las etnias
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
@@ -35,6 +36,7 @@ public class EtniaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene una etnia basado en pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {

@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+//Representa la tabla allegado
 @Entity
 @Table(name = "sg_allegados", schema = "centros_educativos")
 public class Allegado implements Serializable {

@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla rel_mod_ed_mod_aten
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;

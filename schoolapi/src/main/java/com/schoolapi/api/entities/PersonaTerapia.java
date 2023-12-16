@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
-
+//Representa la tabla personas terapias
 @Entity
 @Table(name = "sg_personas_terapias",schema="centros_educativos")
 @IdClass(value = PersonaTerapiaPk.class)

@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Representa la tabla tipos trabajo
 @Entity
 @Table(name="sg_tipos_trabajo",schema="catalogo")
 public class TipoTrabajo implements Serializable{

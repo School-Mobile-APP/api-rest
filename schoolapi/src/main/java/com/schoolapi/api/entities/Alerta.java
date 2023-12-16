@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Representa la tabla alertas
 @Entity
 @Table(name="sg_alertas",schema="alertas")
 public class Alerta implements Serializable{

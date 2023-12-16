@@ -27,6 +27,7 @@ public class DiscapacidadController {
 	private PersonaDiscapacidadRepository personaDiscapacidadRepository;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todas las discapacidades
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
@@ -41,7 +42,7 @@ public class DiscapacidadController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Obtiene una discapacidad basada en la pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -56,7 +57,7 @@ public class DiscapacidadController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
-
+	//Crea una discapacidad
 	@PostMapping("/")
 	public ResponseEntity<?> createDiscapacidad(@RequestBody PersonaDiscapacidad disc,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
@@ -72,6 +73,7 @@ public class DiscapacidadController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Elimina una discapacidad basado en pk
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {

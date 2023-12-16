@@ -3,7 +3,7 @@ package com.schoolapi.api.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.IdClass;
-
+//Representa la llave compuesta de la tabla persona terapia
 @IdClass(value= PersonaTerapiaPk.class)
 public class PersonaTerapiaPk implements Serializable{
 	private static final long serialVersionUID = 1L;

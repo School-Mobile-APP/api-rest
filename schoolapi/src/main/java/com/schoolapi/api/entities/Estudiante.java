@@ -1,5 +1,6 @@
 package com.schoolapi.api.entities;
 
+//Representa la tabla estudiante
 import java.io.Serializable;
 import java.util.List;
 

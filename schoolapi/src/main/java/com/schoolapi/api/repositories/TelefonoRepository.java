@@ -12,6 +12,7 @@ import jakarta.websocket.server.PathParam;
 
 @Repository
 public interface TelefonoRepository extends JpaRepository<Telefono,Long> {
+	//Elimina los telefonos de las personas
 	@Modifying
 	@Query(value="delete from centros_educativos.sg_telefonos where sg_telefonos.tel_persona=:id",nativeQuery = true)
 	@Transactional

@@ -28,6 +28,7 @@ public class TerapiaController {
 	private PersonaTerapiaRepository personaTerapiaRepository;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Endpoint utilizado para obtener todas las terapias
 	@GetMapping("")
 	public ResponseEntity<?> getAll(@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -42,6 +43,7 @@ public class TerapiaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Obtiene una terapia basado en su pk
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -56,6 +58,7 @@ public class TerapiaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Crea una discapacidad
 	@PostMapping("/")
 	public ResponseEntity<?> createDiscapacidad(@RequestBody PersonaTerapia ter,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
@@ -71,6 +74,7 @@ public class TerapiaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Elimina una discapacidad
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {

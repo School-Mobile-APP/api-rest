@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Representa la tabla est canales atencion
 @Entity
 @Table(name = "sg_est_canales_atencion",schema="centros_educativos")
 public class EstudianteCanal implements Serializable{

@@ -23,6 +23,7 @@ public class TelefonoController {
 	private TelefonoRepository telefonoRepository;
 	@Autowired
 	private JwtUtils jwtUtils;
+	//Obtiene todos los telefonos
 	@PostMapping("/")
 	public ResponseEntity<?> createPhone(@RequestBody Telefono tel,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code){
 		try {
@@ -38,6 +39,7 @@ public class TelefonoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"" + e.toString() + "\"}");
 		}
 	}
+	//Elimina un telefono basado en un ID
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteDiscapacidad(@PathVariable("id") Long id,@RequestHeader(value = "authorization", defaultValue = "") String auth,@RequestHeader(value = "code", defaultValue = "") String code) {
 		try {
